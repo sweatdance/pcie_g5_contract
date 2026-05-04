@@ -2,6 +2,21 @@
 
 This repository is a private external domain contract for the AI Governance Framework.
 
+Suggested GitHub repository description:
+
+PCIe Gen5 LTSSM and link-training governance contract for RTL evidence review, JSON report validation, and reusable AI Governance Framework integration.
+
+Suggested GitHub topics:
+
+- pcie
+- pcie-gen5
+- ltssm
+- link-training
+- rtl
+- verification
+- governance
+- ai-governance-framework
+
 Scope:
 - PCIe 5.0 LTSSM and link training
 - RTL-oriented design and review workflows
