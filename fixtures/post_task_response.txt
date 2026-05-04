@@ -1,0 +1,12 @@
+[Governance Contract]
+LANG = C++
+LEVEL = L2
+SCOPE = feature
+PLAN = PLAN.md
+LOADED = SYSTEM_PROMPT, HUMAN-OVERSIGHT
+CONTEXT = repo -> pcie gen5 ltssm rtl; NOT: full protocol rewrite
+PRESSURE = SAFE (25/200)
+RULES = common,pcie-ltssm
+RISK = medium
+OVERSIGHT = review-required
+MEMORY_MODE = candidate

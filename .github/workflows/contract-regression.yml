@@ -1,0 +1,52 @@
+name: Contract Regression
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      - "feature/**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  regression-smoke:
+    runs-on: ubuntu-latest
+    env:
+      FRAMEWORK_REPOSITORY: Gavin0099/ai-governance-framework
+      FRAMEWORK_REF: main
+    steps:
+      - name: Checkout contract repo
+        uses: actions/checkout@v4
+
+      - name: Checkout framework repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.FRAMEWORK_REPOSITORY }}
+          ref: ${{ env.FRAMEWORK_REF }}
+          path: ai-governance-framework
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ai-governance-framework/requirements.txt
+
+      - name: Install framework dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r ai-governance-framework/requirements.txt
+
+      - name: Run contract regression smoke
+        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --format human
+
+      - name: Write machine-readable smoke report
+        if: always()
+        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --format json > regression-smoke-report.json
+
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-regression-smoke-report
+          path: regression-smoke-report.json

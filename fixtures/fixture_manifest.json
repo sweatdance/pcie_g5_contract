@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "fixtures": [
+    {
+      "file": "smoke_compliant.checks.json",
+      "expected_ok": true,
+      "description": "Nominal Gen5 LTSSM training reaches L0 with complete equalization evidence"
+    },
+    {
+      "file": "smoke_noncompliant_illegal_transition.checks.json",
+      "expected_ok": false,
+      "description": "Illegal LTSSM transition summary must fail validator"
+    },
+    {
+      "file": "smoke_noncompliant_downtrained_missing_reason.checks.json",
+      "expected_ok": false,
+      "description": "Downtrained result without fallback reason must fail validator"
+    },
+    {
+      "file": "smoke_noncompliant_equalization_failed.checks.json",
+      "expected_ok": false,
+      "description": "Incomplete equalization evidence must fail validator"
+    },
+    {
+      "file": "smoke_noncompliant_width_mismatch_unexpected.checks.json",
+      "expected_ok": false,
+      "description": "Unexpected negotiated width mismatch must fail validator"
+    },
+    {
+      "file": "smoke_noncompliant_missing_ltssm_trace.checks.json",
+      "expected_ok": false,
+      "description": "Missing LTSSM trace summary must fail validator"
+    }
+  ]
+}

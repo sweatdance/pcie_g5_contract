@@ -1,0 +1,24 @@
+name: pcie-gen5-ltssm-link-training
+plugin_version: "0.3.0"
+framework_interface_version: "1"
+framework_compatible: ">=1.0.0,<2.0.0"
+domain: rtl
+hard_stop_rules:
+  - pcie-ltssm
+  - pcie-eq
+  - pcie-link-negotiation
+documents:
+  - README.md
+  - docs/PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+  - docs/PCIE5_LTSSM_CHECKLIST.md
+  - docs/PCIE5_LTSSM_STATE_TRANSITIONS.md
+  - docs/PCIE5_LINK_EQUALIZATION_RULES.md
+  - docs/PCIE5_SPEED_WIDTH_NEGOTIATION.md
+  - docs/PCIE5_RECOVERY_AND_FALLBACK.md
+  - docs/PCIE5_JSON_REPORT_SCHEMA.md
+ai_behavior_override:
+  - AGENTS.md
+rule_roots:
+  - rules
+validators:
+  - validators/pcie_ltssm_json_validator.py

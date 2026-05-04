@@ -1,0 +1,35 @@
+{
+  "warnings": [],
+  "errors": [],
+  "validator_ok": true,
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": ["rtl_pcie_tests::test_ltssm_downtrained_without_reason"],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "changed_files": ["rtl/pcie_ltssm.sv"],
+  "pcie_ltssm_report": {
+    "schema_version": "1.0",
+    "scenario": "x16_downtrained_without_reason",
+    "target_speed_gtps": 32.0,
+    "negotiated_speed_gtps": 32.0,
+    "target_width": 16,
+    "negotiated_width": 16,
+    "ltssm_final_state": "L0",
+    "ltssm_trace_summary": {
+      "visited_states": ["Detect", "Polling", "Configuration", "L0"],
+      "illegal_transition_count": 0,
+      "reached_recovery": false
+    },
+    "equalization_complete": true,
+    "equalization_phase_summary": {
+      "completed_phases": ["phase0", "phase1", "phase2", "phase3"],
+      "failed_phases": []
+    },
+    "retry_count": 0,
+    "downtrained": true,
+    "recovery_triggered": false,
+    "degraded_width_expected": false,
+    "lane_failures": [],
+    "notes": ["negative smoke case for missing fallback_reason"]
+  }
+}
