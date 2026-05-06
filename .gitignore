@@ -3,4 +3,5 @@ __pycache__/
 .pytest_cache/
 regression-smoke-report.json
 *.tmp.json
+artifacts/*.checks.json
 

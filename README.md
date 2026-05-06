@@ -77,6 +77,20 @@ Run positive and negative fixture smoke checks:
 D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\scripts\run_fixture_smoke.py --framework-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework --contract-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract --format human
 ```
 
+Convert packet monitor logs into `pcie_ltssm_report` or `checks` JSON:
+
+```powershell
+D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\scripts\extract_pcie_log_artifact.py D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\aspm_l1_pciebfm_pkt.txt --output D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\artifacts\aspm_l1.checks.json --format checks --target-speed-gtps 32 --target-width 16 --equalization-complete --completed-phases phase0 phase1 phase2 phase3
+```
+
+Create the release entry from the existing `v0.3.0` tag:
+
+```text
+https://github.com/sweatdance/pcie_g5_contract/releases/new?tag=v0.3.0
+```
+
+Use `docs/RELEASE_NOTES_v0.3.0.md` as the release body.
+
 Run the full regression smoke command:
 
 ```powershell

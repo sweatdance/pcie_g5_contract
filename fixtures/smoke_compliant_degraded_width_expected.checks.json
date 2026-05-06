@@ -1,0 +1,45 @@
+{
+  "warnings": [],
+  "errors": [],
+  "validator_ok": true,
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": ["rtl_pcie_tests::test_ltssm_expected_width_degrade"],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "failure_test_validation": {
+    "coverage": {
+      "failure_path": {
+        "count": 1
+      }
+    }
+  },
+  "changed_files": ["rtl/pcie_ltssm.sv"],
+  "pcie_ltssm_report": {
+    "schema_version": "1.0",
+    "scenario": "x16_expected_width_degrade",
+    "target_speed_gtps": 32.0,
+    "negotiated_speed_gtps": 32.0,
+    "target_width": 16,
+    "negotiated_width": 8,
+    "ltssm_final_state": "L0",
+    "ltssm_trace_summary": {
+      "visited_states": ["Detect", "Polling", "Configuration", "Recovery", "L0"],
+      "illegal_transition_count": 0,
+      "reached_recovery": true
+    },
+    "equalization_complete": true,
+    "equalization_phase_summary": {
+      "completed_phases": ["phase0", "phase1", "phase2", "phase3"],
+      "failed_phases": []
+    },
+    "retry_count": 1,
+    "downtrained": true,
+    "recovery_triggered": true,
+    "recovery_reason": "training entered Recovery before stable reduced-width link",
+    "fallback_reason": "platform topology intentionally wires only x8 lanes",
+    "degraded_width_expected": true,
+    "degraded_width_reason": "board routing intentionally limits the endpoint to x8",
+    "lane_failures": [],
+    "notes": ["expected width reduction due to platform topology"]
+  }
+}

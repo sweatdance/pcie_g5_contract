@@ -236,6 +236,8 @@ class PcieLtssmJsonValidator(DomainValidator):
             if not all(isinstance(item, str) and item.strip() for item in lane_failures):
                 violations.append("lane_failures must contain only non-empty strings")
             if lane_failures:
+                if not notes:
+                    violations.append("lane_failures require explanatory notes")
                 warnings.append(f"Lane failures reported: {lane_failures}")
 
         downtrained = report.get("downtrained")

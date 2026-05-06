@@ -45,6 +45,21 @@
       "file": "smoke_noncompliant_equalization_missing_phase.checks.json",
       "expected_ok": false,
       "description": "Equalization marked complete but missing a nominal phase must fail validator"
+    },
+    {
+      "file": "smoke_compliant_degraded_width_expected.checks.json",
+      "expected_ok": true,
+      "description": "Expected degraded width with reason should remain review-visible but pass validation"
+    },
+    {
+      "file": "smoke_compliant_lane_failure_with_explanation.checks.json",
+      "expected_ok": true,
+      "description": "Lane failures with explicit explanatory notes should remain valid and review-visible"
+    },
+    {
+      "file": "smoke_noncompliant_recovery_trace_mismatch.checks.json",
+      "expected_ok": false,
+      "description": "Recovery trace summary inconsistent with visited states must fail validator"
     }
   ]
 }
