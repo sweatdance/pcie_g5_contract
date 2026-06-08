@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "pcie_hotplug_report": {
+      "schema_version": "1.0",
+      "surprise_down_timestamp": "0005.448703s",
+      "new_device_first_linkup_timestamp": "0005.448709s",
+      "new_device_first_cfgrd_timestamp": null,
+      "time_surprise_down_to_first_cfgrd_ms": 5.5,
+      "pm_l1_before_enum_complete": true,
+      "pm_request_ack_in_enum_window": true,
+      "slot_aspm_disabled_at_new_link_up": false,
+      "aer_cleared_before_new_enum": false,
+      "upstream_ts1_rate_at_first_linkup": "8.0 GT/s, 16.0 GT/s",
+      "mux_scenario": true,
+      "mux_switch_time_ms": 0.006,
+      "new_device_max_speed_gtps": 5.0,
+      "link_cycling_count": 2,
+      "notes": ["FAIL-1 scenario: MUX switched in 6us; OS had no time for cleanup; ASPM race; BSOD"]
+    }
+  }
+}

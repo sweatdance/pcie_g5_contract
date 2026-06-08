@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "pcie_pm_report": {
+      "schema_version": "1.0",
+      "enumeration_complete": false,
+      "pm_l1_observed": true,
+      "aspm_enabled_by_cfgwr": true,
+      "link_control_aspm_value": "0x00000042",
+      "pm_request_ack_in_enum_window": true,
+      "notes": ["FAIL scenario: PM L1 during enumeration window; host ACKed before VID/DID was read"]
+    }
+  }
+}

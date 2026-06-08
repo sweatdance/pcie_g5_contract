@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "pcie_hotplug_report": {
+      "schema_version": "1.0",
+      "surprise_down_timestamp": "0001.202577s",
+      "new_device_first_linkup_timestamp": "0009.919346s",
+      "new_device_first_cfgrd_timestamp": "0009.919538s",
+      "time_surprise_down_to_first_cfgrd_ms": 8716.9,
+      "pm_l1_before_enum_complete": false,
+      "pm_request_ack_in_enum_window": false,
+      "slot_aspm_disabled_at_new_link_up": true,
+      "aer_cleared_before_new_enum": true,
+      "upstream_ts1_rate_at_first_linkup": "2.5 GT/s, 5.0 GT/s",
+      "mux_scenario": true,
+      "mux_switch_time_ms": 8716.7,
+      "new_device_max_speed_gtps": 5.0,
+      "link_cycling_count": 4,
+      "notes": ["PASS scenario: 8.7s gap; ASPM disabled by hot-plug handler; GL9767 at 5G max"]
+    }
+  }
+}

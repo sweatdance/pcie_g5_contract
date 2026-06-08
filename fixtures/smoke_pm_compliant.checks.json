@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "pcie_pm_report": {
+      "schema_version": "1.0",
+      "enumeration_complete": true,
+      "pm_l1_observed": true,
+      "aspm_enabled_by_cfgwr": true,
+      "link_control_aspm_value": "0x00000042",
+      "pm_request_ack_in_enum_window": false,
+      "aspm_enable_timestamp": "0011.006736s",
+      "pm_l1_timestamp": "0011.100188s",
+      "vidpid_read_timestamp": "0009.919538s",
+      "l1_cycle_count": 1,
+      "clkreq_evidence": "not_captured",
+      "notes": ["PM L1 occurs 93ms after ASPM enabled; enumeration was already complete"]
+    }
+  }
+}

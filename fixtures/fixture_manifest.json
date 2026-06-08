@@ -60,6 +60,26 @@
       "file": "smoke_noncompliant_recovery_trace_mismatch.checks.json",
       "expected_ok": false,
       "description": "Recovery trace summary inconsistent with visited states must fail validator"
+    },
+    {
+      "file": "smoke_pm_compliant.checks.json",
+      "expected_ok": true,
+      "description": "PM L1 after enumeration complete with ASPM enabled via CfgWr should pass PM validator"
+    },
+    {
+      "file": "smoke_pm_noncompliant_l1_before_enum.checks.json",
+      "expected_ok": false,
+      "description": "PM L1 before enumeration complete with PM_Request_Ack in window must fail PM validator"
+    },
+    {
+      "file": "smoke_hotplug_compliant.checks.json",
+      "expected_ok": true,
+      "description": "Hot-plug PASS scenario: 8.7s gap, ASPM disabled, GL9767 at 5G should pass hot-plug validator"
+    },
+    {
+      "file": "smoke_hotplug_noncompliant_fast_mux.checks.json",
+      "expected_ok": false,
+      "description": "Fast MUX switch (6us) with PM L1 before enum and stale AER must fail hot-plug validator"
     }
   ]
 }
