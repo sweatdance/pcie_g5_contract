@@ -1,6 +1,64 @@
 # Changelog
 
-## v0.9.0 - 2026-06-08
+## v0.10.0 - 2026-06-09
+
+- **pcie-cfgspace expanded to 90%+ coverage** (was ~14%):
+  - Rules expanded from 5 to 26 (CFG-001 through CFG-026), now covering:
+    - All Type 0 Header registers (VID/DID, Command all 11 bits, Status, Class Code,
+      Subsystem VID/ID, Header Type, Interrupt Pin)
+    - Power Management Capability (D-state support, PMCSR D3hot/D0 access rules)
+    - MSI Capability (Enable, address validity, INTx Disable consistency)
+    - MSI-X Capability (Table BIR validity, Function Mask, Enable)
+    - Full PCIe Express Capability (Device Control all bits, Link Control all bits,
+      Device Control 2 including Completion Timeout, LTR Enable, OBFF Enable)
+    - LTR Extended Capability (LTR Enable before LTR message warn)
+    - L1 PM Substates Extended Capability (T_POWER_ON, LTR threshold, Common Mode Restore)
+  - doc `PCIE5_CONFIG_SPACE.md` completely rewritten: all register tables with bit
+    definitions, L1 PM Substates register details, evidence field YAML schema
+  - New validator `pcie_cfgspace_json_validator.py` enforcing CFG-001, CFG-006, CFG-013
+    (hard stops) and CFG-002 through CFG-026 (warns)
+  - New fixtures: `smoke_cfgspace_compliant.checks.json`,
+    `smoke_cfgspace_noncompliant_no_vidpid.checks.json`
+
+- **pcie-pm expanded to 90%+ coverage** (was ~40%):
+  - Rules expanded from 6 to 17 (PM-001 through PM-017), now covering:
+    - D-states: D0/D1/D2/D3hot/D3cold definitions, transition rules, Trst delay
+    - PMCSR write sequence (Transactions Pending=0 gate, No_Soft_Reset)
+    - PM_PME message flow, PME_Status clearing, PME_En from unsupported D-state
+    - L0s entry (EIEOS sequence, latency requirements)
+    - L1.1 / L1.2 substates: L1 PM Substates Capabilities all bits, Control 1 all bits,
+      Control 2 all bits, T_POWER_ON programming requirement
+    - PME_Turn_Off / PME_TO_Ack sequence (10ms timeout)
+  - doc `PCIE5_POWER_MANAGEMENT.md` expanded with D-state reference, PM Capability
+    register tables, L0s/L1 description, L1 PM Substates register tables, PME flow,
+    PME_Turn_Off sequence, evidence field YAML schema
+  - `pcie_pm_json_validator.py` extended with PM-007 through PM-016 rule enforcement
+  - New fixture: `smoke_pm_compliant_d3hot.checks.json`
+
+- **pcie-hotplug expanded to 90%+ coverage** (was ~60%):
+  - Rules expanded from 7 to 16 (HP-001 through HP-016), now covering:
+    - Slot Capabilities all bits (Hot-Plug Capable, Hot-Plug Surprise, Power Controller,
+      MRL Sensor, Attention Indicator, Power Indicator, EMI, Slot Power Limit)
+    - Slot Control all bits (Attention/Power Indicator Control encoding, Power Controller
+      Control, DLLSC Enable, CommandCompleted Interrupt Enable)
+    - Slot Status all bits (PDC, CommandCompleted, MRL Sensor State, Presence Detect State,
+      DLLSC)
+    - Hot-add command sequence (Blink → Power On → poll CommandCompleted → T_Power_Up →
+      PERST# de-assert → wait DLLSC → enumerate → Power Indicator On → Attn Indicator Off)
+    - Hot-remove sequence (Power Indicator Off → Power Controller Off → poll CommandCompleted)
+    - Timing requirements table (T_Power_Up 100ms, T_Reset 100µs, T_Cmd 1s poll)
+    - HP-010 (hard stop): power removed without PERST# assertion
+    - HP-011 (hard stop): second SlotCtl write before CommandCompleted
+  - doc `PCIE5_HOTPLUG_RULES.md` expanded with full HPC register tables (SlotCap,
+    SlotCtl, SlotSts bit definitions), hot-add/remove command sequence pseudocode,
+    timing requirements table
+  - `pcie_hotplug_json_validator.py` extended with HP-008 through HP-016 enforcement
+  - New fixture: `smoke_hotplug_noncompliant_cmd_without_completed.checks.json`
+
+- Updated `contract.yaml`: version 0.10.0, added `pcie_cfgspace_json_validator.py`
+- Updated `fixtures/fixture_manifest.json`: added 4 new fixture entries
+
+
 
 - Expanded contract from Physical Layer only to full PCIe protocol coverage.
 - Added Power Management slice (pcie-pm): ASPM enable sequencing, PM L1 before enumeration

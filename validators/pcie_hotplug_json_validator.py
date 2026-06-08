@@ -17,7 +17,13 @@ class PcieHotplugJsonValidator(DomainValidator):
 
     @property
     def rule_ids(self) -> list[str]:
-        return ["pcie-hotplug", "PCIE5-HP-001", "PCIE5-HP-002", "PCIE5-HP-003"]
+        return [
+            "pcie-hotplug",
+            "PCIE5-HP-001", "PCIE5-HP-002", "PCIE5-HP-003",
+            "PCIE5-HP-004", "PCIE5-HP-005", "PCIE5-HP-006", "PCIE5-HP-007",
+            "PCIE5-HP-008", "PCIE5-HP-009", "PCIE5-HP-010", "PCIE5-HP-011",
+            "PCIE5-HP-012", "PCIE5-HP-013", "PCIE5-HP-014", "PCIE5-HP-015", "PCIE5-HP-016",
+        ]
 
     @staticmethod
     def _is_number(value: object) -> bool:
@@ -140,6 +146,61 @@ class PcieHotplugJsonValidator(DomainValidator):
                 warnings.append("new_device_max_speed_gtps should be provided when mux_scenario = true")
             if report.get("mux_switch_time_ms") is None:
                 warnings.append("mux_switch_time_ms should be provided when mux_scenario = true")
+
+        # ---- HPC register sequence rules ----
+        cmd_completed_ok = report.get("command_completed_before_next_cmd")
+        pds_before_powerup = report.get("presence_detect_state_before_powerup")
+        dllsc_triggered = report.get("dllsc_triggered_enumeration")
+        pwr_blink = report.get("power_indicator_blink_observed")
+        t_power_up_ms = report.get("t_power_up_ms")
+        attn_cleared = report.get("attention_indicator_cleared_after_enum")
+
+        # PCIE5-HP-010: Power removed while device active (hard stop)
+        slot_ctrl_seq = report.get("slot_control_sequence")
+        if isinstance(slot_ctrl_seq, list):
+            seq_str = " ".join(str(s) for s in slot_ctrl_seq)
+            if "power_off" in seq_str.lower() and "perst_assert" not in seq_str.lower():
+                violations.append(
+                    "PCIE5-HP-010: Slot Control Power Controller set to Off observed in sequence "
+                    "without prior PERST# assertion evidence. Removing power from active device "
+                    "without PERST# is a hard stop."
+                )
+
+        # PCIE5-HP-011: Back-to-back SlotCtl without CommandCompleted
+        if cmd_completed_ok is False:
+            violations.append(
+                "PCIE5-HP-011: command_completed_before_next_cmd=false. A Slot Control write was "
+                "issued before the previous CommandCompleted=1 in Slot Status. This is a spec "
+                "violation that can cause the HPC state machine to malfunction."
+            )
+
+        # PCIE5-HP-008: Power Indicator not Blink during power-up
+        if pwr_blink is False:
+            warnings.append(
+                "PCIE5-HP-008: power_indicator_blink_observed=false; Power Indicator should be "
+                "set to Blink (SlotCtl bits[9:8]=10b) during the power-up sequence per PCIe spec."
+            )
+
+        # PCIE5-HP-009: T_Power_Up too short
+        if self._is_number(t_power_up_ms) and t_power_up_ms < 100:
+            warnings.append(
+                f"PCIE5-HP-009: t_power_up_ms={t_power_up_ms:.1f}ms is below 100ms minimum. "
+                "PERST# must not be de-asserted until slot power has been stable for ≥100ms."
+            )
+
+        # PCIE5-HP-012: DLLSC not cleared after new link up
+        if dllsc_triggered is False and report.get("new_device_first_cfgrd_timestamp") is not None:
+            warnings.append(
+                "PCIE5-HP-012: dllsc_triggered_enumeration=false but new device CfgRd was seen; "
+                "DLLSC (Slot Status bit8) should be the trigger for starting enumeration."
+            )
+
+        # PCIE5-HP-014: Attention Indicator not cleared after enumeration
+        if attn_cleared is False:
+            warnings.append(
+                "PCIE5-HP-014: attention_indicator_cleared_after_enum=false; "
+                "Attention Indicator should be set to Off after successful hot-add enumeration."
+            )
 
         if notes is not None and not (isinstance(notes, list) and all(isinstance(n, str) for n in notes)):
             violations.append("notes must be a list of strings when provided")

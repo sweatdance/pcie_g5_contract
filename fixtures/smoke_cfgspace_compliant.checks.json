@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "description": "Compliant GL9767 config space: VID/DID present, all access controls set, MSI enabled, LTR configured",
+  "checks": {
+    "pcie_cfgspace_report": {
+      "schema_version": "1.0",
+      "vidpid_read_observed": true,
+      "vidpid_value": "17A0:9767",
+      "class_code_value": "010500",
+      "subsystem_vidpid_read": true,
+      "enumeration_sequence_complete": true,
+      "bar_sizing_observed": true,
+      "bar_count_probed": 3,
+      "capability_chain_traversed": true,
+      "command_register_value": "0x0406",
+      "memory_space_enabled": true,
+      "bus_master_enabled": true,
+      "intx_disable": true,
+      "msi_or_msix_enabled": true,
+      "msi_type": "msi",
+      "msi_address_valid": true,
+      "link_control_read_before_write": true,
+      "link_control_aspm_value": "0x00000042",
+      "device_control_value": "0x00002810",
+      "device_control2_value": "0x00000000",
+      "max_payload_size_set": 128,
+      "max_read_req_size_set": 512,
+      "completion_timeout_value": "range_A",
+      "ltr_enabled": true,
+      "ltr_message_sent": true,
+      "l1pm_substates_configured": true,
+      "l1pm_control1_value": "0x0000060B",
+      "l1pm_control2_value": "0x00000028",
+      "notes": ["Compliant GL9767 enumeration with MSI, LTR, and L1 PM Substates configured"]
+    }
+  }
+}

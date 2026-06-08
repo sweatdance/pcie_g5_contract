@@ -1,5 +1,5 @@
 name: pcie-gen5-full-protocol
-plugin_version: "0.9.0"
+plugin_version: "0.10.0"
 framework_interface_version: "1"
 framework_compatible: ">=1.0.0,<2.0.0"
 domain: rtl
@@ -37,3 +37,4 @@ validators:
   - validators/pcie_ltssm_json_validator.py
   - validators/pcie_pm_json_validator.py
   - validators/pcie_hotplug_json_validator.py
+  - validators/pcie_cfgspace_json_validator.py

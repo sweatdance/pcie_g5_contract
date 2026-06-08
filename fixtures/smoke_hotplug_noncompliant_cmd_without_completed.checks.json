@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "description": "Noncompliant hot-plug: SlotCtl written before CommandCompleted, no DLLSC trigger, T_Power_Up=50ms",
+  "checks": {
+    "pcie_hotplug_report": {
+      "schema_version": "1.0",
+      "surprise_down_timestamp": "0005.448703s",
+      "new_device_first_linkup_timestamp": "0006.100000s",
+      "new_device_first_cfgrd_timestamp": "0006.100192s",
+      "time_surprise_down_to_first_cfgrd_ms": 651.5,
+      "pm_l1_before_enum_complete": false,
+      "pm_request_ack_in_enum_window": false,
+      "slot_aspm_disabled_at_new_link_up": true,
+      "aer_cleared_before_new_enum": true,
+      "upstream_ts1_rate_at_first_linkup": "2.5 GT/s, 5.0 GT/s",
+      "slot_capabilities_value": "0x00060007",
+      "slot_control_sequence": ["power_on", "power_indicator_blink", "power_on_cmd2_no_wait"],
+      "slot_status_events": ["PDC", "DLLSC"],
+      "command_completed_before_next_cmd": false,
+      "presence_detect_state_before_powerup": true,
+      "dllsc_triggered_enumeration": false,
+      "power_indicator_blink_observed": true,
+      "t_power_up_ms": 50,
+      "attention_indicator_cleared_after_enum": false,
+      "link_cycling_count": 1,
+      "mux_scenario": false,
+      "notes": [
+        "VIOLATION HP-011: second SlotCtl write before CommandCompleted",
+        "VIOLATION HP-009: T_Power_Up=50ms is below 100ms minimum",
+        "WARN HP-012: enumeration started without DLLSC trigger",
+        "WARN HP-014: Attention Indicator not cleared after successful enumeration"
+      ]
+    }
+  }
+}

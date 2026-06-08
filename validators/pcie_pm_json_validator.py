@@ -16,7 +16,15 @@ class PciePmJsonValidator(DomainValidator):
 
     @property
     def rule_ids(self) -> list[str]:
-        return ["pcie-pm", "PCIE5-PM-001", "PCIE5-PM-002", "PCIE5-PM-003"]
+        return [
+            "pcie-pm",
+            "PCIE5-PM-001", "PCIE5-PM-002", "PCIE5-PM-003",
+            "PCIE5-PM-004", "PCIE5-PM-005", "PCIE5-PM-006",
+            "PCIE5-PM-007", "PCIE5-PM-008", "PCIE5-PM-009",
+            "PCIE5-PM-010", "PCIE5-PM-011", "PCIE5-PM-012",
+            "PCIE5-PM-013", "PCIE5-PM-014", "PCIE5-PM-015",
+            "PCIE5-PM-016", "PCIE5-PM-017",
+        ]
 
     def validate(self, payload: dict) -> ValidatorResult:
         checks = payload.get("checks") or {}
@@ -106,6 +114,93 @@ class PciePmJsonValidator(DomainValidator):
                 "excessive idle timer sensitivity may warrant review."
             )
 
+        # ---- D-state rules ----
+        d_state_observed = report.get("d_state_transition_observed")
+        d_state_to = report.get("d_state_to")
+        transactions_pending_zero = report.get("transactions_pending_zero")
+        pmcsr_written = report.get("pmcsr_written")
+        pme_en_set = report.get("pme_en_set")
+        pme_status_cleared = report.get("pme_status_cleared")
+        d3hot_to_d0_trst = report.get("d3hot_to_d0_trst_observed")
+
+        # PCIE5-PM-007: Writing PMCSR to unsupported D1/D2 (check via pmcsr_value)
+        pmcsr_value = report.get("pmcsr_value")
+        if pmcsr_written is True and pmcsr_value is not None and isinstance(pmcsr_value, str):
+            try:
+                pmcsr_int = int(pmcsr_value, 16)
+                power_state = pmcsr_int & 0x3
+                if power_state in (1, 2):  # D1 or D2
+                    warnings.append(
+                        f"PCIE5-PM-007: PMCSR written with PowerState={power_state} (D{power_state}); "
+                        "verify PM Capabilities D1_Support/D2_Support bits confirm this state is supported."
+                    )
+            except ValueError:
+                pass
+
+        # PCIE5-PM-008: D3hot write with Transactions Pending
+        if d_state_observed is True and d_state_to == "D3hot":
+            if transactions_pending_zero is False:
+                violations.append(
+                    "PCIE5-PM-008: PMCSR written to D3hot while Transactions Pending (Device Status bit5) "
+                    "was reported non-zero. All outstanding completions must drain before D3hot entry."
+                )
+            if transactions_pending_zero is None:
+                warnings.append(
+                    "PCIE5-PM-008: D3hot transition observed but transactions_pending_zero is not reported; "
+                    "confirm Device Status bit5=0 before D3hot."
+                )
+
+        # PCIE5-PM-010: D3hot→D0 without Trst delay
+        if d_state_observed is True and d_state_to == "D0" and report.get("d_state_from") == "D3hot":
+            if d3hot_to_d0_trst is False:
+                warnings.append(
+                    "PCIE5-PM-010: D3hot→D0 transition observed but d3hot_to_d0_trst_observed=false; "
+                    "Trst (≥1ms, typically 10–100ms) must elapse before device is accessed."
+                )
+
+        # PCIE5-PM-011: PME_Status not cleared
+        if pme_en_set is True and pme_status_cleared is False:
+            warnings.append(
+                "PCIE5-PM-011: PME_En is set but pme_status_cleared=false; "
+                "stale PME_Status in PMCSR blocks subsequent PME delivery. Clear with write-1-to-clear."
+            )
+
+        # ---- L1 PM Substates rules ----
+        l1pm_configured = report.get("l1pm_substates_configured")
+        ltr_threshold_nonzero = report.get("ltr_l1_2_threshold_nonzero")
+        t_power_on_ok = report.get("t_power_on_programmed_correctly")
+        cm_restore_ok = report.get("common_mode_restore_time_sufficient")
+        l1_substate_mode = report.get("l1_substate_mode")
+
+        # PCIE5-PM-013: L1.2 enabled without capability confirmation
+        if l1_substate_mode in ("L1.2", "L1.1_and_L1.2") and l1pm_configured is False:
+            warnings.append(
+                "PCIE5-PM-013: L1.2 mode indicated but l1pm_substates_configured=false; "
+                "L1 PM Substates Control registers must be written before L1.2 entry."
+            )
+
+        # PCIE5-PM-014: T_POWER_ON under-programmed
+        if l1pm_configured is True and t_power_on_ok is False:
+            warnings.append(
+                "PCIE5-PM-014: t_power_on_programmed_correctly=false; T_POWER_ON in L1 PM Substates "
+                "Control 2 is less than Port T_POWER_ON from Capabilities. L1.2 exit may fail."
+            )
+
+        # PCIE5-PM-015: LTR_L1.2_Threshold=0 (unconditional L1.2)
+        if l1pm_configured is True and ltr_threshold_nonzero is False:
+            warnings.append(
+                "PCIE5-PM-015: ltr_l1_2_threshold_nonzero=false; LTR_L1.2_Threshold=0 means L1.2 "
+                "entry is never gated by LTR requirements. Confirm this is intentional."
+            )
+
+        # PCIE5-PM-016: Common Mode Restore Time insufficient
+        if l1pm_configured is True and cm_restore_ok is False:
+            warnings.append(
+                "PCIE5-PM-016: common_mode_restore_time_sufficient=false; Common_Mode_Restore_Time "
+                "in L1 PM Substates Control 1 is less than Port Common Mode Restore Time from "
+                "Capabilities. L1.1 exit may fail."
+            )
+
         if notes is not None and not (isinstance(notes, list) and all(isinstance(n, str) for n in notes)):
             violations.append("notes must be a list of strings when provided")
 
@@ -124,5 +219,8 @@ class PciePmJsonValidator(DomainValidator):
                 "pm_request_ack_in_enum_window": pm_request_ack_in_enum_window,
                 "link_control_aspm_value": link_control_aspm_value,
                 "l1_cycle_count": l1_cycle_count,
+                "d_state_transition_observed": d_state_observed,
+                "l1_substate_mode": l1_substate_mode,
+                "l1pm_substates_configured": l1pm_configured,
             },
         )

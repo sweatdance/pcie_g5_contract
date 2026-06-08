@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "description": "Noncompliant: VID/DID never observed (FFFF:FFFF) but enumeration claimed complete",
+  "checks": {
+    "pcie_cfgspace_report": {
+      "schema_version": "1.0",
+      "vidpid_read_observed": false,
+      "vidpid_value": "FFFF:FFFF",
+      "class_code_value": "000000",
+      "subsystem_vidpid_read": false,
+      "enumeration_sequence_complete": true,
+      "bar_sizing_observed": false,
+      "bar_count_probed": 0,
+      "capability_chain_traversed": false,
+      "command_register_value": "0x0000",
+      "memory_space_enabled": false,
+      "bus_master_enabled": false,
+      "intx_disable": false,
+      "msi_or_msix_enabled": false,
+      "msi_type": "none",
+      "msi_address_valid": false,
+      "link_control_read_before_write": false,
+      "ltr_enabled": false,
+      "ltr_message_sent": false,
+      "l1pm_substates_configured": false,
+      "notes": ["VIOLATION: VID/DID returned FFFF:FFFF; device not present or link down"]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "description": "Compliant PM: D3hot transition with Trst delay, L1 PM Substates configured, PME cleared",
+  "checks": {
+    "pcie_pm_report": {
+      "schema_version": "1.0",
+      "enumeration_complete": true,
+      "pm_l1_observed": true,
+      "aspm_enabled_by_cfgwr": true,
+      "link_control_aspm_value": "0x00000042",
+      "pm_request_ack_in_enum_window": false,
+      "l1_cycle_count": 4,
+      "clkreq_evidence": "not_captured",
+      "d_state_transition_observed": true,
+      "d_state_from": "D0",
+      "d_state_to": "D3hot",
+      "pmcsr_written": true,
+      "pmcsr_value": "0x0003",
+      "transactions_pending_zero": true,
+      "d3hot_to_d0_trst_observed": true,
+      "pme_en_set": false,
+      "pme_status_cleared": false,
+      "l1_substate_mode": "L1.1",
+      "l1pm_substates_configured": true,
+      "l1pm_control1_value": "0x0000060B",
+      "l1pm_control2_value": "0x00000028",
+      "ltr_l1_2_threshold_nonzero": true,
+      "common_mode_restore_time_sufficient": true,
+      "t_power_on_programmed_correctly": true,
+      "notes": ["Compliant D3hot transition: Transactions Pending=0, Trst observed, L1 PM Substates configured"]
+    }
+  }
+}
