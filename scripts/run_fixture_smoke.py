@@ -103,13 +103,17 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "a
             current_response_text = _inject_rules(response_text, [str(rule_id) for rule_id in rule_ids])
         checks_path = fixtures_root / fixture["file"]
         checks = json.loads(checks_path.read_text(encoding="utf-8"))
+        payload_checks = checks
+        if isinstance(checks, dict) and isinstance(checks.get("checks"), dict):
+            payload_checks = {k: v for k, v in checks.items() if k != "checks"}
+            payload_checks.update(checks["checks"])
         result = run_post_task_check(
             response_text=current_response_text,
             risk="medium",
             oversight="review-required",
             memory_mode="candidate",
             create_snapshot=False,
-            checks=checks,
+            checks=payload_checks,
             contract_file=contract_path,
             project_root=contract_root,
             evidence_paths=[response_path.resolve(), checks_path.resolve()],
