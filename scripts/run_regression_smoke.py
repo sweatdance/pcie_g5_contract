@@ -17,6 +17,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run full regression smoke checks for the contract repo.")
     parser.add_argument("--framework-root", help="Path to ai-governance-framework")
     parser.add_argument("--contract-root", default=".", help="Path to the contract repository root")
+    parser.add_argument(
+        "--suite",
+        choices=("all", "required", "advisory"),
+        default="all",
+        help="Run only required or advisory fixture suites.",
+    )
     parser.add_argument("--format", choices=("human", "json"), default="human")
     return parser
 
@@ -37,7 +43,7 @@ def main() -> int:
     from run_fixture_smoke import format_human as format_fixture_human
     from run_fixture_smoke import run_fixture_smoke
 
-    fixture_payload = run_fixture_smoke(contract_root, framework_root)
+    fixture_payload = run_fixture_smoke(contract_root, framework_root, suite=args.suite)
     external_result = run_external_repo_smoke(contract_root, contract_file=contract_root / "contract.yaml")
     overall_ok = fixture_payload["ok"] and external_result.ok
 

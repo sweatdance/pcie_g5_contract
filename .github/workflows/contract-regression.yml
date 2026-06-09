@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  regression-smoke:
+  ltssm-required-smoke:
     runs-on: ubuntu-latest
     env:
       FRAMEWORK_REPOSITORY: Gavin0099/ai-governance-framework
@@ -37,23 +37,72 @@ jobs:
       - name: Install framework dependencies
         run: python -m pip install --upgrade pip && python -m pip install -r ai-governance-framework/requirements.txt
 
-      - name: Run contract regression smoke
-        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --format human
+      - name: Run required fixture smoke (LTSSM / link-training)
+        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --suite required --format human
 
-      - name: Write machine-readable smoke report
+      - name: Write machine-readable required smoke report
         if: always()
-        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --format json > regression-smoke-report.json
+        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --suite required --format json > regression-smoke-report-required.json
 
-      - name: Upload fixture smoke receipt
+      - name: Upload required fixture smoke receipt
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fixture-smoke-receipt
+          name: fixture-smoke-receipt-required
           path: artifacts/validation/fixture-smoke-receipt.json
 
-      - name: Upload smoke report
+      - name: Upload required smoke report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: contract-regression-smoke-report
-          path: regression-smoke-report.json
+          name: contract-regression-smoke-report-required
+          path: regression-smoke-report-required.json
+
+  protocol-expansion-advisory-smoke:
+    runs-on: ubuntu-latest
+    env:
+      FRAMEWORK_REPOSITORY: Gavin0099/ai-governance-framework
+      FRAMEWORK_REF: main
+    steps:
+      - name: Checkout contract repo
+        uses: actions/checkout@v4
+
+      - name: Checkout framework repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.FRAMEWORK_REPOSITORY }}
+          ref: ${{ env.FRAMEWORK_REF }}
+          path: ai-governance-framework
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ai-governance-framework/requirements.txt
+
+      - name: Install framework dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r ai-governance-framework/requirements.txt
+
+      - name: Run protocol-expansion advisory fixture smoke
+        id: advisory-fixture-smoke
+        continue-on-error: true
+        run: python scripts/run_fixture_smoke.py --framework-root ai-governance-framework --contract-root . --suite advisory --format json --receipt-path artifacts/validation/fixture-smoke-receipt-advisory.json
+
+      - name: Write machine-readable advisory smoke report
+        if: always()
+        run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --suite advisory --format json > regression-smoke-report-advisory.json
+
+      - name: Upload advisory fixture smoke receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixture-smoke-receipt-advisory
+          path: artifacts/validation/fixture-smoke-receipt-advisory.json
+
+      - name: Upload advisory smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-regression-smoke-report-advisory
+          path: regression-smoke-report-advisory.json

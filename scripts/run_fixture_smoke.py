@@ -11,6 +11,13 @@ from datetime import timezone
 from pathlib import Path
 
 
+def _classify_suite(expected_rule_ids: list[str] | None) -> str:
+    rules = {str(rule_id).strip().lower() for rule_id in (expected_rule_ids or [])}
+    if {"pcie-ltssm", "pcie-eq", "pcie-link-negotiation"}.intersection(rules):
+        return "required"
+    return "advisory"
+
+
 def _inject_rules(response_text: str, rules: list[str]) -> str:
     rules_value = ",".join(rules)
     lines = response_text.splitlines()
@@ -48,6 +55,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--contract-root", default=".", help="Path to the contract repository root")
     parser.add_argument("--format", choices=("human", "json"), default="human")
     parser.add_argument(
+        "--suite",
+        choices=("all", "required", "advisory"),
+        default="all",
+        help="Run only required or advisory fixture suites.",
+    )
+    parser.add_argument(
         "--receipt-path",
         default=str((Path(".") / "artifacts" / "validation" / "fixture-smoke-receipt.json").as_posix()),
         help="Path to write machine-readable fixture smoke receipt.",
@@ -55,7 +68,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
+def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "all") -> dict:
     if not framework_root.exists():
         raise FileNotFoundError(f"framework root not found: {framework_root}")
 
@@ -71,8 +84,13 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
     response_text = response_path.read_text(encoding="utf-8")
 
     results = []
+    selected_files = []
     overall_ok = True
     for fixture in manifest.get("fixtures", []):
+        fixture_suite = _classify_suite(fixture.get("expected_rule_ids") if isinstance(fixture.get("expected_rule_ids"), list) else [])
+        if suite != "all" and fixture_suite != suite:
+            continue
+        selected_files.append(fixture.get("file"))
         rule_ids = fixture.get("expected_rule_ids")
         if not isinstance(rule_ids, list) or not rule_ids:
             if not isinstance(rule_ids, list):
@@ -112,11 +130,14 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
             }
         )
     return {
+        "suite": suite,
         "ok": overall_ok,
         "contract_root": str(contract_root),
         "framework_root": str(framework_root),
         "fixture_count": len(results),
+        "selected_fixture_count": len(selected_files),
         "results": results,
+        "selected_fixtures": selected_files,
     }
 
 
@@ -151,7 +172,7 @@ def main() -> int:
     contract_root = Path(args.contract_root).resolve()
     framework_root = Path(args.framework_root).resolve() if args.framework_root else _default_framework_root(contract_root)
     try:
-        payload = run_fixture_smoke(contract_root, framework_root)
+        payload = run_fixture_smoke(contract_root, framework_root, suite=args.suite)
         _write_receipt(payload, Path(args.receipt_path))
     except FileNotFoundError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
