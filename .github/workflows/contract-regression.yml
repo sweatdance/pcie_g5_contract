@@ -44,6 +44,13 @@ jobs:
         if: always()
         run: python scripts/run_regression_smoke.py --framework-root ai-governance-framework --contract-root . --format json > regression-smoke-report.json
 
+      - name: Upload fixture smoke receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixture-smoke-receipt
+          path: artifacts/validation/fixture-smoke-receipt.json
+
       - name: Upload smoke report
         if: always()
         uses: actions/upload-artifact@v4

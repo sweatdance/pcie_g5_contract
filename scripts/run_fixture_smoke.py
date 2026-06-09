@@ -6,7 +6,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime
+from datetime import timezone
 from pathlib import Path
+
 
 def _inject_rules(response_text: str, rules: list[str]) -> str:
     rules_value = ",".join(rules)
@@ -23,6 +26,17 @@ def _inject_rules(response_text: str, rules: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _write_receipt(payload: dict, receipt_path: Path) -> None:
+    receipt_path.parent.mkdir(parents=True, exist_ok=True)
+    receipt_payload = {
+        "schema_version": "1.0",
+        "artifact_type": "fixture_smoke_receipt",
+        "created_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        **payload,
+    }
+    receipt_path.write_text(json.dumps(receipt_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def _default_framework_root(contract_root: Path) -> Path:
     candidate = contract_root.parent / "ai-governance-framework"
     return candidate.resolve()
@@ -33,6 +47,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--framework-root", help="Path to ai-governance-framework")
     parser.add_argument("--contract-root", default=".", help="Path to the contract repository root")
     parser.add_argument("--format", choices=("human", "json"), default="human")
+    parser.add_argument(
+        "--receipt-path",
+        default=str((Path(".") / "artifacts" / "validation" / "fixture-smoke-receipt.json").as_posix()),
+        help="Path to write machine-readable fixture smoke receipt.",
+    )
     return parser
 
 
@@ -96,6 +115,7 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
         "ok": overall_ok,
         "contract_root": str(contract_root),
         "framework_root": str(framework_root),
+        "fixture_count": len(results),
         "results": results,
     }
 
@@ -132,6 +152,7 @@ def main() -> int:
     framework_root = Path(args.framework_root).resolve() if args.framework_root else _default_framework_root(contract_root)
     try:
         payload = run_fixture_smoke(contract_root, framework_root)
+        _write_receipt(payload, Path(args.receipt_path))
     except FileNotFoundError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
