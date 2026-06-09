@@ -1,4 +1,4 @@
-> **最後更新**: 2026-05-04
+﻿> **Last Updated**: 2026-06-09
 > **Owner**: PCIe Architecture
 > **Freshness**: Sprint (7d)
 

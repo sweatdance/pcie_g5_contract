@@ -29,8 +29,13 @@ documents:
   - docs/PCIE5_DLL_RULES.md
   - docs/PCIE5_TLP_RULES.md
   - docs/PCIE5_HOTPLUG_RULES.md
+  - AGENTS.base.md
+  - PLAN.md
+  - governance/TESTING.md
+  - governance/ARCHITECTURE.md
 ai_behavior_override:
   - AGENTS.md
+  - AGENTS.base.md
 rule_roots:
   - rules
 validators:
