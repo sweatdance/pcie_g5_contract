@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "description": "Noncompliant AER: Surprise Down observed but not AER-logged; AER registers not cleared",
+  "checks": {
+    "pcie_aer_report": {
+      "schema_version": "1.0",
+      "surprise_down_observed": true,
+      "aer_surprise_down_logged": false,
+      "aer_registers_cleared": false,
+      "malformed_tlp_observed": false,
+      "unexpected_completion_observed": false,
+      "correctable_error_count": 0,
+      "completion_timeout_observed": false,
+      "notes": ["VIOLATION AER-003: Surprise Down not logged in AER; registers not cleared before new enum"]
+    }
+  }
+}

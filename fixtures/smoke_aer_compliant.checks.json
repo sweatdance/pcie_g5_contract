@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "description": "Compliant AER: Surprise Down logged, AER cleared, no Malformed TLP, correctable count within limits",
+  "checks": {
+    "pcie_aer_report": {
+      "schema_version": "1.0",
+      "surprise_down_observed": true,
+      "aer_surprise_down_logged": true,
+      "aer_registers_cleared": true,
+      "malformed_tlp_observed": false,
+      "unexpected_completion_observed": false,
+      "correctable_error_count": 3,
+      "completion_timeout_observed": false,
+      "aer_uncorrectable_error_value": "0x00100020",
+      "aer_uncorrectable_mask_value": "0x00000000",
+      "aer_severity_value": "0x00062030",
+      "first_error_pointer": 5,
+      "ecrc_generation_enable": false,
+      "ecrc_check_enable": false,
+      "aer_correctable_status_value": "0x00001000",
+      "correctable_error_types": ["REPLAY_TIMER_TIMEOUT"],
+      "notes": ["Surprise Down on SD7 removal; AER bit5 logged; cleared before GL9767 enumeration"]
+    }
+  }
+}

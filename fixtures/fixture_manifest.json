@@ -100,6 +100,26 @@
       "file": "smoke_hotplug_noncompliant_cmd_without_completed.checks.json",
       "expected_ok": false,
       "description": "Noncompliant hot-plug: SlotCtl written before CommandCompleted, T_Power_Up=50ms"
+    },
+    {
+      "file": "smoke_aer_compliant.checks.json",
+      "expected_ok": true,
+      "description": "Compliant AER: Surprise Down logged, registers cleared, low correctable count"
+    },
+    {
+      "file": "smoke_aer_noncompliant_surprise_not_logged.checks.json",
+      "expected_ok": false,
+      "description": "Noncompliant AER: Surprise Down not logged and registers not cleared before new enumeration"
+    },
+    {
+      "file": "smoke_dll_compliant.checks.json",
+      "expected_ok": true,
+      "description": "Compliant DLL: InitFC both directions, no NAK, UpdateFC observed, no REPLAY_NUM rollover"
+    },
+    {
+      "file": "smoke_tlp_compliant.checks.json",
+      "expected_ok": true,
+      "description": "Compliant TLP: no non-SC completions, no Poisoned TLP, no BAR violations"
     }
   ]
 }

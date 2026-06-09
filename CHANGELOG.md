@@ -1,6 +1,60 @@
 # Changelog
 
-## v0.10.0 - 2026-06-09
+## v0.11.0 - 2026-06-09
+
+- **pcie-aer expanded to 90%+ coverage** (was ~40%):
+  - Rules expanded from 6 to 13 (AER-001 through AER-013), now covering:
+    - Malformed TLP / Unexpected Completion / Surprise Down hard stops (existing)
+    - Flow Control Protocol Error (bit13) — always fatal, new hard stop (AER-008)
+    - First Error Pointer consistency (AER-011) — hard stop if mismatch
+    - Non-default AER Mask (AER-009) — masked bits must be documented
+    - Advisory Non-Fatal classification (AER-010) — undocumented Severity override
+    - Asymmetric ECRC configuration (AER-007) — warn for non-functional ECRC
+    - Root Error Status without Source ID (AER-012) — forensic analysis impossible
+    - Correctable error burst pattern (AER-013) — >5 same type within 60ms
+  - doc `PCIE5_AER_RULES.md` completely rewritten: Uncorrectable Error Status all 27 bits,
+    Correctable Error Status all 16 bits, Root Error Command, Root Error Status, Error Source ID,
+    AER Capabilities and Control (ECRC bits, First Error Pointer), TLP Header Log, WHEA mapping table
+  - New validator `pcie_aer_json_validator.py`
+  - New fixtures: `smoke_aer_compliant.checks.json`, `smoke_aer_noncompliant_surprise_not_logged.checks.json`
+
+- **pcie-dll expanded to 90%+ coverage** (was ~50%):
+  - Rules expanded from 5 to 11 (DLL-001 through DLL-011), now covering:
+    - TLP before DL_Up / NAK without replay (existing hard stops)
+    - REPLAY_NUM rollover without Recovery (DLL-007) — new hard stop
+    - FC credit types not all initialized before TLP flow (DLL-009)
+    - DLLP CRC16 error without DL re-sync (DLL-008)
+    - PM DLLP before DL_Up (DLL-011)
+    - 12-bit sequence number wrap (DLL-010)
+    - ACK sequence number out-of-window (DLL-006)
+  - doc `PCIE5_DLL_RULES.md` completely rewritten: full DLLP type table, ACK/NAK/UpdateFC
+    format tables, FC credit type reference, REPLAY_NUM state machine, InitFC sequence diagram,
+    PM DLLP ordering rules, DLLP CRC16 description, evidence field YAML schema
+  - New validator `pcie_dll_json_validator.py`
+  - New fixture: `smoke_dll_compliant.checks.json`
+
+- **pcie-tlp expanded to 90%+ coverage** (was ~50%):
+  - Rules expanded from 6 to 13 (TLP-001 through TLP-013), now covering:
+    - Non-SC Completion / Poisoned TLP / BAR violation (existing hard stops)
+    - Tag reuse before Completion (TLP-008) — new hard stop
+    - TLP Length mismatch (TLP-013) — new hard stop (Malformed TLP)
+    - Invalid Last DW BE for multi-DWORD requests (TLP-007)
+    - Message TLP routing type mismatch (TLP-009)
+    - TC out of established VC range (TLP-010)
+    - Type 1 Config Request from wrong port type (TLP-011)
+    - Extended Tag used without Enable bit (TLP-012)
+  - doc `PCIE5_TLP_RULES.md` completely rewritten: Fmt/Type encoding table, TLP DW0 fields,
+    First/Last DW BE rules, Completion Status encoding table, Completion header fields, Tag
+    management (5/8/10-bit), Message TLP type table with routing subtypes, AtomicOp TLPs,
+    Traffic Class/VC mapping, TLP ordering rules, evidence field YAML schema
+  - New validator `pcie_tlp_json_validator.py`
+  - New fixture: `smoke_tlp_compliant.checks.json`
+
+- Updated `contract.yaml`: version 0.11.0, added `pcie_aer_json_validator.py`,
+  `pcie_dll_json_validator.py`, `pcie_tlp_json_validator.py`
+- Updated `fixtures/fixture_manifest.json`: added 4 new fixture entries
+
+
 
 - **pcie-cfgspace expanded to 90%+ coverage** (was ~14%):
   - Rules expanded from 5 to 26 (CFG-001 through CFG-026), now covering:

@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "description": "Compliant DLL: InitFC complete both directions, no NAK, UpdateFC observed, no REPLAY_NUM rollover",
+  "checks": {
+    "pcie_dll_report": {
+      "schema_version": "1.0",
+      "initfc_complete": true,
+      "dl_up_confirmed": true,
+      "nak_observed": false,
+      "nak_followed_by_replay": false,
+      "updatefc_observed": true,
+      "capture_duration_ms": 8800.0,
+      "initfc_direction_evidence": "both_directions",
+      "initfc_credit_type_all_initialized": true,
+      "nak_count": 0,
+      "replay_timer_timeout_count": 0,
+      "replay_num_rollover_observed": false,
+      "replay_num_rollover_recovery_confirmed": false,
+      "sequence_number_wrap_observed": false,
+      "ack_seq_progression_consistent": true,
+      "pm_dllp_before_dl_up": false,
+      "pm_active_state_request_count": 6,
+      "dllp_crc_error_count": 0,
+      "repeated_initfc2_count": 0,
+      "notes": ["Normal PASS trace: InitFC both directions, UpdateFC observed, 6 PM L1 cycles after DL_Up"]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "description": "Compliant TLP: no non-SC completions, no Poisoned TLP, no BAR violations, valid tags",
+  "checks": {
+    "pcie_tlp_report": {
+      "schema_version": "1.0",
+      "non_sc_completion_observed": false,
+      "poisoned_tlp_observed": false,
+      "cfgrd_without_cpld_observed": false,
+      "memory_access_to_unassigned_bar": false,
+      "total_tlp_count": 847,
+      "tag_reuse_observed": false,
+      "max_tag_value_seen": 31,
+      "extended_tag_enabled": false,
+      "invalid_last_dw_be_observed": false,
+      "tc_out_of_vc_range_observed": false,
+      "tlp_length_mismatch_observed": false,
+      "message_tlp_types_observed": ["ERR_COR"],
+      "notes": ["Normal PASS trace: 847 TLPs, no errors, single ERR_COR message from correctable DLL event"]
+    }
+  }
+}
