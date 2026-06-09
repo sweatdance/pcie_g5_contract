@@ -27,16 +27,25 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - name: Checkout framework repo
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
+          repository: Gavin0099/ai-governance-framework
+          ref: main
+          path: ai-governance-framework
+          fetch-depth: 1
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      - name: Install framework dependencies
+        run: python -m pip install -r ai-governance-framework/requirements.txt
+
       - name: Run governance drift check
         run: |
-          python governance/governance_tools/governance_drift_checker.py \
+          python ai-governance-framework/governance_tools/governance_drift_checker.py \
             --repo . \
-            --framework-root governance \
+            --framework-root ai-governance-framework \
             --format human
