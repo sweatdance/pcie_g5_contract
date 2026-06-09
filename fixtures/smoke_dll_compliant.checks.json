@@ -1,6 +1,19 @@
 {
   "schema_version": "1.0",
   "description": "Compliant DLL: InitFC complete both directions, no NAK, UpdateFC observed, no REPLAY_NUM rollover",
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": [
+    "rtl_pcie_tests::test_dll_advisory_compliant"
+  ],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "failure_test_validation": {
+    "coverage": {
+      "failure_path": {
+        "count": 1
+      }
+    }
+  },
   "checks": {
     "pcie_dll_report": {
       "schema_version": "1.0",
