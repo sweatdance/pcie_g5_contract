@@ -42,6 +42,10 @@ Non-scope:
 - rules/: external rule packs consumed by the framework
 - validators/: domain validators executed during post-task checks
 - fixtures/: minimal smoke fixtures for contract validation
+- docs/LLM_WIKI.md: LLM-friendly contract entry and boundary summary
+- docs/LLM_VERIFICATION_STATUS.md: visibility summary for slice maturity and fixture coverage
+- docs/CONSUMER_INTEGRATION_CONTRACT.md: integration rules for downstream RTL repos
+- exports/pcie_governed_surface_manifest.yaml: governed surface manifest for automated consumption
 
 ## Usage
 
