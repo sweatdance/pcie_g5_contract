@@ -4,121 +4,241 @@
     {
       "file": "smoke_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Nominal Gen5 LTSSM training reaches L0 with complete equalization evidence"
     },
     {
       "file": "smoke_noncompliant_illegal_transition.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Illegal LTSSM transition summary must fail validator"
     },
     {
       "file": "smoke_noncompliant_downtrained_missing_reason.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Downtrained result without fallback reason must fail validator"
     },
     {
       "file": "smoke_noncompliant_equalization_failed.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Incomplete equalization evidence must fail validator"
     },
     {
       "file": "smoke_noncompliant_width_mismatch_unexpected.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Unexpected negotiated width mismatch must fail validator"
     },
     {
       "file": "smoke_noncompliant_missing_ltssm_trace.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Missing LTSSM trace summary must fail validator"
     },
     {
       "file": "smoke_noncompliant_schema_version_mismatch.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Unsupported schema version must fail validator"
     },
     {
       "file": "smoke_noncompliant_retry_without_recovery.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Retry count without recovery trigger must fail validator"
     },
     {
       "file": "smoke_noncompliant_equalization_missing_phase.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Equalization marked complete but missing a nominal phase must fail validator"
     },
     {
       "file": "smoke_compliant_degraded_width_expected.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Expected degraded width with reason should remain review-visible but pass validation"
     },
     {
       "file": "smoke_compliant_lane_failure_with_explanation.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Lane failures with explicit explanatory notes should remain valid and review-visible"
     },
     {
       "file": "smoke_noncompliant_recovery_trace_mismatch.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
       "description": "Recovery trace summary inconsistent with visited states must fail validator"
     },
     {
       "file": "smoke_pm_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
       "description": "PM L1 after enumeration complete with ASPM enabled via CfgWr should pass PM validator"
     },
     {
       "file": "smoke_pm_noncompliant_l1_before_enum.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
       "description": "PM L1 before enumeration complete with PM_Request_Ack in window must fail PM validator"
     },
     {
       "file": "smoke_hotplug_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
       "description": "Hot-plug PASS scenario: 8.7s gap, ASPM disabled, GL9767 at 5G should pass hot-plug validator"
     },
     {
       "file": "smoke_hotplug_noncompliant_fast_mux.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
       "description": "Fast MUX switch (6us) with PM L1 before enum and stale AER must fail hot-plug validator"
     },
     {
       "file": "smoke_cfgspace_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-cfgspace"
+      ],
       "description": "Compliant GL9767 config space: VID/DID present, MSI enabled, LTR and L1 PM Substates configured"
     },
     {
       "file": "smoke_cfgspace_noncompliant_no_vidpid.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-cfgspace"
+      ],
       "description": "Noncompliant: VID/DID never observed (FFFF:FFFF) but enumeration claimed complete"
     },
     {
       "file": "smoke_pm_compliant_d3hot.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
       "description": "Compliant PM: D3hot with Transactions Pending=0, Trst observed, L1 PM Substates configured"
     },
     {
       "file": "smoke_hotplug_noncompliant_cmd_without_completed.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
       "description": "Noncompliant hot-plug: SlotCtl written before CommandCompleted, T_Power_Up=50ms"
     },
     {
       "file": "smoke_aer_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-aer"
+      ],
       "description": "Compliant AER: Surprise Down logged, registers cleared, low correctable count"
     },
     {
       "file": "smoke_aer_noncompliant_surprise_not_logged.checks.json",
       "expected_ok": false,
+      "expected_rule_ids": [
+        "common",
+        "pcie-aer"
+      ],
       "description": "Noncompliant AER: Surprise Down not logged and registers not cleared before new enumeration"
     },
     {
       "file": "smoke_dll_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-dll"
+      ],
       "description": "Compliant DLL: InitFC both directions, no NAK, UpdateFC observed, no REPLAY_NUM rollover"
     },
     {
       "file": "smoke_tlp_compliant.checks.json",
       "expected_ok": true,
+      "expected_rule_ids": [
+        "common",
+        "pcie-tlp"
+      ],
       "description": "Compliant TLP: no non-SC completions, no Poisoned TLP, no BAR violations"
     }
   ]

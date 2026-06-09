@@ -8,6 +8,20 @@ import json
 import sys
 from pathlib import Path
 
+def _inject_rules(response_text: str, rules: list[str]) -> str:
+    rules_value = ",".join(rules)
+    lines = response_text.splitlines()
+    replaced = False
+    target_prefix = "RULES = "
+    for idx, line in enumerate(lines):
+        if line.startswith(target_prefix):
+            lines[idx] = f"{target_prefix}{rules_value}"
+            replaced = True
+            break
+    if not replaced:
+        lines.append(f"{target_prefix}{rules_value}")
+    return "\n".join(lines) + "\n"
+
 
 def _default_framework_root(contract_root: Path) -> Path:
     candidate = contract_root.parent / "ai-governance-framework"
@@ -40,10 +54,20 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
     results = []
     overall_ok = True
     for fixture in manifest.get("fixtures", []):
+        rule_ids = fixture.get("expected_rule_ids")
+        if not isinstance(rule_ids, list) or not rule_ids:
+            if not isinstance(rule_ids, list):
+                warnings = [f"fixture '{fixture.get('file')}' missing expected_rule_ids; using default response rules"]
+            else:
+                warnings = [f"fixture '{fixture.get('file')}' expected_rule_ids empty; using default response rules"]
+            current_response_text = response_text
+        else:
+            warnings = []
+            current_response_text = _inject_rules(response_text, [str(rule_id) for rule_id in rule_ids])
         checks_path = fixtures_root / fixture["file"]
         checks = json.loads(checks_path.read_text(encoding="utf-8"))
         result = run_post_task_check(
-            response_text=response_text,
+            response_text=current_response_text,
             risk="medium",
             oversight="review-required",
             memory_mode="candidate",
@@ -59,11 +83,12 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path) -> dict:
             {
                 "file": fixture["file"],
                 "description": fixture.get("description", ""),
+                "expected_rule_ids": rule_ids if isinstance(rule_ids, list) else None,
                 "expected_ok": fixture["expected_ok"],
                 "actual_ok": result["ok"],
                 "matched_expectation": matched,
                 "domain_validator_count": len(result.get("domain_validator_results") or []),
-                "warnings": result.get("warnings") or [],
+                "warnings": (warnings or []) + (result.get("warnings") or []),
                 "errors": result.get("errors") or [],
             }
         )
