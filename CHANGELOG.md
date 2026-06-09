@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.11.1 - 2026-06-09
+
+- Reclassified claim scope for this contract: LTSSM and link-training are the only completed scope today.
+- PM/AER/DLL/TLP/Hot-Plug/CFG sections are retained as protocol-expansion evidence slices and advisory coverage only; they are not complete protocol-compliance claims yet.
+- Added `maturity_profile` and `claim_ceiling` fields to `contract.yaml` to make this boundary explicit.
+- Preserved existing full-slice validator/docs/assets while preventing overclaim in governance statements.
+
 ## v0.11.0 - 2026-06-09
 
 - **pcie-aer expanded to 90%+ coverage** (was ~40%):

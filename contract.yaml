@@ -2,6 +2,9 @@ name: pcie-gen5-full-protocol
 plugin_version: "0.11.0"
 framework_interface_version: "1"
 framework_compatible: ">=1.0.0,<2.0.0"
+maturity_profile:
+  - ltssm-primary-complete
+  - protocol-expansion-advisory-only
 domain: rtl
 hard_stop_rules:
   - pcie-ltssm
@@ -14,6 +17,9 @@ hard_stop_rules:
   - pcie-hotplug
 warn_rules:
   - pcie-cfgspace
+claim_ceiling:
+  - "Completed claim boundary: LTSSM + link-training evidence completion is the contract’s current completion scope."
+  - "Advisory protocol-expansion slices (pm/aer/cfgspace/dll/tlp/hotplug) are supported and review-visible but not yet complete-compliance claims."
 documents:
   - README.md
   - docs/PCIE5_SPEC_TO_CONTRACT_MAPPING.md

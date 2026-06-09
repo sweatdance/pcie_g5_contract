@@ -31,6 +31,8 @@ Non-scope:
 - software driver behavior
 - compliance certification automation
 - retimer, SRIS, or protocol analyzer decoding breadth beyond the first LTSSM slice
+- protocol-expansion slices (PM/AER/DLL/TLP/Hot-Plug/CFG) are implemented for evidence coverage only
+- completeness claims currently remain LTSSM/link-training only
 
 ## Layout
 
