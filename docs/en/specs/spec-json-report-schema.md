@@ -105,7 +105,39 @@ Use this base shape when consuming JSON downstream:
 }
 ```
 
-## Open scope
+## Validation snapshots
 
-- Add sample per-surface decision payload examples under `artifacts/validation/` when fixture manifests are versioned.
-- Keep this page aligned with `PCIE5_JSON_REPORT_SCHEMA.md` whenever parser keys evolve.
+### Per-surface decision payload examples
+
+#### Required slice payload
+
+```json
+{
+  "suite": "pcie-ltssm",
+  "status": "pass",
+  "overall_passed": true,
+  "matched_count": 12,
+  "total_checks": 12,
+  "matched_suites": ["pcie-ltssm"],
+  "advisory_issues": 0
+}
+```
+
+#### Advisory slice payload
+
+```json
+{
+  "suite": "pcie-aer",
+  "status": "pass_with_warnings",
+  "overall_passed": true,
+  "matched_count": 2,
+  "total_checks": 3,
+  "matched_suites": ["pcie-aer"],
+  "advisory_issues": 2
+}
+```
+
+## Field alignment update rule
+
+- This page is aligned to `PCIE5_JSON_REPORT_SCHEMA.md` and must be updated when parser key names change in `governance_tools`.
+- For any key drift, first update source schema and manifest pages, then regenerate the LLM-facing samples together.

@@ -43,6 +43,41 @@ description: Advisory data link-layer event visibility slice
 - NAK without replay sequence should be treated as protocol violation in review logs.
 - Required-gate decisions should stay anchored on required slices.
 
-## Open scope
+## Advisory evidence checks
 
-- Add explicit handling guidance for CATC artifacts versus real InitFC initialization failures.
+### Pass condition
+
+- InitFC completion and DL Active assertion are present.
+- NAK events are followed by replay sequence visibility.
+- `updatefc_observed` aligns with negotiated width/speed context.
+
+### Fail condition
+
+- DL_Active without InitFC completion.
+- NAK events without replay.
+- Replay duration anomalies indicating link churn.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| InitFC missing | `initfc_complete` | Transport never entered stable active | Advisory hard-stop |
+| NAK replay gap | `nak_observed`, `nak_followed_by_replay` | Possible ordering bug | Keep in review-only mode |
+| Long capture duration | `capture_duration_ms` | Potential throughput/latency risk | Add timing benchmark context |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-dll",
+  "claim_level": "advisory_expansion",
+  "result": "review_only",
+  "required_fields": [
+    "initfc_complete",
+    "dl_up_confirmed",
+    "nak_observed",
+    "nak_followed_by_replay"
+  ],
+  "usage": "dll_protocol_risk"
+}
+```

@@ -41,6 +41,39 @@ description: Required-scope equalization completion and link-training evidence
 - Unresolved lane failure summaries prevent hard required-gate completion.
 - Use advisory review if phase-level evidence is partial.
 
-## Open scope
+## Required evidence checks
 
-- Add phase-specific failure examples and accepted exception patterns.
+### Pass condition
+
+- `equalization_complete` is present.
+- `equalization_phase_summary.completed_phases` contains required stages.
+- `lane_failures` is empty or explained by explicit downtraining rationale.
+
+### Fail condition
+
+- Incomplete or missing equalization completion marker.
+- Failed phase not reconciled in `lane_failures`.
+- Unknown downtraining reasons with `equalization_complete = true`.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Empty failure list with downtrained | `lane_failures` | Partial signal quality acceptance | Require explicit fallback reason |
+| Missing phase summary | `equalization_phase_summary` | Coverage blind spot | Re-run fixture in EQ-observed mode |
+| Equalization pass with warning counters | `equalization_phase_summary.failed_phases` | Incomplete negotiation | Keep required-gate as blocked |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-eq",
+  "claim_level": "required_gate_ready",
+  "result": "satisfied|blocked",
+  "required_fields": [
+    "equalization_complete",
+    "equalization_phase_summary.completed_phases",
+    "lane_failures"
+  ]
+}
+```

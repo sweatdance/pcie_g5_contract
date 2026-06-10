@@ -36,13 +36,48 @@ description: Required-scope LTSSM legality and state machine visibility
 - `ltssm_trace_summary.visited_states`
 - `ltssm_trace_summary.reached_recovery`
 
+## Required evidence checks
+
+### Pass condition
+
+- `ltssm_final_state` is present and stable for the nominal sequence.
+- `illegal_transition_count = 0` for the nominal slice.
+- Recovery visibility is explicit when retrain paths are used.
+
+### Fail condition
+
+- Any missing `ltssm_final_state`.
+- Any positive illegal-transition count.
+- Final-state changes without corresponding recovery explanation.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Unstable final state | `ltssm_final_state` | Required gate incomplete | Re-run with trace capture and route retry evidence |
+| Unreported recovery | `ltssm_trace_summary.reached_recovery` | Recovery hidden | Add recovery trace to fixture output |
+| Illegal transition | `ltssm_trace_summary.illegal_transition_count` | Protocol violation | Split for root-cause triage and block required-gate close |
+
 ## Decision guidance
 
 - Use this page for required-gate questions on LTSSM legality.
 - Never mix advisory evidence into required-gate assertions.
 - If evidence shows legal transitions are incomplete, report `required_gate_ready` as not satisfied.
 
-## Open scope
+## Consumer response template
 
-- Add fixture-by-failure examples for common illegal transitions.
-- Add path-template cards for the most common recovery loops.
+```json
+{
+  "slice": "pcie-ltssm",
+  "claim_level": "required_gate_ready",
+  "result": "satisfied|blocked",
+  "required_fields": [
+    "ltssm_final_state",
+    "ltssm_trace_summary.illegal_transition_count"
+  ],
+  "evidence_refs": [
+    "fixtures/fixture_manifest.json",
+    "artifacts/validation/*"
+  ]
+}
+```

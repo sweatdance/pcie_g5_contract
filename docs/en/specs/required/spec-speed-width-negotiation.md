@@ -45,6 +45,41 @@ description: Required-scope speed/width negotiation evidence and policy
 - Width mismatch is acceptable only when expected and reasoned.
 - Treat `fallback_reason` absence as review risk, even if speed still nominal.
 
-## Open scope
+## Required evidence checks
 
-- Add a quick comparison table between speed/width expectation and required outcome by scenario.
+### Pass condition
+
+- `target_speed_gtps`, `negotiated_speed_gtps`, `target_width`, and `negotiated_width` are present.
+- `downtrained` is false OR `degraded_width_expected` is true with `degraded_width_reason` present.
+- `fallback_reason` is present whenever fallback flags are set.
+
+### Fail condition
+
+- Negotiated width/speed fields missing in required payload.
+- `downtrained = true` with no reason.
+- Any fallback path without explicit rationale.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Silent downtrain | `downtrained` | Required gate may be overclaimed | Demand speed/width mismatch documentation |
+| Width mismatch with no reason | `degraded_width_expected` | Policy boundary breach | Block required-gate claim |
+| Missing negotiated speed | `negotiated_speed_gtps` | Negotiation capture incomplete | Re-run with trace-level output |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-link-negotiation",
+  "claim_level": "required_gate_ready",
+  "result": "satisfied|blocked",
+  "required_fields": [
+    "target_speed_gtps",
+    "negotiated_speed_gtps",
+    "target_width",
+    "negotiated_width",
+    "fallback_reason"
+  ]
+}
+```

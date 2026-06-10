@@ -36,12 +36,47 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Run command: `python scripts/run_fixture_smoke.py --suite required --format json`
 - Required smoke: `python scripts/run_regression_smoke.py --suite required --format json`
 
+## Required evidence checks
+
+### Pass condition
+
+- `ltssm_final_state` exists and is non-empty.
+- `ltssm_trace_summary.illegal_transition_count = 0`.
+- `equalization_summary` is populated whenever EQ is expected in the flow.
+- Recovery/retrain traces are explicitly marked when present.
+
+### Fail condition
+
+- Missing final-state field in required trace payloads.
+- Empty or partial equalization summary while required negotiation is exercised.
+- Recovery or fallback without reason tags in result payload.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Nominal run has recovery traces | `ltssm_trace_summary.recovery_count` | Review context risk, not clean required state | Keep claim as guarded and escalate recovery details |
+| Nominal transition with hidden path | `ltssm_final_state` only | Route mismatch in fixture expectations | Align smoke routing and update expectations |
+| No trace summary | `ltssm_trace_summary` | Incomplete capture | Block required closure and rerun fixture suite |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-ltssm",
+  "claim_level": "required_gate_ready",
+  "required_artifacts": ["fixture_manifest", "run_regression_smoke"],
+  "result": "satisfied|blocked",
+  "notable_fields": [
+    "ltssm_final_state",
+    "ltssm_trace_summary.illegal_transition_count",
+    "ltssm_trace_summary.visited_states"
+  ]
+}
+```
+
 ## Decision guardrails
 
 - Missing final-state fields means no required-gate claim.
 - Partial traces are treated as review context unless confirmed stable.
 - If recovery is present, record it as explicit caution rather than full completion.
-
-## Open scope
-
-- Add a compact failure catalog per checklist item (advisory only for now).

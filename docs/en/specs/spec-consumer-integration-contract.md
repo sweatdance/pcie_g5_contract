@@ -51,7 +51,47 @@ python -X utf8 scripts/run_regression_smoke.py --suite advisory --format json
 python -X utf8 scripts/run_regression_smoke.py --suite all --format json | Out-File artifacts/pcie_governance_smoke_all.json
 ```
 
-## Open scope
+## Integration profiles
 
-- Add optional fixture split recipes for strict/safe/observability profiles.
-- Add a version-specific consume matrix by repo integration profile (RTL CI, observability, and exploratory testing).
+### Strict profile (required gates only)
+
+- Required suites: `--suite required`
+- Decision rule: required failures block merge
+- Scope: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`
+
+### Safe profile (required + advisory for triage)
+
+- Required suites: `--suite required`
+- Advisory suites: `--suite advisory`
+- Decision rule: advisory failures are review context only, not blocking by default
+
+### Observatory profile (all suites)
+
+- Required + advisory suites: `--suite all`
+- Decision rule: advisory hard-stops still non-blocking unless a downstream policy reclassifies
+
+## Consume matrix by integration type
+
+- RTL CI:
+  - Block on required suite failure
+  - Log advisory issues for investigation
+- Formal verification:
+  - Require `advisory_issues = 0` before full signoff, if the downstream policy defines it
+- Exploratory testing:
+  - Publish merged output artifact and allow advisory-rich analysis
+
+## Example output contract
+
+```json
+{
+  "required": {
+    "gate": "required_gate_ready",
+    "status": "pass|fail"
+  },
+  "advisory": {
+    "status": "observed",
+    "issues": 3,
+    "promotion": "review_only"
+  }
+}
+```

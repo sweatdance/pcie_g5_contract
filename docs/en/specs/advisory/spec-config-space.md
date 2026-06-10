@@ -42,6 +42,41 @@ description: Advisory configuration-space access and enumeration boundary
 - Advisory-only boundary here: use for consumer diagnostics, not for required-gate closure.
 - Incomplete enumeration evidence means hard caution even if other required slices are nominal.
 
-## Open scope
+## Advisory evidence checks
 
-- Add a quick register-order matrix (read-before-write and BAR readiness checks).
+### Pass condition
+
+- VID/PID and BAR discovery fields are present.
+- Enumeration sequence is complete and deterministic.
+- Register read/write ordering matches expected sequence in command fields.
+
+### Fail condition
+
+- Read-only path has no completion markers.
+- BAR readiness not established before link-up dependent operations.
+- Enumeration sequence incomplete while required fixtures are nominal.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Missing enumeration sequence | `enumeration_sequence_complete` | CFG path incomplete | Add fixture trace and rerun |
+| BAR not ready | `bar_sizing_observed` | Device exposure risk | Validate BAR probing order |
+| Read-before-write skip | `link_control_read_before_write` | Hidden mis-sequencing | Keep advisory warning and inspect logs |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-cfgspace",
+  "claim_level": "advisory_expansion",
+  "result": "review_only",
+  "required_fields": [
+    "vidpid_read_observed",
+    "bar_sizing_observed",
+    "enumeration_sequence_complete",
+    "link_control_read_before_write"
+  ],
+  "usage": "cfg_sequence_investigation"
+}
+```

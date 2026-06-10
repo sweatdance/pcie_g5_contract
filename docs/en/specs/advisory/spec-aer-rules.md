@@ -44,6 +44,41 @@ description: Advisory error handling and AER register management slice
 - A surprise-down event without logging is review-critical even when required paths remain green.
 - Use rule IDs directly when correlating BSOD or WHEA output.
 
-## Open scope
+## Advisory evidence checks
 
-- Add a short table linking common BSOD codes to expected AER fields.
+### Pass condition
+
+- AER severity and mask values are captured with surprise-down context.
+- Logging paths are present for each surprise-down or uncorrectable event.
+- Completion and tag counters are present for error correlation.
+
+### Fail condition
+
+- Logged AER fields without corresponding surprise-down context.
+- Unassigned completion with no AER correlation.
+- High-severity event with incomplete payload.
+
+### Failure pattern examples
+
+| Pattern | Detection field | Meaning | Suggested action |
+| --- | --- | --- | --- |
+| Surprise-down without log | `aer_surprise_down_logged` | Hidden error context | Classify as advisory critical |
+| Poisoned TLP only | `poisoned_tlp_observed` | Silent packet health risk | Link with platform error log |
+| Unexpected completion | `unexpected_completion_observed` | Completion integrity concern | Correlate route in host log |
+
+## Consumer response template
+
+```json
+{
+  "slice": "pcie-aer",
+  "claim_level": "advisory_expansion",
+  "result": "review_only",
+  "required_fields": [
+    "surprise_down_observed",
+    "aer_surprise_down_logged",
+    "poisoned_tlp_observed",
+    "aer_severity_value"
+  ],
+  "usage": "error_correlation"
+}
+```
