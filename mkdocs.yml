@@ -70,6 +70,7 @@ nav:
           - Config Space: en/specs/advisory/spec-config-space.md
       - Artifacts:
           - Spec-to-Contract Mapping: en/specs/spec-contract-mapping.md
+          - Spec Surface Matrix: en/specs/spec-surface-matrix.md
           - Glossary for LLM: en/specs/spec-glossary-for-llm.md
           - JSON Report Schema: en/specs/spec-json-report-schema.md
           - Release Notes: en/specs/spec-release-notes.md

@@ -27,6 +27,7 @@ This section mirrors a full-reference navigation pattern and exposes every PCIe 
 ## Governance and reference artifacts
 
 - [Spec-to-Contract Mapping](spec-contract-mapping.md)
+- [Spec Surface Matrix](spec-surface-matrix.md)
 - [Glossary for LLM](spec-glossary-for-llm.md)
 - [JSON Report Schema](spec-json-report-schema.md)
 - [Release Notes](spec-release-notes.md)
