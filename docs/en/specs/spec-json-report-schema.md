@@ -10,6 +10,11 @@ description: Validator report schema reference for contract tooling
 - Type: artifact index
 - Source completeness: source-linked page
 
+## Scope
+
+- Contract outputs this parser schema covers: required and advisory smoke report JSON.
+- Used for both local docs guidance and downstream automation.
+
 ## Purpose
 
 - Keep downstream parsers aligned to the same field names that this repo's smoke scripts and docs expect.
@@ -17,7 +22,7 @@ description: Validator report schema reference for contract tooling
 
 ## Canonical source
 
-- [`PCIE5_JSON_REPORT_SCHEMA.md`](../../../PCIE5_JSON_REPORT_SCHEMA.md)
+- [`PCIE5_JSON_REPORT_SCHEMA.md`](../../PCIE5_JSON_REPORT_SCHEMA.md)
 
 ## Relevant report groups
 
@@ -79,6 +84,10 @@ The authoritative schema is declared in `PCIE5_JSON_REPORT_SCHEMA.md` and this p
 
 - Smoke outputs: `scripts/run_fixture_smoke.py`
 - Regression outputs: `scripts/run_regression_smoke.py`
+## Decision guidance
+
+- Missing required schema fields should downgrade the claim to `warn` and require refresh.
+- Required gate closure needs both `overall_status=pass` and required-surface suite pass in the same report.
 
 ## Example consumption pattern
 
@@ -141,3 +150,19 @@ Use this base shape when consuming JSON downstream:
 
 - This page is aligned to `PCIE5_JSON_REPORT_SCHEMA.md` and must be updated when parser key names change in `governance_tools`.
 - For any key drift, first update source schema and manifest pages, then regenerate the LLM-facing samples together.
+
+## Consumer response template
+
+```json
+{
+  "report_mode": "regression|fixture",
+  "overall_status": "pass|warn|blocked",
+  "overall_passed": true,
+  "matched_count": 24,
+  "total_checks": 24,
+  "matched_suites": ["pcie-ltssm", "pcie-eq", "pcie-link-negotiation"],
+  "advisory_issues": 0,
+  "evidence": "scripts outputs + PCIE5_JSON_REPORT_SCHEMA.md"
+}
+```
+

@@ -36,6 +36,23 @@ body {
   margin-top: 0.75rem;
 }
 
+.hero-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+.hero-card {
+  border-radius: 12px;
+  border: 1px solid var(--pcie-border);
+  background: #fff;
+  box-shadow: 0 8px 18px #0b20470f;
+  padding: 0.85rem 1rem;
+  color: var(--pcie-text);
+  font-size: 0.94rem;
+}
+
 .hero-tag {
   border: 1px solid var(--pcie-border);
   border-radius: 999px;

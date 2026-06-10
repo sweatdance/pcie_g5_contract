@@ -13,6 +13,30 @@ This section mirrors a full-reference navigation pattern and exposes every PCIe 
 - Advisory scope stays contextual unless downstream policy explicitly promotes it.
 - Use artifact pages for evidence schema, scope matrix, and integration contract.
 
+<section class="hero-shell">
+
+### Portal entry cards
+
+<div class="hero-tags">
+  <span class="hero-tag">Required-first review</span>
+  <span class="hero-tag">Advisory context</span>
+  <span class="hero-tag">Schema + evidence maps</span>
+</div>
+
+<div class="hero-tiles">
+  <div class="hero-card">
+    Start from **Required** pages for LTSSM/EQ/Link-negotiation gate decisions.
+  </div>
+  <div class="hero-card">
+    Use **Advisory** pages for diagnostics, errors, and triage investigation.
+  </div>
+  <div class="hero-card">
+    Use **Artifacts** for contract mapping, schema, glossary, and release traceability.
+  </div>
+</div>
+
+</section>
+
 ## Library map
 
 ## Required scope

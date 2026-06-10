@@ -10,14 +10,27 @@ description: Spec-facing release milestones and governance checkpoints
 - Type: artifact index
 - Source completeness: source-linked page
 
+## Scope
+
+- Release-note surface for governance behavior and docs/specs portal milestones.
+
+## Canonical
+
+- Base changelog: [CHANGELOG.md](https://github.com/sweatdance/pcie_g5_contract/blob/main/CHANGELOG.md)
+
 ## Purpose
 
 - Track when governance surface additions affect downstream behavior.
 - Keep completion claims traceable across versions.
 
+## Validation
+
+- Release entries should only be changed with matching `contract.yaml` or fixture/report evidence changes.
+- Keep this page synchronized with `docs/en/verification-status.md` and `docs/LLM_VERIFICATION_STATUS.md` when evidence posture changes.
+
 ## Sources
 
-- [`CHANGELOG.md`](../../../CHANGELOG.md)
+- [CHANGELOG.md](https://github.com/sweatdance/pcie_g5_contract/blob/main/CHANGELOG.md)
 
 ## Highlights by release
 
@@ -40,3 +53,19 @@ description: Spec-facing release milestones and governance checkpoints
 
 - Completion statements must use evidence-backed sources.
 - Claims about status boundary changes should first be checked against `docs/LLM_VERIFICATION_STATUS.md` and `docs/en/verification-status.md`.
+
+## Decision guidance
+
+- For any release milestone, prefer scoped updates (documentation, schema, fixture, smoke) over broad protocol status language.
+- If evidence is not present, place item as pending/planned and avoid marking as closed.
+
+## Consumer response template
+
+```json
+{
+  "release": "v0.x.x",
+  "change_type": "docs|schema|fixture|workflow|policy",
+  "evidence_gate": "required|advisory|not_claimed",
+  "status": "published|planned|blocked"
+}
+```

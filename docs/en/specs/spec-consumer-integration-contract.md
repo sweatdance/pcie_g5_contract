@@ -15,9 +15,14 @@ description: Downstream integration contract and boundary rules
 - Defines how downstream RTL consumers should interpret required vs advisory slices.
 - Describes expected claim discipline for CI, review, and triage contexts.
 
+## Canonical
+
+- Source contract: [`CONSUMER_INTEGRATION_CONTRACT.md`](../../CONSUMER_INTEGRATION_CONTRACT.md)
+- Authority entry: [`docs/CONSUMER_INTEGRATION_CONTRACT.md`](../../CONSUMER_INTEGRATION_CONTRACT.md)
+
 ## Canonical source
 
-- [`CONSUMER_INTEGRATION_CONTRACT.md`](../../../CONSUMER_INTEGRATION_CONTRACT.md)
+- [`CONSUMER_INTEGRATION_CONTRACT.md`](../../CONSUMER_INTEGRATION_CONTRACT.md)
 
 ## Decision matrix
 
@@ -51,6 +56,13 @@ python -X utf8 scripts/run_regression_smoke.py --suite advisory --format json
 python -X utf8 scripts/run_regression_smoke.py --suite all --format json | Out-File artifacts/pcie_governance_smoke_all.json
 ```
 
+## Validation
+
+- Required gate readiness check command: `python scripts/run_regression_smoke.py --suite required --format json`
+- Advisory validation command: `python scripts/run_regression_smoke.py --suite advisory --format json`
+- Full-surface traceability command: `python scripts/run_regression_smoke.py --suite all --format json`
+- Fixture routing verification: `python scripts/run_fixture_smoke.py --suite all --format json`
+
 ## Integration profiles
 
 ### Strict profile (required gates only)
@@ -80,6 +92,12 @@ python -X utf8 scripts/run_regression_smoke.py --suite all --format json | Out-F
 - Exploratory testing:
   - Publish merged output artifact and allow advisory-rich analysis
 
+## Decision guidance
+
+- Required consumers must only close required gates from `pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation`.
+- Advisory results must remain non-blocking unless an explicit local policy promotes the profile.
+- If required command output and required fixture status diverge, treat the claim as `warn` and do not close gate.
+
 ## Example output contract
 
 ```json
@@ -93,5 +111,22 @@ python -X utf8 scripts/run_regression_smoke.py --suite all --format json | Out-F
     "issues": 3,
     "promotion": "review_only"
   }
+}
+```
+
+## Consumer response template
+
+```json
+{
+  "scope": "required|advisory",
+  "surface": ["pcie-ltssm", "pcie-eq", "pcie-link-negotiation"],
+  "required_gate": "pass|blocked",
+  "advisory_issues": 0,
+  "decision": "gate_decision|review_only",
+  "evidence": [
+    "contracts/pcie_governed_surface_manifest.yaml",
+    "fixtures/fixture_manifest.json",
+    "artifacts/validation/*"
+  ]
 }
 ```

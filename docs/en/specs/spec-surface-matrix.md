@@ -5,9 +5,19 @@ description: Consolidated PCIe 5 governance surface map for navigation and smoke
 
 # Spec Surface Matrix
 
+## Status
+
+- Type: artifact index
+- Source completeness: source-linked page
+
 ## Scope
 
 This matrix is the compact index for all contract-defined PCIe 5 spec slices in this repo.
+
+## Canonical
+
+- Source mapping and boundaries are defined by [`spec-contract-mapping.md`](spec-contract-mapping.md).
+- Primary fixtures by surface are declared in [fixtures/fixture_manifest.json](https://github.com/sweatdance/pcie_g5_contract/blob/main/fixtures/fixture_manifest.json).
 
 | Surface | Claim Level | Contract Surface | Key Evidence | Rule IDs | Smoke Suite | Primary Source | Gate action |
 |---|---|---|---|---|---|---|---|
@@ -42,4 +52,26 @@ python scripts/run_regression_smoke.py --suite all --format json
 
 ```powershell
 python scripts/run_fixture_smoke.py --suite all --format json
+```
+
+## Validation
+
+- Required-surface command: `python scripts/run_regression_smoke.py --suite required --format json`
+- Advisory-surface command: `python scripts/run_regression_smoke.py --suite advisory --format json`
+- Fixture routing command: `python scripts/run_fixture_smoke.py --suite all --format json`
+
+## Decision guidance
+
+- Use this matrix as read-time routing only; do not infer required success from an advisory-only path.
+- If hard-gate rows show `pass` but advisory has unresolved errors, continue with warning and block closeout only with explicit rationale.
+
+## Consumer response template
+
+```json
+{
+  "surface": "pcie-ltssm|pcie-eq|pcie-link-negotiation|pcie-pm|pcie-aer|pcie-dll|pcie-tlp|pcie-hotplug|pcie-cfgspace",
+  "claim_level": "required_gate_ready|advisory_expansion",
+  "scope": "required|advisory",
+  "status": "pass|warn|blocked"
+}
 ```

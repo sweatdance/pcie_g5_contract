@@ -26,8 +26,8 @@ Structured governance content for **required** versus **advisory** scope, optimi
 ## Entry points
 
 - [Consumer Integration](consumer-integration.md): mandatory onboarding workflow for downstream RTL.
-- [LLM Wiki](llm-wiki.md): claim boundaries and policy language.
-- [Verification Status](verification-status.md): slice-level maturity and evidence posture.
+- [LLM Wiki](../LLM_WIKI.md): claim boundaries and policy language.
+- [Verification Status](../LLM_VERIFICATION_STATUS.md): slice-level maturity and evidence posture.
 - [Contract Mapping](contract-mapping.md): source mapping from review artifacts to contract surfaces.
 - [Evidence Grid](evidence-grid.md): what proves what, where.
 
@@ -62,8 +62,8 @@ PM/AER/DLL/TLP/Hot-Plug/CFG are visible for investigation, but they are **not** 
 ## Recommended read path
 
 1. [Consumer Integration](consumer-integration.md): confirm scope and mandatory sequence.
-2. [LLM Wiki](llm-wiki.md): load claim policy and anti-pattern checklist.
-3. [Verification Status](verification-status.md): read decision behavior and required/advisory outcomes.
+2. [LLM Wiki](../LLM_WIKI.md): load claim policy and anti-pattern checklist.
+3. [Verification Status](../LLM_VERIFICATION_STATUS.md): read decision behavior and required/advisory outcomes.
 4. [Contract Mapping](contract-mapping.md): trace question to a contract surface.
 5. [Specification Library](specs/index.md): read required/advisory page details.
 6. [Evidence Grid](evidence-grid.md): align every claim with concrete source files and runbook.
@@ -94,9 +94,9 @@ python <framework_root>\governance_tools\external_repo_smoke.py `
 
 ## Source index
 
-- [LLM Wiki (source)](LLM_WIKI.md)
-- [Verification status source](LLM_VERIFICATION_STATUS.md)
-- [Consumer contract source](CONSUMER_INTEGRATION_CONTRACT.md)
-- [Contract scope matrix source](PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
+- [LLM Wiki (source)](../LLM_WIKI.md)
+- [Verification status source](../LLM_VERIFICATION_STATUS.md)
+- [Consumer contract source](../CONSUMER_INTEGRATION_CONTRACT.md)
+- [Contract scope matrix source](../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
 
 Use this portal as the first place to orient downstream agents and reviewers before opening raw sources.

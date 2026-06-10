@@ -10,6 +10,16 @@ description: Terms and surface-language alignment for PCIe contract review
 - Type: artifact index
 - Source completeness: source-linked page
 
+## Scope
+
+- Artifact index for terminology and evidence envelope consistency.
+- Applies to all required and advisory pages in this specs section.
+
+## Canonical
+
+- Source vocabulary: [`PCIE5_GLOSSARY_FOR_LLM.md`](../../PCIE5_GLOSSARY_FOR_LLM.md)
+- Mapping rulebook: [`spec-contract-mapping.md`](spec-contract-mapping.md)
+
 ## Purpose
 
 - Keep response phrasing consistent with this repository's claim levels.
@@ -60,6 +70,11 @@ description: Terms and surface-language alignment for PCIe contract review
 - `not_claimed` is the correct label for statements outside this repo boundary.
 - `advisory_issues` must be tracked as review severity unless downstream policy reclassifies.
 
+## Validation
+
+- Vocabulary alignment validation is done by checking `docs/LLM_VERIFICATION_STATUS.md` and `docs/en/verification-status.md` before publishing response claims.
+- Any generated response should use one of `required_gate_ready`, `advisory_expansion`, `not_claimed`.
+
 ## Response schema fragment
 
 ```json
@@ -71,7 +86,26 @@ description: Terms and surface-language alignment for PCIe contract review
 }
 ```
 
+## Decision guidance
+
+- Use this page as a hard stop on drifted terminology; terms not present in this glossary default to `not_claimed`.
+- Prefer `claim_level` consistency over prose certainty; if terms conflict, return `warn` and require evidence refresh.
+
+## Consumer response template
+
+```json
+{
+  "claim_level": "required_gate_ready|advisory_expansion|not_claimed",
+  "scope": "required|advisory",
+  "severity": "high|medium|low",
+  "evidence": [
+    "PCIE5_GLOSSARY_FOR_LLM.md",
+    "docs/LLM_VERIFICATION_STATUS.md"
+  ]
+}
+```
+
 ## Source mapping
 
-- Canonical source: [`PCIE5_GLOSSARY_FOR_LLM.md`](../../../PCIE5_GLOSSARY_FOR_LLM.md)
+- Canonical source: [`PCIE5_GLOSSARY_FOR_LLM.md`](../../PCIE5_GLOSSARY_FOR_LLM.md)
 - Contract alignment: [`spec-contract-mapping.md`](spec-contract-mapping.md)

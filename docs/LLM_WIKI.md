@@ -126,7 +126,7 @@ and then require `run_regression_smoke.py --suite all` for a single merged decis
 ## 11) LLM-first consume entry
 
 - Preferred one-page onboarding is in:
-  - [README - Consume contract in a downstream RTL repo](../README.md#consume-contract-in-a-downstream-rtl-repo)
+- [README - Consume contract in a downstream RTL repo](https://github.com/sweatdance/pcie_g5_contract/blob/main/README.md#consume-contract-in-a-downstream-rtl-repo)
 - Command sequence (required/advisory aligned) is mirrored from:
   - `external_repo_readiness.py`
   - `run_fixture_smoke.py`
