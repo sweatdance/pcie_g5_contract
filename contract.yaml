@@ -12,11 +12,11 @@ hard_stop_rules:
   - pcie-link-negotiation
   - pcie-pm
   - pcie-aer
+  - pcie-cfgspace
   - pcie-dll
   - pcie-tlp
   - pcie-hotplug
 warn_rules:
-  - pcie-cfgspace
 claim_ceiling:
   - "Completed claim boundary: LTSSM + link-training evidence completion is the contract’s current completion scope."
   - "Advisory protocol-expansion slices (pm/aer/cfgspace/dll/tlp/hotplug) are supported and review-visible but not yet complete-compliance claims."
