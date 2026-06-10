@@ -23,6 +23,35 @@ Structured governance content for **required** versus **advisory** scope, optimi
 - This repository is scoped to **PCIe 5.0 LTSSM and link-training** for review and automation.
 - It is not a full protocol compliance handbook and does not claim driver/runtime behavior completeness.
 
+## Governance status at a glance
+
+### What can be required-gated today
+
+`pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation` are the current required-gate surfaces.
+
+They can be used as hard boundaries only when:
+
+- contract surface claims are within documented scope
+- fixture/smoke evidence exists for the corresponding suite
+- downstream integration contract is accepted for that callsite
+
+### What is advisory only
+
+- PM
+- AER
+- DLL
+- TLP
+- Hot-Plug
+- CFG
+
+These surfaces are visible for investigation and expansion work, but they must not be used as full protocol-completion substitutes.
+
+### Claim ceiling
+
+- **Required** = evidence-backed hard boundary for RTL review automation.
+- **Advisory** = partial guidance with no mandatory gate effect.
+- **Source copy** = the canonical PCIe spec/contract artifacts in repo root (preferred traceability source).
+
 ## Entry points
 
 - [Consumer Integration](consumer-integration.md): mandatory onboarding workflow for downstream RTL.
@@ -30,6 +59,15 @@ Structured governance content for **required** versus **advisory** scope, optimi
 - [Verification Status](../LLM_VERIFICATION_STATUS.md): slice-level maturity and evidence posture.
 - [Contract Mapping](contract-mapping.md): source mapping from review artifacts to contract surfaces.
 - [Evidence Grid](evidence-grid.md): what proves what, where.
+
+## Non-goals and anti-patterns
+
+Use this list to avoid over-claiming:
+
+- Do not imply full PCIe stack completion from this repo.
+- Do not mark advisory surface failures as required-gate blockers.
+- Do not skip fixture evidence when asserting contract readiness.
+- Do not infer behavior without mapping to a declared rule source and scope.
 
 <div class="feature-grid">
 <div class="feature-card">
@@ -67,6 +105,15 @@ PM/AER/DLL/TLP/Hot-Plug/CFG are visible for investigation, but they are **not** 
 4. [Contract Mapping](contract-mapping.md): trace question to a contract surface.
 5. [Specification Library](specs/index.md): read required/advisory page details.
 6. [Evidence Grid](evidence-grid.md): align every claim with concrete source files and runbook.
+
+## Evidence refresh pattern
+
+When status documents change, follow this order:
+
+1. Run contract-relevant smoke.
+2. Update `docs/LLM_VERIFICATION_STATUS.md`.
+3. Keep claim ceiling text unchanged unless proof is fully refreshed.
+4. Record closeout evidence in `memory/` before push.
 
 ## Command quick start
 
