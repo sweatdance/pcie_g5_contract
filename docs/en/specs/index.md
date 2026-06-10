@@ -35,4 +35,9 @@ This section mirrors a full-reference navigation pattern and exposes every PCIe 
 ## Coverage completion
 
 All listed surfaces are reachable from the navigation tree and linked to canonical source artifacts.
+
+- Required pages: done
+- Advisory pages: done
+- Artifact pages: done
+- Source-copy depth: pending (source markdown remains authoritative; portal pages are structured indices for now)
 Use the status flag to track whether detailed rendered pages are complete in this portal or still source-link-only.
