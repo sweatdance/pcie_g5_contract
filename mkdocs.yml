@@ -47,7 +47,8 @@ plugins:
   - search
 
 nav:
-  - Home: en/index.md
+  - Home: index.md
+  - Documentation: en/index.md
   - Contract Surface:
       - Reference Overview: en/contract-mapping.md
       - LLM Policy: en/llm-wiki.md
