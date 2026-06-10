@@ -47,8 +47,6 @@ Non-scope:
 - docs/CONSUMER_INTEGRATION_CONTRACT.md: integration rules for downstream RTL repos
 - exports/pcie_governed_surface_manifest.yaml: governed surface manifest for automated consumption
 
-## Usage
-
 ## CI
 
 This repo includes a GitHub Actions workflow at `.github/workflows/contract-regression.yml`.
@@ -64,6 +62,35 @@ The workflow:
 If you want to pin a different framework version, update `FRAMEWORK_REF` in the workflow file.
 
 ## Usage
+
+### Consume contract in a downstream RTL repo
+
+This contract is scoped to **LTSSM / EQ / link-negotiation** as required gate scope.
+Advisory slices (PM/AER/DLL/TLP/Hot-Plug/CFG) must not be treated as required.
+
+```powershell
+# 1) Ensure the target RTL repo has this contract wired for consumption
+python -X utf8 <framework_root>\governance_tools\external_repo_readiness.py `
+  --repo <target-rtl-repo> `
+  --contract <pcie_contract_root>\contract.yaml `
+  --framework-root <framework_root> `
+  --format json
+
+# 2) Validate fixture mapping for required/advisory slices
+python <pcie_contract_root>\scripts\run_fixture_smoke.py `
+  --framework-root <framework_root> `
+  --contract-root <pcie_contract_root> `
+  --format json
+
+# 3) Verify contract-level evidence report
+python <framework_root>\governance_tools\external_repo_smoke.py `
+  --repo <pcie_contract_root> `
+  --contract <pcie_contract_root>\contract.yaml `
+  --framework-root <framework_root> `
+  --format json
+```
+
+Run these and copy the generated JSON into `docs/LLM_VERIFICATION_STATUS.md` / consumer checks as part of your local intake.
 
 Load the contract:
 
