@@ -53,6 +53,20 @@ body {
   font-size: 0.94rem;
 }
 
+.hero-card strong {
+  font-size: 1.5rem;
+  color: var(--pcie-primary);
+  display: block;
+  line-height: 1.2;
+}
+
+.hero-card small {
+  font-size: 0.72rem;
+  color: var(--pcie-text-soft);
+  margin-top: 0.15rem;
+  display: block;
+}
+
 .hero-tag {
   border: 1px solid var(--pcie-border);
   border-radius: 999px;
