@@ -16,7 +16,7 @@ description: Advisory hot-plug lifecycle and timing visibility
 - Hot-plug event ordering, Slot register sequencing, and surprise-remove race detection.
 - Advisories include MUX-switch scenarios and timing gap risks.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_HOTPLUG_RULES.md`](../../../PCIE5_HOTPLUG_RULES.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 10](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -31,7 +31,7 @@ description: Advisory hot-plug lifecycle and timing visibility
 - `time_surprise_down_to_first_cfgrd_ms`
 - `upstream_ts1_rate_at_first_linkup`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-hotplug`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-hotplug --format json`

@@ -16,7 +16,7 @@ description: Required traceability for recovery and fallback behavior
 - Required review entry for retrain/recovery dependency and fallback visibility.
 - Used before downstream CI treats a run as stable convergence.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_RECOVERY_AND_FALLBACK.md`](../../../PCIE5_RECOVERY_AND_FALLBACK.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 4](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -30,7 +30,7 @@ description: Required traceability for recovery and fallback behavior
 - `fallback_reason`
 - `recovery_reason`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-ltssm` (recovery-visible path)
 - Run command: `python scripts/run_regression_smoke.py --suite required --format json`

@@ -16,7 +16,7 @@ description: Advisory data link-layer event visibility slice
 - InitFC sequencing, DL_Active gating, ACK/NAK protocol order, and replay edge cases.
 - Advisory reviewer surface (not required for required-gate closure).
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_DLL_RULES.md`](../../../PCIE5_DLL_RULES.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 8](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -31,7 +31,7 @@ description: Advisory data link-layer event visibility slice
 - `updatefc_observed`
 - `capture_duration_ms`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-dll`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-dll --format json`

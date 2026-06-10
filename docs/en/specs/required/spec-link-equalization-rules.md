@@ -16,7 +16,7 @@ description: Required-scope equalization completion and link-training evidence
 - Keeps equalization completion and phase status reviewer-safe.
 - Required for nominal gen-up claims in this repository.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_LINK_EQUALIZATION_RULES.md`](../../../PCIE5_LINK_EQUALIZATION_RULES.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 2](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -29,7 +29,7 @@ description: Required-scope equalization completion and link-training evidence
 - `equalization_phase_summary.failed_phases`
 - `lane_failures`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-eq`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-eq --format json`

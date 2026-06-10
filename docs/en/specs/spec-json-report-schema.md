@@ -20,7 +20,7 @@ description: Validator report schema reference for contract tooling
 - Keep downstream parsers aligned to the same field names that this repo's smoke scripts and docs expect.
 - Prevent wrong assumptions across required/advisory scripts.
 
-## Canonical source
+## Canonical
 
 - [`PCIE5_JSON_REPORT_SCHEMA.md`](../../PCIE5_JSON_REPORT_SCHEMA.md)
 
@@ -98,7 +98,7 @@ Use this when writing gate decisions:
 3. For `advisory` surfaces, keep only context/risk notes and avoid hard-stop promotion.
 4. Attach the specific fixture IDs for any failed assertions.
 
-## Canonical sample
+## Validation samples
 
 Use this base shape when consuming JSON downstream:
 
@@ -114,7 +114,7 @@ Use this base shape when consuming JSON downstream:
 }
 ```
 
-## Validation snapshots
+## Validation
 
 ### Per-surface decision payload examples
 

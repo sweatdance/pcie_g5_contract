@@ -16,7 +16,7 @@ description: Advisory configuration-space access and enumeration boundary
 - VID/DID enumeration checks, BAR probe sequence, command register readiness, and extended capability walks.
 - Warn-only posture in this contract profile unless consumer explicitly promotes.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_CONFIG_SPACE.md`](../../../PCIE5_CONFIG_SPACE.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 6](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -31,7 +31,7 @@ description: Advisory configuration-space access and enumeration boundary
 - `link_control_read_before_write`
 - `bus_master_enabled`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-cfgspace`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-cfgspace --format json`

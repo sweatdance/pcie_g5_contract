@@ -21,7 +21,7 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Required slice scope for LTSSM nominal convergence and readiness confidence.
 - This page is only considered mandatory for required-gate decisions when all required fields are aligned.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_LTSSM_CHECKLIST.md`](../../../PCIE5_LTSSM_CHECKLIST.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 1](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -35,7 +35,7 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Equalization summary fields are not empty when equalization should run.
 - Recovery/retrain evidence is attached when convergence is indirect.
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-ltssm`
 - Run command: `python scripts/run_fixture_smoke.py --suite required --format json`

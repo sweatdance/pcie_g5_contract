@@ -16,7 +16,7 @@ description: Advisory PM / ASPM governance slice
 - PM/ASPM sequencing, PM_REQ_ACK timing, and PM lifecycle risks during enumeration.
 - Advisory evidence only unless explicitly reclassified by a downstream consumer.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_POWER_MANAGEMENT.md`](../../../PCIE5_POWER_MANAGEMENT.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 5](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -31,7 +31,7 @@ description: Advisory PM / ASPM governance slice
 - `pm_l1_before_enum_complete` / advisory alias
 - `l1_substate_mode`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-pm`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-pm --format json`

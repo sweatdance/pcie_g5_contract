@@ -16,6 +16,10 @@ description: Governance mapping surface from PCIe 5 slices to contract surfaces
 - Source: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md`](../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
 - Consumer binding: [`docs/PCIE5_SPEC_TO_CONTRACT_MAPPING.md`](../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md) and fixture declarations in `fixtures/fixture_manifest.json`
 
+## Scope
+
+- This page defines only the surfaced PCIe 5 claim routing for LTSSM, link-training, and adjacent operational slices in this contract.
+
 ## Scope map
 
 - Required: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`

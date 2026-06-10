@@ -16,7 +16,7 @@ description: Advisory error handling and AER register management slice
 - AER uncorrectable/correctable visibility, surprise-down surfacing, and logging completeness.
 - Used for debug and triage around WHEA-class faults and completion error context.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_AER_RULES.md`](../../../PCIE5_AER_RULES.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 7](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -32,7 +32,7 @@ description: Advisory error handling and AER register management slice
 - `poisoned_tlp_observed`
 - `unexpected_completion_observed`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-aer`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-aer --format json`

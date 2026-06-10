@@ -17,7 +17,7 @@ description: Required-scope LTSSM legality and state machine visibility
 - Final state and transition-legality verification for link training.
 - Recovery-visible paths are reported as review context.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_LTSSM_STATE_TRANSITIONS.md`](../../../PCIE5_LTSSM_STATE_TRANSITIONS.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 1](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)

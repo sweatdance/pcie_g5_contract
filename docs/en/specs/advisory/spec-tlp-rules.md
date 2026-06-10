@@ -16,7 +16,7 @@ description: Advisory transaction-layer evidence slice
 - Transaction-layer completion status, address-boundary checks, and tag/replay side effects.
 - Useful for post-mortem on UR/CA/CRS and completion timeout patterns.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_TLP_RULES.md`](../../../PCIE5_TLP_RULES.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 9](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -31,7 +31,7 @@ description: Advisory transaction-layer evidence slice
 - `memory_access_to_unassigned_bar`
 - `tag_reuse_observed`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-tlp`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-tlp --format json`

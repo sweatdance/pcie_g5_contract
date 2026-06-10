@@ -16,7 +16,7 @@ description: Required-scope speed/width negotiation evidence and policy
 - Prevents silent downtrain or degraded-width claims without explicit rationale.
 - Bridges required negotiation checks with required link-up assertions.
 
-## Canonical mapping
+## Canonical
 
 - Required source: [`PCIE5_SPEED_WIDTH_NEGOTIATION.md`](../../../PCIE5_SPEED_WIDTH_NEGOTIATION.md)
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 3](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
@@ -33,7 +33,7 @@ description: Required-scope speed/width negotiation evidence and policy
 - `degraded_width_reason`
 - `fallback_reason`
 
-## Validation entrypoints
+## Validation
 
 - Fixture suite: `pcie-link-negotiation`
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-link-negotiation --format json`
