@@ -16,6 +16,23 @@ description: Governance mapping surface from PCIe 5 slices to contract surfaces
 - Required: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`
 - Advisory: `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace`
 - Rule families: `PCIE5-...` by slice.
+- Hard-gate slices: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`.
+- Advisory-only slices: `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace`.
+
+## Mapping table
+
+| Surface | Contract slice | Claim level | Fixture suite | Rule family examples |
+|---|---|---|---|---|
+| LTSSM state transitions | `pcie-ltssm` | required_gate_ready | `run_fixture_smoke.py --suite pcie-ltssm` | `PCIE5-LTSSM-...` |
+| LTSSM checklist | `pcie-ltssm` | required_gate_ready | `run_fixture_smoke.py --suite pcie-ltssm` | `PCIE5-LTSSM-...` |
+| Link equalization | `pcie-eq` | required_gate_ready | `run_fixture_smoke.py --suite pcie-eq` | `PCIE5-EQ-...` |
+| Speed/width negotiation | `pcie-link-negotiation` | required_gate_ready | `run_fixture_smoke.py --suite pcie-link-negotiation` | `PCIE5-LINK-NEG-...` |
+| Power management | `pcie-pm` | advisory_expansion | `run_fixture_smoke.py --suite pcie-pm` | `PCIE5-PM-...` |
+| AER | `pcie-aer` | advisory_expansion | `run_fixture_smoke.py --suite pcie-aer` | `PCIE5-AER-...` |
+| DLL | `pcie-dll` | advisory_expansion | `run_fixture_smoke.py --suite pcie-dll` | `PCIE5-DLL-...` |
+| TLP | `pcie-tlp` | advisory_expansion | `run_fixture_smoke.py --suite pcie-tlp` | `PCIE5-TLP-...` |
+| Hot-plug | `pcie-hotplug` | advisory_expansion | `run_fixture_smoke.py --suite pcie-hotplug` | `PCIE5-HP-...` |
+| CFG space | `pcie-cfgspace` | advisory_expansion | `run_fixture_smoke.py --suite pcie-cfgspace` | `PCIE5-CFG-...` |
 
 ## How to use this page
 
@@ -23,6 +40,11 @@ description: Governance mapping surface from PCIe 5 slices to contract surfaces
 - Find corresponding slice in this mapping.
 - Route to the matching page under `Required` or `Advisory`.
 - Validate with the associated fixture suite before making any claim.
+
+## Evidence routing rule
+
+- Only `required` and `required_gate_ready` slices may drive hard gate decisions.
+- Advisory slices must be routed as review evidence and flagged as non-blocking unless downstream policy rewrites them.
 
 ## Related pages
 

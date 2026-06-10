@@ -7,6 +7,14 @@ description: Complete PCIe 5.x surface coverage map, with required and advisory 
 
 This section mirrors a full-reference navigation pattern and exposes every PCIe 5.x governance document surface available in this repo.
 
+## Navigation guidance
+
+- Required scope for hard gate starts here.
+- Advisory scope stays contextual unless downstream policy explicitly promotes it.
+- Use artifact pages for evidence schema, scope matrix, and integration contract.
+
+## Library map
+
 ## Required scope
 
 - [LTSSM State Transitions](required/spec-ltssm-state-transitions.md)
@@ -47,6 +55,21 @@ All listed surfaces are reachable from the navigation tree and linked to canonic
 - Start in `Required` for LTSSM/link-training gate decisions.
 - Use `Advisory` for investigation and root-cause paths.
 - Use `Artifacts` when you need boundary references and integration rules.
+
+## Hard-gate readiness matrix
+
+| Surface group | Allowed gate use | Required outputs |
+| --- | --- | --- |
+| Required | Allowed | `run_regression_smoke.py --suite required` |
+| Advisory | Not allowed | `run_regression_smoke.py --suite advisory` |
+| Artifacts | Context only | `docs/en/verification-status.md`, `docs/LLM_VERIFICATION_STATUS.md` |
+
+## Consumption sequence
+
+1. Open the matching page under `Required` or `Advisory`.
+2. Confirm `claim level` and `required` flags.
+3. Read corresponding entrypoint in `Artifacts`.
+4. Execute smoke output validation before any hard-gate claim.
 
 ## Completion policy
 
