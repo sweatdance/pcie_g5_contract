@@ -11,6 +11,32 @@ from datetime import timezone
 from pathlib import Path
 
 
+def _extract_routing(domain_validator_results: list) -> list[dict]:
+    """Return per-validator routing summary: name, covered pcie-* slices, ok, violation count."""
+    routing = []
+    for dvr in domain_validator_results or []:
+        pcie_slices = [r for r in (dvr.get("rule_ids") or []) if r.startswith("pcie-")]
+        routing.append(
+            {
+                "name": dvr.get("name", "unknown"),
+                "pcie_slices": pcie_slices,
+                "ok": dvr.get("ok", False),
+                "violations": len(dvr.get("violations") or []),
+            }
+        )
+    return routing
+
+
+def _check_routing(expected_rule_ids: list[str] | None, actual_routing: list[dict]) -> tuple[bool, list[str]]:
+    """Check that every expected pcie-* slice was covered by at least one actual validator."""
+    if not isinstance(expected_rule_ids, list):
+        return True, []
+    expected_slices = [r for r in expected_rule_ids if r.startswith("pcie-")]
+    covered = {s for entry in actual_routing for s in entry["pcie_slices"]}
+    missing = [s for s in expected_slices if s not in covered]
+    return len(missing) == 0, missing
+
+
 def _classify_suite(expected_rule_ids: list[str] | None) -> str:
     rules = {str(rule_id).strip().lower() for rule_id in (expected_rule_ids or [])}
     if {"pcie-ltssm", "pcie-eq", "pcie-link-negotiation"}.intersection(rules):
@@ -119,7 +145,9 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "a
             evidence_paths=[response_path.resolve(), checks_path.resolve()],
         )
         matched = bool(result["ok"]) is bool(fixture["expected_ok"])
-        overall_ok = overall_ok and matched
+        actual_routing = _extract_routing(result.get("domain_validator_results") or [])
+        routing_ok, routing_miss = _check_routing(rule_ids, actual_routing)
+        overall_ok = overall_ok and matched and routing_ok
         results.append(
             {
                 "file": fixture["file"],
@@ -128,7 +156,10 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "a
                 "expected_ok": fixture["expected_ok"],
                 "actual_ok": result["ok"],
                 "matched_expectation": matched,
-                "domain_validator_count": len(result.get("domain_validator_results") or []),
+                "routing_ok": routing_ok,
+                "routing_miss": routing_miss,
+                "actual_validators": actual_routing,
+                "domain_validator_count": len(actual_routing),
                 "warnings": (warnings or []) + (result.get("warnings") or []),
                 "errors": result.get("errors") or [],
             }
@@ -153,6 +184,8 @@ def format_human(payload: dict) -> str:
         f"framework_root={payload['framework_root']}",
     ]
     for item in payload["results"]:
+        validator_names = ",".join(v["name"] for v in (item.get("actual_validators") or []))
+        routing_flag = "" if item.get("routing_ok", True) else f" | routing_miss={item.get('routing_miss')}"
         lines.append(
             " | ".join(
                 [
@@ -160,9 +193,11 @@ def format_human(payload: dict) -> str:
                     f"expected_ok={item['expected_ok']}",
                     f"actual_ok={item['actual_ok']}",
                     f"matched={item['matched_expectation']}",
-                    f"domain_validators={item['domain_validator_count']}",
+                    f"routing_ok={item.get('routing_ok', True)}",
+                    f"validators=[{validator_names}]",
                 ]
             )
+            + routing_flag
         )
         for warning in item["warnings"]:
             lines.append(f"  warning: {warning}")
