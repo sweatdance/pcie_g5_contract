@@ -50,7 +50,8 @@ Non-scope:
 
 ## Documentation Site
 
-- GitHub Pages (LLM-first): `https://sweatdance.github.io/pcie_g5_contract/en/` (after Pages enabled and workflow run)
+- GitHub Pages (LLM-first, fully styled portal): `https://sweatdance.github.io/pcie_g5_contract/en/`
+- Preferred reference entrypoint: `docs/en/index.md` (built into the site as homepage).
 - Local preview:
 
 ```powershell

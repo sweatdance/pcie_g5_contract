@@ -1,3 +1,8 @@
+---
+title: Verification Status
+description: Evidence posture and governance boundary by contract slice
+---
+
 # Verification Status
 
 This page summarizes current contract maturity and evidence boundaries.

@@ -1,3 +1,8 @@
+---
+title: LLM Wiki
+description: Claim levels and evidence policy for PCIe LTSSM contract automation
+---
+
 # LLM Wiki
 
 This page is the LLM-facing entry for this contract.
@@ -27,3 +32,7 @@ This page is the LLM-facing entry for this contract.
 - Claims must include claim level (`required` / `advisory`) and evidence references.
 - If final-state evidence is missing, block completed success assertions.
 - If only advisory evidence is present, do not imply full protocol compliance.
+
+!!! tip "Decision template"
+    `scope=<required|advisory>`, `evidence=<path>`, `evidence_type=<fixture|regression|contract>`
+    should be included in every claim response.

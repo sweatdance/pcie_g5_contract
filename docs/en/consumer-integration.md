@@ -1,12 +1,20 @@
+---
+title: Consumer Integration
+description: Required and advisory onboarding workflow for downstream RTL use
+---
+
 # Consumer Integration
 
 This page defines the minimum governed path for a downstream RTL repository to consume this contract safely.
 
 ## Scope guard (important)
 
+!!! warning "Scope rule"
+    Advisory slices must never be used as required protocol gates.
+
 - Required scope: **`pcie-ltssm`**, **`pcie-eq`**, **`pcie-link-negotiation`**
 - Advisory scope: **`pcie-pm`**, **`pcie-aer`**, **`pcie-dll`**, **`pcie-tlp`**, **`pcie-hotplug`**, **`pcie-cfgspace`**
-- Do not treat advisory slices as protocol-complete gates.
+  - `pcie-cfgspace` routing is present for completeness checks only.
 
 ## Required commands
 
@@ -28,6 +36,9 @@ python <framework_root>\governance_tools\external_repo_smoke.py \
   --framework-root <framework_root> \
   --format json
 ```
+!!! note "Command notes"
+    Keep placeholders consistent across all three commands. The placeholders are intentionally explicit:
+    `<pcie_contract_root>` and `<framework_root>`.
 
 ## Contract ingestion pattern
 

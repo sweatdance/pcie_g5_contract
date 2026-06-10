@@ -1,3 +1,8 @@
+---
+title: Contract Mapping
+description: Surface-to-spec mapping and evidence-routing index
+---
+
 # Contract Mapping
 
 Reference links:

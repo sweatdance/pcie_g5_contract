@@ -2,35 +2,74 @@
 site_name: "PCIe Gen5 LTSSM Contract"
 site_description: "Governed reference for LTSSM and link-training contract slices"
 site_author: "PCIe G5 Contract Team"
+site_url: https://sweatdance.github.io/pcie_g5_contract/
+repo_url: https://github.com/sweatdance/pcie_g5_contract
+repo_name: sweatdance/pcie_g5_contract
+
 theme:
   name: material
   palette:
-    primary: blue
-    accent: indigo
+    - media: "(prefers-color-scheme)"
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: blue grey
+      accent: cyan
+      scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+  font:
+    text: Source Sans 3
+    code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/server
   features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
     - navigation.instant
+    - navigation.path
     - navigation.tracking
+    - toc.integrate
+    - content.tabs.link
     - content.code.copy
     - search.suggest
   language: en
+
+copyright: "PCIe LTSSM contract reference"
+
+plugins:
+  - search
+
 nav:
   - Home: en/index.md
-  - Consumer Integration: en/consumer-integration.md
-  - LLM Wiki: en/llm-wiki.md
-  - Verification: en/verification-status.md
-  - Contract Mapping: en/contract-mapping.md
-  - Release Notes: en/release-notes.md
-  - Raw Contract Docs:
-      - LLM Wiki Source: LLM_WIKI.md
-      - Verification Status Source: LLM_VERIFICATION_STATUS.md
-      - Consumer Contract Source: CONSUMER_INTEGRATION_CONTRACT.md
-      - Glossary: PCIE5_GLOSSARY_FOR_LLM.md
-      - Spec Mapping: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+  - Contract Surface:
+      - Reference Overview: en/contract-mapping.md
+      - LLM Policy: en/llm-wiki.md
+      - Consumer Integration: en/consumer-integration.md
+      - Glossary & Mapping: en/glossary-and-mapping.md
+  - Evidence & Verification:
+      - Verification Status: en/verification-status.md
+      - Release Notes: en/release-notes.md
+      - Evidence Surface: en/evidence-grid.md
+  - Source Docs:
+      - LLM_WIKI.md: LLM_WIKI.md
+      - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md
+      - CONSUMER_INTEGRATION_CONTRACT.md: CONSUMER_INTEGRATION_CONTRACT.md
+      - PCIE5_GLOSSARY_FOR_LLM.md: PCIE5_GLOSSARY_FOR_LLM.md
+      - PCIE5_SPEC_TO_CONTRACT_MAPPING.md: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
 extra_css:
   - assets/styles.css
 markdown_extensions:
   - admonition
   - pymdownx.superfences
   - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - toc:
       permalink: true
