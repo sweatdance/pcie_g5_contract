@@ -34,9 +34,6 @@ description: Required traceability for recovery and fallback behavior
 
 - Fixture suite: `pcie-ltssm` (recovery-visible path)
 - Run command: `python scripts/run_regression_smoke.py --suite required --format json`
-
-## Validation
-
 - Required-gate acceptance requires:
   - `overall_passed = true`
   - `suites` includes `pcie-ltssm` with `status = pass`
@@ -71,6 +68,10 @@ description: Required traceability for recovery and fallback behavior
 | Downtrained without rationale | `fallback_reason` | Policy violation | Reclassify claim until rationale exists |
 
 ## Consumer response template
+
+```markdown
+--8<-- "../snippets/required-decision-response-template.txt"
+```
 
 ```json
 {

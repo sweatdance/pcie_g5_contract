@@ -11,14 +11,11 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Claim level: `required_gate_ready`
 - Source completeness: **required page**
 
-## Purpose
-
-- Provide a reviewer checklist for LTSSM + training readiness decisions.
-- Prevent nominal claims from passing with partial traces or silent recovery paths.
-
 ## Scope
 
 - Required slice scope for LTSSM nominal convergence and readiness confidence.
+- Provide a reviewer checklist for LTSSM + training readiness decisions.
+- Prevent nominal claims from passing with partial traces or silent recovery paths.
 - This page is only considered mandatory for required-gate decisions when all required fields are aligned.
 
 ## Canonical
@@ -27,7 +24,7 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 1](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
 - Related state transition page: [`spec-ltssm-state-transitions.md`](spec-ltssm-state-transitions.md)
 
-## What to validate
+## Evidence fields
 
 - Target/negotiated speed and width are explicit.
 - `ltssm_final_state` is visible and stable.
@@ -88,9 +85,6 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 - Missing final-state fields means no required-gate claim.
 - Partial traces are treated as review context unless confirmed stable.
 - If recovery is present, record it as explicit caution rather than full completion.
-
-## Decision guidance
-
 - Use checklist output as the first hard-stop checkpoint for required-gate qualification.
 - Any checklist item with partial traces or missing rationale should be classified as `guarded` and not hard-closed.
 - Advisory pages can continue investigation, but required gate can only progress after checklist criteria are clean.
