@@ -122,3 +122,14 @@ Downstream repos should run:
 - `python -X utf8 scripts/run_regression_smoke.py --suite advisory --format human`
 
 and then require `run_regression_smoke.py --suite all` for a single merged decision view.
+
+## 11) LLM-first consume entry
+
+- Preferred one-page onboarding is in:
+  - [README - Consume contract in a downstream RTL repo](../README.md#consume-contract-in-a-downstream-rtl-repo)
+- Command sequence (required/advisory aligned) is mirrored from:
+  - `external_repo_readiness.py`
+  - `run_fixture_smoke.py`
+  - `external_repo_smoke.py`
+
+Use this if you need the smallest stable recipe for a new RTL integration.
