@@ -70,6 +70,9 @@ description: Required-scope equalization completion and link-training evidence
 | Equalization pass with warning counters | `equalization_phase_summary.failed_phases` | Incomplete negotiation | Keep required-gate as blocked |
 
 ## Consumer response template
+```markdown
+--8<-- "../snippets/required-decision-response-template.txt"
+```
 
 ```json
 {

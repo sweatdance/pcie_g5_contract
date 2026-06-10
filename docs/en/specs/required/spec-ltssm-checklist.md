@@ -65,6 +65,9 @@ description: Required LTSSM readiness checklist and checklist-to-evidence mappin
 | No trace summary | `ltssm_trace_summary` | Incomplete capture | Block required closure and rerun fixture suite |
 
 ## Consumer response template
+```markdown
+--8<-- "../snippets/required-decision-response-template.txt"
+```
 
 ```json
 {

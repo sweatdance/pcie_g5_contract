@@ -74,6 +74,10 @@ description: Required-scope LTSSM legality and state machine visibility
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/required-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-ltssm",
