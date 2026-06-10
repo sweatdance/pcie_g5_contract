@@ -5,4 +5,7 @@ regression-smoke-report.json
 *.tmp.json
 artifacts/*.checks.json
 site/
-
+# Local agent and generated governance artifacts
+.claude/
+artifacts/runtime/
+artifacts/validation/
