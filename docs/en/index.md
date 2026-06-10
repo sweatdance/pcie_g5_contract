@@ -59,24 +59,33 @@ PM/AER/DLL/TLP/Hot-Plug/CFG are visible for investigation, but they are **not** 
 </div>
 </div>
 
+## Recommended read path
+
+1. [Consumer Integration](consumer-integration.md): confirm scope and mandatory sequence.
+2. [LLM Wiki](llm-wiki.md): load claim policy and anti-pattern checklist.
+3. [Verification Status](verification-status.md): read decision behavior and required/advisory outcomes.
+4. [Contract Mapping](contract-mapping.md): trace question to a contract surface.
+5. [Specification Library](specs/index.md): read required/advisory page details.
+6. [Evidence Grid](evidence-grid.md): align every claim with concrete source files and runbook.
+
 ## Command quick start
 
 ```powershell
-python -X utf8 <framework_root>\governance_tools\external_repo_readiness.py \
-  --repo <target-rtl-repo> \
-  --contract <pcie_contract_root>\contract.yaml \
-  --framework-root <framework_root> \
+python -X utf8 <framework_root>\governance_tools\external_repo_readiness.py `
+  --repo <target-rtl-repo> `
+  --contract <pcie_contract_root>\contract.yaml `
+  --framework-root <framework_root> `
   --format json
 
-python <pcie_contract_root>\scripts\run_fixture_smoke.py \
-  --framework-root <framework_root> \
-  --contract-root <pcie_contract_root> \
+python <pcie_contract_root>\scripts\run_fixture_smoke.py `
+  --framework-root <framework_root> `
+  --contract-root <pcie_contract_root> `
   --suite required --format json
 
-python <framework_root>\governance_tools\external_repo_smoke.py \
-  --repo <pcie_contract_root> \
-  --contract <pcie_contract_root>\contract.yaml \
-  --framework-root <framework_root> \
+python <framework_root>\governance_tools\external_repo_smoke.py `
+  --repo <pcie_contract_root> `
+  --contract <pcie_contract_root>\contract.yaml `
+  --framework-root <framework_root> `
   --format json
 ```
 

@@ -32,7 +32,31 @@ This page is the LLM-facing entry for this contract.
 - Claims must include claim level (`required` / `advisory`) and evidence references.
 - If final-state evidence is missing, block completed success assertions.
 - If only advisory evidence is present, do not imply full protocol compliance.
+- Keep claim output machine-parseable: `scope`, `result`, `severity`, `evidence`, and `action`.
 
 !!! tip "Decision template"
     `scope=<required|advisory>`, `evidence=<path>`, `evidence_type=<fixture|regression|contract>`
     should be included in every claim response.
+
+## Common anti-patterns
+
+- Treating advisory warning output as required completion.
+- Inferring final-state correctness from a single successful smoke run.
+- Repeating unsupported PCIe wording without fixture-backed evidence.
+- Promoting `advisory` to `required` without explicit reclassification in downstream policy.
+
+## Recommended claim response
+
+```json
+{
+  "scope": "required",
+  "result": "blocked|passed",
+  "severity": "high|medium|low",
+  "evidence": [
+    "fixtures/fixture_manifest.json",
+    "artifacts/validation/pcie_governance_smoke_required.json"
+  ],
+  "evidence_type": ["fixture", "regression"],
+  "action": "gate_decision|investigation|ignore"
+}
+```
