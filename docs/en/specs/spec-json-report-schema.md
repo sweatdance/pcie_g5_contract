@@ -24,6 +24,10 @@ description: Validator report schema reference for contract tooling
 - Required suites: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`
 - Advisory suites: `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace`
 
+## Report schema coverage
+
+The authoritative schema is declared in `PCIE5_JSON_REPORT_SCHEMA.md` and this page maps it to smoke outputs consumed by this repo.
+
 ## Required fields by reporting mode
 
 ### Regression smoke (`run_regression_smoke.py`)
@@ -60,6 +64,17 @@ description: Validator report schema reference for contract tooling
 
 ## Governance mapping
 
+### Required boundary (`required_gate_ready`)
+
+- Required gates must be supported by:
+  - `pcie-ltssm_report.overall_status = pass`
+  - all required evidence fields present in `PCIE5_JSON_REPORT_SCHEMA.md`
+
+### Advisory visibility (`advisory_expansion`)
+
+- Advisory suite pass can be recorded as context.
+- Any advisory-hard-stop pattern should still be promoted to CI warning even when required scope passes.
+
 ## Workflow references
 
 - Smoke outputs: `scripts/run_fixture_smoke.py`
@@ -74,7 +89,23 @@ Use this when writing gate decisions:
 3. For `advisory` surfaces, keep only context/risk notes and avoid hard-stop promotion.
 4. Attach the specific fixture IDs for any failed assertions.
 
+## Canonical sample
+
+Use this base shape when consuming JSON downstream:
+
+```json
+{
+  "overall_passed": true,
+  "overall_status": "pass",
+  "matched_count": 24,
+  "total_checks": 24,
+  "matched_suites": ["pcie-ltssm","pcie-eq","pcie-link-negotiation"],
+  "advisory_issues": 0,
+  "suites": []
+}
+```
+
 ## Open scope
 
-- Add a compact JSON schema machine-readable sample artifact under this page once fixtures are versioned.
-- Add required/advisory field-level checklist once parser contract is finalized.
+- Add sample per-surface decision payload examples under `artifacts/validation/` when fixture manifests are versioned.
+- Keep this page aligned with `PCIE5_JSON_REPORT_SCHEMA.md` whenever parser keys evolve.

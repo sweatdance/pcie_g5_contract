@@ -46,8 +46,16 @@ python <framework_root>\governance_tools\external_repo_smoke.py \
 - Keep `fixtures/fixture_manifest.json` aligned with the same scope.
 - Update this page and the canonical `docs/CONSUMER_INTEGRATION_CONTRACT.md` when scope changes.
 
+## Exact minimum sequence
+
+1. Read and verify `contract.yaml`.
+2. Run required smoke first: `run_regression_smoke --suite required`.
+3. Run advisory smoke as review context: `run_regression_smoke --suite advisory`.
+4. Publish merged decision artifact:
+   `run_regression_smoke --suite all --format json`.
+
 ## Recommended workflow
 
-1. Run required smoke and smoke-smoke fixtures.
+1. Run required smoke and required fixtures.
 2. Only gate CI on required scope for RTL-required decisions.
 3. Keep advisory results in non-blocking status until explicit validator routing is proven.
