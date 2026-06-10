@@ -41,6 +41,12 @@ description: Required-scope equalization completion and link-training evidence
 - Unresolved lane failure summaries prevent hard required-gate completion.
 - Use advisory review if phase-level evidence is partial.
 
+## Decision guidance
+
+- This page is required-gate relevant only when equalization is expected for the negotiated link path.
+- Do not treat `equalization_complete = true` as final success if any failed phase remains unexplained.
+- Route unresolved equalization issues to advisory-only notes and block required-gate closure until rationale is present.
+
 ## Required evidence checks
 
 ### Pass condition

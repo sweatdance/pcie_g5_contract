@@ -35,6 +35,13 @@ description: Required traceability for recovery and fallback behavior
 - Fixture suite: `pcie-ltssm` (recovery-visible path)
 - Run command: `python scripts/run_regression_smoke.py --suite required --format json`
 
+## Validation
+
+- Required-gate acceptance requires:
+  - `overall_passed = true`
+  - `suites` includes `pcie-ltssm` with `status = pass`
+  - `downtrained` and `fallback_reason` fields are explicit when fallback occurs
+
 ## Decision guardrails
 
 - Recovery-driven convergence is valid for visibility but still must be called out explicitly.
@@ -79,3 +86,9 @@ description: Required traceability for recovery and fallback behavior
   ]
 }
 ```
+
+## Decision guidance
+
+- Recovery behavior is visible, but does not automatically restore full required-gate success.
+- Recovery without `fallback_reason` should keep required-gate status as blocked.
+- For required closure, downtrained runs must carry explicit rationale and evidence path.

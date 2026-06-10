@@ -39,6 +39,13 @@ description: Required-scope speed/width negotiation evidence and policy
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-link-negotiation --format json`
 - Required smoke: `python scripts/run_regression_smoke.py --suite required --format json`
 
+## Validation
+
+- Required-gate acceptance requires:
+  - `overall_status = pass`
+  - `suites` includes `pcie-link-negotiation` with `status = pass`
+  - `target_speed_gtps` and `negotiated_speed_gtps` align with explicit downtrain rationale when `downtrained = true`
+
 ## Decision guardrails
 
 - A nominal claim must explicitly avoid presenting downtrained results as full Gen5 success.
@@ -83,3 +90,9 @@ description: Required-scope speed/width negotiation evidence and policy
   ]
 }
 ```
+
+## Decision guidance
+
+- Negotiation outputs are required-gate relevant whenever link-up claims are made.
+- Silent downtrain is a hard reason to block required-gate completion unless `degraded_width_expected` and reasons are complete.
+- If `degraded_width_expected` is false, any fallback/rationale gap is not acceptable for required closure.

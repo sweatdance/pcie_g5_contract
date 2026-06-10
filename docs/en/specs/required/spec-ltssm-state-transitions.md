@@ -29,6 +29,13 @@ description: Required-scope LTSSM legality and state machine visibility
 - Run command: `python scripts/run_fixture_smoke.py --suite pcie-ltssm --format json`
 - Regression confirmation: `python scripts/run_regression_smoke.py --suite required --format json`
 
+## Validation
+
+- Required-gate acceptance requires a nominal LTSSM path with:
+  - `overall_status = pass`
+  - `suites.pcie-ltssm.status = pass`
+  - `ltssm_trace_summary.illegal_transition_count = 0`
+
 ## Key evidence fields
 
 - `ltssm_final_state`
@@ -63,6 +70,7 @@ description: Required-scope LTSSM legality and state machine visibility
 - Use this page for required-gate questions on LTSSM legality.
 - Never mix advisory evidence into required-gate assertions.
 - If evidence shows legal transitions are incomplete, report `required_gate_ready` as not satisfied.
+- Missing or ambiguous final-state fields should be treated as `blocked` even if suite count is otherwise green.
 
 ## Consumer response template
 

@@ -23,7 +23,7 @@ This page summarizes current contract maturity and evidence boundaries for AI/ag
 
 - Use `artifacts/validation/*` and `fixtures/fixture_manifest.json` as source-of-truth.
 - Keep advisory counts visible as advisory-only even when fixtures exist.
-- Fixture routing and smoke outputs are the only evidence anchor for this site’s maturity wording.
+- Fixture routing and smoke outputs are the only evidence anchor for this site; maturity updates are declared only after evidence refresh.
 
 ## Contract decision outputs
 
