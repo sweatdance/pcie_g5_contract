@@ -48,28 +48,30 @@ plugins:
 
 nav:
   - Home: index.md
-  - Documentation: en/index.md
-  - Contract Surface:
-      - Reference Overview: en/contract-mapping.md
-      - LLM Policy: en/llm-wiki.md
-      - Consumer Integration: en/consumer-integration.md
-      - Glossary & Mapping: en/glossary-and-mapping.md
-  - Specification Library:
-      - Index: en/specs/index.md
-      - Required:
+  - Reference:
+      - PCIe Gen5 Topic Index: en/index.md
+      - Required Link-Training:
           - LTSSM State Transitions: en/specs/required/spec-ltssm-state-transitions.md
           - LTSSM Checklist: en/specs/required/spec-ltssm-checklist.md
           - Link Equalization Rules: en/specs/required/spec-link-equalization-rules.md
           - Speed and Width Negotiation: en/specs/required/spec-speed-width-negotiation.md
           - Recovery and Fallback: en/specs/required/spec-recovery-and-fallback.md
-      - Advisory:
+      - Advisory PCIe Topics:
           - Power Management: en/specs/advisory/spec-power-management.md
           - AER Rules: en/specs/advisory/spec-aer-rules.md
           - DLL Rules: en/specs/advisory/spec-dll-rules.md
           - TLP Rules: en/specs/advisory/spec-tlp-rules.md
           - Hot-Plug Rules: en/specs/advisory/spec-hotplug-rules.md
           - Config Space: en/specs/advisory/spec-config-space.md
-      - Artifacts:
+      - Reference & Governance:
+          - Specification Library: en/specs/index.md
+          - Consumer Integration: en/consumer-integration.md
+          - Verification Status: en/verification-status.md
+          - Release Notes: en/release-notes.md
+          - Evidence Surface: en/evidence-grid.md
+          - Reference Overview: en/contract-mapping.md
+          - LLM Policy: en/llm-wiki.md
+          - Glossary & Mapping: en/glossary-and-mapping.md
           - Spec-to-Contract Mapping: en/specs/spec-contract-mapping.md
           - Spec Surface Matrix: en/specs/spec-surface-matrix.md
           - Glossary for LLM: en/specs/spec-glossary-for-llm.md
@@ -78,10 +80,6 @@ nav:
           - Release Notes: en/specs/spec-release-notes.md
           - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
           - Spec Coverage Audit: en/specs/spec-coverage-audit.md
-  - Evidence & Verification:
-      - Verification Status: en/verification-status.md
-      - Release Notes: en/release-notes.md
-      - Evidence Surface: en/evidence-grid.md
   - Source Docs:
       - LLM_WIKI.md: LLM_WIKI.md
       - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md

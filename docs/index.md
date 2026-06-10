@@ -1,85 +1,69 @@
 ---
 title: PCIe Gen5 LTSSM Contract Reference
-description: LLM-facing wiki for governed PCIe Gen5 LTSSM and link-training evidence review
+description: Topic index for governed PCIe Gen5 LTSSM and link-training evidence review
 ---
-
-<section class="reference-hero">
 
 # PCIe Gen5 LTSSM Contract Reference
 
-LLM-facing wiki for PCIe Gen5 LTSSM, equalization, speed/width negotiation, and RTL evidence review.
+> Scope: this wiki is a governed topic index for PCIe Gen5 LTSSM, equalization, speed/width negotiation, and downstream RTL evidence review.
 
-<p class="claim-line">
-claim_level: required_gate_ready for scoped link-training surfaces; advisory_expansion for diagnostics; full PCIe protocol compliance is not claimed.
-</p>
-
-<div class="reference-actions">
-  <a href="en/specs/index.md" class="reference-action primary">Specification Library</a>
-  <a href="en/consumer-integration.md" class="reference-action">Consumer Integration</a>
-  <a href="en/verification-status.md" class="reference-action">Verification Status</a>
-</div>
-
-</section>
+claim_level: `required_gate_ready` for scoped link-training surfaces, `advisory_expansion` for diagnostic surfaces, full PCIe protocol compliance not claimed.
 
 ## Wiki Goal
 
-This wiki exists to make the PCIe Gen5 contract usable by reviewers, RTL teams, and LLM agents without turning partial evidence into full-protocol claims.
+This wiki helps reviewers, RTL teams, and LLM agents find the correct PCIe contract topic before making a claim.
 
-It provides:
+It exists to answer five practical questions:
 
-- a governed surface map for required and advisory PCIe review slices
-- stable entry points for LTSSM/link-training evidence review
-- consumer rules for downstream RTL repositories
-- machine-readable references for contract, fixture, and manifest tooling
-- claim boundaries that prevent LLMs from inventing unverified PCIe behavior
+- Which PCIe surface is being discussed?
+- Is the surface required-gate, advisory, or not claimed?
+- Which source document defines the rule boundary?
+- Which fixture or smoke output can support the answer?
+- What must an LLM or downstream CI consumer avoid claiming?
 
-## Primary References
+## Required Link-Training Topics
 
-<div class="reference-grid">
-  <a class="reference-card" href="en/specs/required/spec-ltssm-state-transitions.md">
-    <strong>LTSSM State Transitions</strong>
-    <span>Required gate for legal state movement and final-state evidence.</span>
-  </a>
-  <a class="reference-card" href="en/specs/required/spec-link-equalization-rules.md">
-    <strong>Equalization Rules</strong>
-    <span>Required gate for Gen5 equalization completion and lane evidence.</span>
-  </a>
-  <a class="reference-card" href="en/specs/required/spec-speed-width-negotiation.md">
-    <strong>Speed & Width Negotiation</strong>
-    <span>Required gate for negotiated speed, width, downtrain, and fallback rationale.</span>
-  </a>
-  <a class="reference-card" href="en/specs/spec-contract-mapping.md">
-    <strong>Contract Mapping</strong>
-    <span>Surface-to-source routing for all required and advisory pages.</span>
-  </a>
-  <a class="reference-card" href="en/specs/spec-surface-matrix.md">
-    <strong>Surface Matrix</strong>
-    <span>One-page table of claim level, fixture suite, gate use, and status.</span>
-  </a>
-  <a class="reference-card" href="en/specs/spec-coverage-audit.md">
-    <strong>Coverage Audit</strong>
-    <span>Index and mapping alignment report for the published spec pages.</span>
-  </a>
-</div>
+These pages are the hard-gate contract entry points for scoped RTL evidence review.
 
-## Surface Map
+| Topic | Description |
+| --- | --- |
+| [LTSSM State Transitions](en/specs/required/spec-ltssm-state-transitions.md) | Legal LTSSM movement, final-state evidence, illegal-transition checks |
+| [LTSSM Checklist](en/specs/required/spec-ltssm-checklist.md) | Reviewer checklist for LTSSM evidence completeness |
+| [Equalization Rules](en/specs/required/spec-link-equalization-rules.md) | Equalization phase completion, lane failure handling, Gen5 link-training evidence |
+| [Speed & Width Negotiation](en/specs/required/spec-speed-width-negotiation.md) | Negotiated speed, negotiated width, downtrain status, fallback rationale |
+| [Recovery and Fallback](en/specs/required/spec-recovery-and-fallback.md) | Recovery visibility, fallback reason, retrain handling |
 
-| Group | Surfaces | Gate meaning |
-| --- | --- | --- |
-| Required | `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation` | May block required RTL evidence review when fixture evidence supports the claim |
-| Advisory | `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace` | Review and diagnostic context only |
-| Artifacts | mapping, schema, manifest, glossary, release notes | Traceability and machine-readable consumption support |
+## Advisory PCIe Topics
 
-## Read Path
+These pages support investigation and review notes. They are not required gates by default.
 
-1. Start with [Specification Library](en/specs/index.md) to choose the matching surface.
-2. Open [Contract Mapping](en/specs/spec-contract-mapping.md) to trace the source document.
-3. Check [Verification Status](en/verification-status.md) before using any gate result.
-4. Apply [Consumer Integration](en/consumer-integration.md) before wiring a downstream RTL repo.
-5. Use [Evidence Grid](en/evidence-grid.md) to anchor every claim to files and smoke output.
+| Topic | Description |
+| --- | --- |
+| [Power Management](en/specs/advisory/spec-power-management.md) | L-state and D-state context for link-training review |
+| [AER Rules](en/specs/advisory/spec-aer-rules.md) | Error reporting, AER logging, recovery triage |
+| [DLL Rules](en/specs/advisory/spec-dll-rules.md) | DLLP and data-link-layer diagnostic context |
+| [TLP Rules](en/specs/advisory/spec-tlp-rules.md) | Transaction-layer review context and non-gate evidence |
+| [Hot-Plug Rules](en/specs/advisory/spec-hotplug-rules.md) | Surprise-removal, insertion timing, enumeration interaction |
+| [Config Space](en/specs/advisory/spec-config-space.md) | VID/DID reads, BAR sizing, command register and enumeration checks |
 
-## Boundary
+## Reference & Governance
 
-This reference is a governed contract wiki. It does not claim full PCIe compliance, vendor RTL correctness, PCI-SIG certification status, driver behavior, firmware policy, or runtime silicon behavior.
+Use these pages to understand how the topics are mapped, verified, and consumed.
 
-The safest interpretation is: required surfaces can support scoped link-training review; advisory surfaces explain related evidence and risks.
+| Topic | Description |
+| --- | --- |
+| [Specification Library](en/specs/index.md) | Complete required, advisory, and artifact page index |
+| [Contract Mapping](en/specs/spec-contract-mapping.md) | Maps source documents to governed contract surfaces |
+| [Spec Surface Matrix](en/specs/spec-surface-matrix.md) | One-page claim-level and fixture-suite matrix |
+| [Verification Status](en/verification-status.md) | Current evidence posture and required/advisory maturity |
+| [Consumer Integration](en/consumer-integration.md) | Downstream RTL integration contract and command sequence |
+| [Evidence Grid](en/evidence-grid.md) | Claim-to-artifact and smoke-output mapping |
+| [JSON Report Schema](en/specs/spec-json-report-schema.md) | Machine-readable smoke and fixture report fields |
+| [Glossary](en/glossary-and-mapping.md) | Terminology used by this contract and LLM-facing docs |
+| [Coverage Audit](en/specs/spec-coverage-audit.md) | Current page/index/mapping alignment report |
+
+## Important Boundary
+
+This reference is a governed contract wiki, not a PCI-SIG certification claim and not a full PCIe protocol handbook.
+
+Required surfaces can support scoped link-training review. Advisory surfaces explain related evidence and risks. Anything outside those surfaces is `not_claimed` unless a future contract version explicitly adds it.
