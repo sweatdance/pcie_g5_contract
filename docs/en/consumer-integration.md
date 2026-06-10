@@ -54,8 +54,26 @@ python <framework_root>\governance_tools\external_repo_smoke.py \
 4. Publish merged decision artifact:
    `run_regression_smoke --suite all --format json`.
 
+## Contract decision matrix
+
+| Step | Required slice behavior | Advisory slice behavior |
+| --- | --- | --- |
+| Required suite failure | Block downstream CI gate and halt release |
+| Required suite pass | Continue to advisory review |
+| Advisory suite failure | Record warning context; do not auto-block |
+| Advisory suite success | Add traceability note for triage completeness |
+
+## Output artifacts
+
+After each integration run, persist:
+
+- `artifacts/validation/pcie_governance_smoke_required.json`
+- `artifacts/validation/pcie_governance_smoke_advisory.json`
+- `artifacts/validation/pcie_governance_smoke_all.json`
+
 ## Recommended workflow
 
 1. Run required smoke and required fixtures.
 2. Only gate CI on required scope for RTL-required decisions.
 3. Keep advisory results in non-blocking status until explicit validator routing is proven.
+4. Update contract-facing docs only when scope, mapping, or expected outcomes change.

@@ -14,6 +14,16 @@ This page is the practical bridge between spec-domain terms and the contract sur
 - **Recovery/Fallback**: Retain visibility for retrain and fallback behavior
 - **Required slice**: Must be complete before downstream CI gating decisions
 - **Advisory slice**: Useful for reviewer context, not a required gate
+- **Required gate**: A claim path accepted for CI hard-stop.
+- **Advisory signal**: Evidence that informs triage but does not satisfy gate closure.
+- **Fixture routing**: The rule-driven mapping from result entries to contract slice.
+
+## Evidence vocabulary
+
+- **Evidence complete**: All required fields for a surface are present and consistent with expected fixture status.
+- **Evidence partial**: Field presence is incomplete or ambiguous across fixtures.
+- **Hard stop**: A required slice condition that fails and blocks downstream CI.
+- **Review-only context**: An advisory failure that does not block required gate status.
 
 ## Source map to contract surfaces
 
@@ -34,3 +44,12 @@ This page is the practical bridge between spec-domain terms and the contract sur
 
 - For governance decisions, use **surface mapping first**, then check the corresponding fixture scope.
 - For implementation help, use this repo as a boundary-aware index and stay within the required scope when making completion claims.
+
+## Navigation pattern
+
+1. Start from symptom or term in source docs.
+2. Resolve to governance surface (`pcie-ltssm`, `pcie-eq`, etc.).
+3. Read the corresponding `docs/en/specs/...` page.
+4. Validate via the matching suite:
+   - required surface -> `run_fixture_smoke.py --suite required`
+   - advisory surface -> `run_fixture_smoke.py --suite advisory`
