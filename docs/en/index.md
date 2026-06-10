@@ -115,6 +115,40 @@ When status documents change, follow this order:
 3. Keep claim ceiling text unchanged unless proof is fully refreshed.
 4. Record closeout evidence in `memory/` before push.
 
+## LLM decision envelope
+
+For every upstream pull request or automation summary, emit:
+
+```json
+{
+  "decision": "pass|warn|blocked",
+  "scope": "required|advisory|both",
+  "required_slice_status": {
+    "pcie-ltssm": "pass|fail|not_run",
+    "pcie-eq": "pass|fail|not_run",
+    "pcie-link-negotiation": "pass|fail|not_run"
+  },
+  "advisory_notices": [
+    {
+      "slice": "pcie-pm|pcie-aer|pcie-dll|pcie-tlp|pcie-hotplug|pcie-cfgspace",
+      "status": "pass|warn|issue",
+      "blocking": false
+    }
+  ]
+}
+```
+
+If any required slice is `fail`, set `decision=blocked`.
+If required passes and advisory has issues, set `decision=warn`.
+If required and advisory both pass, set `decision=pass`.
+
+## Evidence freshness checklist
+
+- Last evidence source must include `run_fixture_smoke.py` and `run_regression_smoke.py`.
+- Required and advisory suite outputs must use `--format json`.
+- `docs/LLM_VERIFICATION_STATUS.md` must be updated before publication.
+- `memory/YYYY-MM-DD.md` must include a post-push governance entry for the same commit range.
+
 ## Command quick start
 
 ```powershell
