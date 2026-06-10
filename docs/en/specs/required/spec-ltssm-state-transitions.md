@@ -5,26 +5,44 @@ description: Required-scope LTSSM legality and state machine visibility
 
 # LTSSM State Transitions
 
+## Status
+
+- Contract surface: `pcie-ltssm`
+- Claim level: `required_gate_ready`
+- Source completeness: **required page**
+- Default policy: eligible for required-gate workflows when smoke evidence is aligned.
+
 ## Scope
 
-- Contract slice: `pcie-ltssm`
-- Claim level: `required_gate_ready`
-- Canonical source: `docs/PCIE5_LTSSM_STATE_TRANSITIONS.md`
-- Evidence mode: required fixture/regression path
+- Final state and transition-legality verification for link training.
+- Recovery-visible paths are reported as review context.
 
 ## Canonical mapping
 
-- [LTSSM state transition source](../../../PCIE5_LTSSM_STATE_TRANSITIONS.md)
-- [Contract slice mapping reference](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md) (Slice 1)
-- [LTSSM checklist source](../../../PCIE5_LTSSM_CHECKLIST.md)
+- Required source: [`PCIE5_LTSSM_STATE_TRANSITIONS.md`](../../../PCIE5_LTSSM_STATE_TRANSITIONS.md)
+- Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 1](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
+- Reviewer check index: [`PCIE5_LTSSM_CHECKLIST.md`](../../../PCIE5_LTSSM_CHECKLIST.md)
 
-## Coverage status snapshot
+## Required validator surface
 
-- Fixture suite: required (`pcie-ltssm`)
-- Pass/Fail pattern follows required gate alignment rules in this repo.
-- Status policy: only required-surface claims are used for CI gates; advisory-only evidence is not merged into this boundary.
+- Fixture suite: `pcie-ltssm`
+- Run command: `python scripts/run_fixture_smoke.py --suite pcie-ltssm --format json`
+- Regression confirmation: `python scripts/run_regression_smoke.py --suite required --format json`
 
-## Notes for consumers
+## Key evidence fields
 
-Use this page as the first landing for any question requiring LTSSM transition legality, illegal-transition detection, or final-state legality checks.
-For policy-safe gating, combine this with the required EQ and link-negotiation slices.
+- `ltssm_final_state`
+- `ltssm_trace_summary.illegal_transition_count`
+- `ltssm_trace_summary.visited_states`
+- `ltssm_trace_summary.reached_recovery`
+
+## Decision guidance
+
+- Use this page for required-gate questions on LTSSM legality.
+- Never mix advisory evidence into required-gate assertions.
+- If evidence shows legal transitions are incomplete, report `required_gate_ready` as not satisfied.
+
+## Open scope
+
+- Add fixture-by-failure examples for common illegal transitions.
+- Add path-template cards for the most common recovery loops.

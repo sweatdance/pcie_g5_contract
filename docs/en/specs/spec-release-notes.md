@@ -5,12 +5,22 @@ description: Spec-facing release milestones and governance checkpoints
 
 # Release Notes
 
-## Source
+## Status
 
-- [release-notes.md](../../../release-notes.md)
-- [RELEASE_NOTES_v0.3.0.md](../../../RELEASE_NOTES_v0.3.0.md)
+- Type: artifact index
+- Source completeness: source-linked page
 
-## Governance note
+## Purpose
 
-- Release entries may include governance posture changes, but only evidence-backed claims are policy-safe.
-- For completion boundaries, prefer `docs/en/verification-status.md` and `docs/LLM_VERIFICATION_STATUS.md`.
+- Track when governance surface additions affect downstream behavior.
+- Keep completion claims traceable across versions.
+
+## Sources
+
+- [`release-notes.md`](../../../release-notes.md)
+- [`RELEASE_NOTES_v0.3.0.md`](../../../RELEASE_NOTES_v0.3.0.md)
+
+## Consumption rule
+
+- Completion statements must use evidence-backed sources.
+- Claims about status boundary changes should first be checked against `docs/LLM_VERIFICATION_STATUS.md` and `docs/en/verification-status.md`.

@@ -39,5 +39,15 @@ All listed surfaces are reachable from the navigation tree and linked to canonic
 - Required pages: done
 - Advisory pages: done
 - Artifact pages: done
-- Source-copy depth: pending (source markdown remains authoritative; portal pages are structured indices for now)
-Use the status flag to track whether detailed rendered pages are complete in this portal or still source-link-only.
+- Source-copy depth: required pages are now expanded with validation entrypoints and decision guidance.
+
+## How to consume this library
+
+- Start in `Required` for LTSSM/link-training gate decisions.
+- Use `Advisory` for investigation and root-cause paths.
+- Use `Artifacts` when you need boundary references and integration rules.
+
+## Completion policy
+
+- Do not use advisory pages to close required-gate status.
+- Use rule IDs in source specs as the evidence anchor for each review response.

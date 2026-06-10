@@ -5,19 +5,43 @@ description: Advisory PM / ASPM governance slice
 
 # Power Management
 
+## Status
+
+- Contract surface: `pcie-pm`
+- Claim level: `advisory_expansion`
+- Source completeness: **advisory page**
+
 ## Scope
 
-- Contract slice: `pcie-pm`
-- Claim level: `advisory_expansion`
-- Canonical source: `docs/PCIE5_POWER_MANAGEMENT.md`
+- PM/ASPM sequencing, PM_REQ_ACK timing, and PM lifecycle risks during enumeration.
+- Advisory evidence only unless explicitly reclassified by a downstream consumer.
 
 ## Canonical mapping
 
-- [Power management source](../../../PCIE5_POWER_MANAGEMENT.md)
-- [Contract mapping crosswalk](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md) (Slice 5)
+- Required source: [`PCIE5_POWER_MANAGEMENT.md`](../../../PCIE5_POWER_MANAGEMENT.md)
+- Mapping entry: [`PCIE5_SPEC_TO_CONTRACT_MAPPING.md` Slice 5](../../../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
+- Rule IDs: `PCIE5-PM-001` .. `PCIE5-PM-017`
 
-## Coverage view
+## Key fields to inspect
 
-- Fixture scope: advisory (`pcie-pm`)
-- Advisory visibility is important for review and regression triage, but not a required hard-gate input by default.
-- Evidence may include AER/PM timing and ASPM sequencing.
+- `enumeration_complete`
+- `pm_l1_observed`
+- `aspm_enabled_by_cfgwr`
+- `pm_request_ack_in_enum_window`
+- `pm_l1_before_enum_complete` / advisory alias
+- `l1_substate_mode`
+
+## Validation entrypoints
+
+- Fixture suite: `pcie-pm`
+- Run command: `python scripts/run_fixture_smoke.py --suite pcie-pm --format json`
+- Required smoke: `python scripts/run_regression_smoke.py --suite advisory --format json`
+
+## Decision guidance
+
+- Use this for root-cause review and advisory warnings.
+- For hard stop in this repo, this page supports downstream interpretation but does not by itself produce required-gate claims.
+
+## Open scope
+
+- Add explicit examples for D-state and ASPM hard-stop versus warn patterns.

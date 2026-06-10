@@ -5,11 +5,26 @@ description: Downstream integration contract and boundary rules
 
 # Consumer Integration Contract
 
-## Source
+## Status
 
-- [CONSUMER_INTEGRATION_CONTRACT.md](../../../CONSUMER_INTEGRATION_CONTRACT.md)
+- Type: artifact index
+- Source completeness: source-linked page
 
 ## Scope
 
-- This artifact defines what downstream RTL repos may treat as hard boundary vs review context.
-- Keep this contract as the source-of-truth for external integration claims.
+- Defines how downstream RTL consumers should interpret required vs advisory slices.
+- Describes expected claim discipline for CI, review, and triage contexts.
+
+## Canonical source
+
+- [`CONSUMER_INTEGRATION_CONTRACT.md`](../../../CONSUMER_INTEGRATION_CONTRACT.md)
+
+## Decision matrix
+
+- Required gate consumers: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`
+- Advisory consumers: `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace`
+- Required assertions must be backed by required fixture and regression suites.
+
+## Open scope
+
+- Link examples for each downstream repo profile (strict/safe/observability).
