@@ -70,6 +70,10 @@ description: Advisory configuration-space access and enumeration boundary
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-cfgspace",

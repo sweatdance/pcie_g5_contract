@@ -77,7 +77,7 @@ description: Required-scope speed/width negotiation evidence and policy
 ## Consumer response template
 
 ```markdown
---8<-- "required-decision-response-template.txt"
+--8<-- "../snippets/required-decision-response-template.txt"
 ```
 
 ```json

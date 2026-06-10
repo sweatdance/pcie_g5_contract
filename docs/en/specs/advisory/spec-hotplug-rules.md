@@ -71,6 +71,10 @@ description: Advisory hot-plug lifecycle and timing visibility
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-hotplug",
