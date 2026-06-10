@@ -1,24 +1,118 @@
 :root {
-  --pcie-bg: #f3f7fb;
-  --pcie-primary: #0b5fff;
-  --pcie-primary-2: #2f78ff;
+  --pcie-bg: #f7f8fb;
+  --pcie-primary: #1f6feb;
+  --pcie-primary-2: #0969da;
   --pcie-surface: #ffffff;
-  --pcie-border: #dce6f5;
-  --pcie-text: #10233a;
-  --pcie-text-soft: #3d526f;
+  --pcie-border: #d8dee9;
+  --pcie-text: #172033;
+  --pcie-text-soft: #57606a;
+  --pcie-accent: #0a7f7a;
 }
 
 body {
-  background: radial-gradient(circle at top, #f8fbff 0%, var(--pcie-bg) 40%, #ffffff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--pcie-bg) 52%, #ffffff 100%);
 }
 
 .md-header, .md-tabs {
-  background: #ffffffcc;
-  backdrop-filter: blur(8px);
+  background: #ffffff;
+  color: var(--pcie-text);
+  border-bottom: 1px solid var(--pcie-border);
 }
 
 .md-main__inner {
-  max-width: 1040px;
+  max-width: 1120px;
+}
+
+.reference-hero {
+  padding: 2.8rem 0 1.7rem;
+  border-bottom: 1px solid var(--pcie-border);
+  margin-bottom: 1.5rem;
+}
+
+.reference-hero h1 {
+  max-width: 820px;
+  margin: 0 0 0.65rem;
+  font-size: 2.55rem;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.reference-hero > p:not(.claim-line) {
+  max-width: 780px;
+  margin: 0;
+  color: var(--pcie-text-soft);
+  font-size: 1.05rem;
+}
+
+.claim-line {
+  max-width: 880px;
+  margin: 1rem 0 0;
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--pcie-accent);
+  color: var(--pcie-text);
+  font-size: 0.86rem;
+}
+
+.reference-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.reference-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.1rem;
+  padding: 0.38rem 0.78rem;
+  border: 1px solid var(--pcie-border);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--pcie-text) !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.reference-action.primary {
+  border-color: var(--pcie-primary);
+  background: var(--pcie-primary);
+  color: #ffffff !important;
+}
+
+.reference-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0 1.6rem;
+}
+
+.reference-card {
+  display: block;
+  min-height: 7rem;
+  padding: 1rem;
+  border: 1px solid var(--pcie-border);
+  border-radius: 8px;
+  background: var(--pcie-surface);
+  color: var(--pcie-text) !important;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.reference-card:hover {
+  border-color: var(--pcie-primary);
+  transform: translateY(-1px);
+}
+
+.reference-card strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--pcie-text);
+  font-size: 0.98rem;
+}
+
+.reference-card span {
+  color: var(--pcie-text-soft);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .hero-shell {
@@ -44,10 +138,9 @@ body {
 }
 
 .hero-card {
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid var(--pcie-border);
   background: #fff;
-  box-shadow: 0 8px 18px #0b20470f;
   padding: 0.85rem 1rem;
   color: var(--pcie-text);
   font-size: 0.94rem;
@@ -84,17 +177,16 @@ body {
 }
 
 .feature-card {
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid var(--pcie-border);
   background: var(--pcie-surface);
-  box-shadow: 0 10px 25px #0b20470f;
   padding: 1rem 1.1rem;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: border-color 120ms ease, transform 120ms ease;
 }
 
 .feature-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px #0b204726;
+  border-color: var(--pcie-primary);
 }
 
 .md-typeset .feature-card p {
@@ -139,6 +231,27 @@ body {
   .md-main__inner {
     margin: 0 0.4rem;
     max-width: 100%;
+  }
+
+  .reference-hero {
+    padding: 1.8rem 0 1.1rem;
+  }
+
+  .reference-hero h1 {
+    font-size: 1.85rem;
+  }
+
+  .reference-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .reference-action {
+    justify-content: center;
+  }
+
+  .reference-grid {
+    grid-template-columns: 1fr;
   }
 
   .feature-grid {

@@ -1,183 +1,119 @@
 ---
-title: PCIe Gen5 LTSSM Contract Reference
-description: Governed reference for RTL evidence and automation-facing contract guidance
+title: PCIe Gen5 LTSSM Contract Wiki
+description: Governed wiki for PCIe Gen5 LTSSM and link-training evidence review
 ---
 
-<section class="hero-shell">
+<section class="reference-hero">
 
-# PCIe Gen5 LTSSM Contract Reference
+# PCIe Gen5 LTSSM Contract Wiki
 
-Structured governance content for **required** versus **advisory** scope, optimized for RTL integration and LLM automation.
+A governed reference wiki for RTL evidence review, contract integration, and LLM-safe PCIe Gen5 link-training answers.
 
-<div class="hero-tags">
-  <span class="hero-tag">Scope-boundary-first</span>
-  <span class="hero-tag">Evidence-driven</span>
-  <span class="hero-tag">RTL integration ready</span>
+<p class="claim-line">
+Goal: help consumers find the right contract surface, required evidence, validation command, and claim ceiling before making an RTL or automation decision.
+</p>
+
+<div class="reference-actions">
+  <a href="specs/index.md" class="reference-action primary">Open Specification Library</a>
+  <a href="consumer-integration.md" class="reference-action">Downstream Contract</a>
+  <a href="verification-status.md" class="reference-action">Evidence Status</a>
 </div>
 
 </section>
 
-## What this site is
+## What This Wiki Is For
 
-- This is a governed **reference portal** for contract navigation and evidence workflows.
-- This repository is scoped to **PCIe 5.0 LTSSM and link-training** for review and automation.
-- It is not a full protocol compliance handbook and does not claim driver/runtime behavior completeness.
+This wiki is the first stop for interpreting the `pcie_g5_contract` repository. It turns the raw contract files, fixtures, source spec notes, and governance rules into a browsable reference for:
 
-## Governance status at a glance
+- RTL reviewers checking PCIe Gen5 LTSSM and link-training evidence
+- downstream repositories consuming the contract through CI or agent workflows
+- LLM agents that need a bounded source of truth before producing summaries
+- maintainers tracking which surfaces are required, advisory, mapped, or not claimed
 
-### What can be required-gated today
+It is intentionally scoped. Required pages support link-training contract review; advisory pages support investigation and expansion planning.
 
-`pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation` are the current required-gate surfaces.
+## Start Here
 
-They can be used as hard boundaries only when:
-
-- contract surface claims are within documented scope
-- fixture/smoke evidence exists for the corresponding suite
-- downstream integration contract is accepted for that callsite
-
-### What is advisory only
-
-- PM
-- AER
-- DLL
-- TLP
-- Hot-Plug
-- CFG
-
-These surfaces are visible for investigation and expansion work, but they must not be used as full protocol-completion substitutes.
-
-### Claim ceiling
-
-- **Required** = evidence-backed hard boundary for RTL review automation.
-- **Advisory** = partial guidance with no mandatory gate effect.
-- **Source copy** = the canonical PCIe spec/contract artifacts in repo root (preferred traceability source).
-
-## Entry points
-
-- [Consumer Integration](consumer-integration.md): mandatory onboarding workflow for downstream RTL.
-- [LLM Wiki](../LLM_WIKI.md): claim boundaries and policy language.
-- [Verification Status](../LLM_VERIFICATION_STATUS.md): slice-level maturity and evidence posture.
-- [Contract Mapping](contract-mapping.md): source mapping from review artifacts to contract surfaces.
-- [Evidence Grid](evidence-grid.md): what proves what, where.
-
-## Non-goals and anti-patterns
-
-Use this list to avoid over-claiming:
-
-- Do not imply full PCIe stack completion from this repo.
-- Do not mark advisory surface failures as required-gate blockers.
-- Do not skip fixture evidence when asserting contract readiness.
-- Do not infer behavior without mapping to a declared rule source and scope.
-
-<div class="feature-grid">
-<div class="feature-card">
-
-### Required scope first
-
-Use `pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation` as the required evidence foundation.  
-These are the only surfaces used by default for downstream required-gate automation.
-
-</div>
-<div class="feature-card">
-
-### Advisory support
-
-PM/AER/DLL/TLP/Hot-Plug/CFG are visible for investigation, but they are **not** equivalent to required protocol completion.
-
-</div>
-<div class="feature-card">
-
-### Machine-readable entry
-
-- `contract.yaml`
-- `fixtures/fixture_manifest.json`
-- `exports/pcie_governed_surface_manifest.yaml`
-- `memory/` trace and evidence records
-
-</div>
+<div class="reference-grid">
+  <a class="reference-card" href="specs/index.md">
+    <strong>Specification Library</strong>
+    <span>All required pages, advisory pages, and governance artifacts in one navigation tree.</span>
+  </a>
+  <a class="reference-card" href="consumer-integration.md">
+    <strong>Consumer Integration</strong>
+    <span>Minimum downstream RTL workflow, scope guard, and command sequence.</span>
+  </a>
+  <a class="reference-card" href="verification-status.md">
+    <strong>Verification Status</strong>
+    <span>Current maturity and evidence posture for required and advisory slices.</span>
+  </a>
+  <a class="reference-card" href="contract-mapping.md">
+    <strong>Contract Mapping</strong>
+    <span>Routes questions from a PCIe topic to contract surface and source file.</span>
+  </a>
+  <a class="reference-card" href="evidence-grid.md">
+    <strong>Evidence Grid</strong>
+    <span>Explains which files and smoke outputs can support each claim.</span>
+  </a>
+  <a class="reference-card" href="glossary-and-mapping.md">
+    <strong>Glossary & Mapping</strong>
+    <span>Terminology guardrails for consistent human and LLM responses.</span>
+  </a>
 </div>
 
-## Recommended read path
+## Required Surfaces
 
-1. [Consumer Integration](consumer-integration.md): confirm scope and mandatory sequence.
-2. [LLM Wiki](../LLM_WIKI.md): load claim policy and anti-pattern checklist.
-3. [Verification Status](../LLM_VERIFICATION_STATUS.md): read decision behavior and required/advisory outcomes.
-4. [Contract Mapping](contract-mapping.md): trace question to a contract surface.
-5. [Specification Library](specs/index.md): read required/advisory page details.
-6. [Evidence Grid](evidence-grid.md): align every claim with concrete source files and runbook.
+These are the only default hard-gate surfaces in this contract profile.
 
-## Evidence refresh pattern
+| Page | Contract surface | Evidence intent |
+| --- | --- | --- |
+| [LTSSM State Transitions](specs/required/spec-ltssm-state-transitions.md) | `pcie-ltssm` | state legality and final state |
+| [LTSSM Checklist](specs/required/spec-ltssm-checklist.md) | `pcie-ltssm` | reviewer checklist completion |
+| [Equalization Rules](specs/required/spec-link-equalization-rules.md) | `pcie-eq` | equalization phase completion |
+| [Speed & Width Negotiation](specs/required/spec-speed-width-negotiation.md) | `pcie-link-negotiation` | negotiated speed, width, downtrain rationale |
+| [Recovery and Fallback](specs/required/spec-recovery-and-fallback.md) | `pcie-ltssm` | recovery visibility and fallback explanation |
 
-When status documents change, follow this order:
+## Advisory Surfaces
 
-1. Run contract-relevant smoke.
-2. Update `docs/LLM_VERIFICATION_STATUS.md`.
-3. Keep claim ceiling text unchanged unless proof is fully refreshed.
-4. Record closeout evidence in `memory/` before push.
+Advisory pages are useful for diagnosis, but they do not become required gates unless a future contract version explicitly promotes them.
 
-## LLM decision envelope
+| Page | Contract surface | Typical use |
+| --- | --- | --- |
+| [Power Management](specs/advisory/spec-power-management.md) | `pcie-pm` | L1/L2/L3 and D-state review context |
+| [AER Rules](specs/advisory/spec-aer-rules.md) | `pcie-aer` | error logging and recovery triage |
+| [DLL Rules](specs/advisory/spec-dll-rules.md) | `pcie-dll` | DLLP and link-layer diagnosis |
+| [TLP Rules](specs/advisory/spec-tlp-rules.md) | `pcie-tlp` | transaction-layer review context |
+| [Hot-Plug Rules](specs/advisory/spec-hotplug-rules.md) | `pcie-hotplug` | surprise-removal and enumeration timing |
+| [Config Space](specs/advisory/spec-config-space.md) | `pcie-cfgspace` | VID/DID, BAR, and enumeration checks |
 
-For every upstream pull request or automation summary, emit:
+## Claim Discipline
 
-```json
-{
-  "decision": "pass|warn|blocked",
-  "scope": "required|advisory|both",
-  "required_slice_status": {
-    "pcie-ltssm": "pass|fail|not_run",
-    "pcie-eq": "pass|fail|not_run",
-    "pcie-link-negotiation": "pass|fail|not_run"
-  },
-  "advisory_notices": [
-    {
-      "slice": "pcie-pm|pcie-aer|pcie-dll|pcie-tlp|pcie-hotplug|pcie-cfgspace",
-      "status": "pass|warn|issue",
-      "blocking": false
-    }
-  ]
-}
-```
+| Claim class | Meaning | Allowed response |
+| --- | --- | --- |
+| `required_gate_ready` | Fixture-backed required scope for LTSSM/EQ/link negotiation | Can support scoped RTL gate decisions |
+| `advisory_expansion` | Documented diagnostic surface with partial or non-blocking evidence | Can support warnings and review notes |
+| `not_claimed` | Outside the repository contract | Must not be inferred by LLM or CI consumers |
 
-If any required slice is `fail`, set `decision=blocked`.
-If required passes and advisory has issues, set `decision=warn`.
-If required and advisory both pass, set `decision=pass`.
+This wiki does not claim PCIe full-stack compliance, PCI-SIG certification, driver correctness, runtime silicon behavior, SR-IOV, ATS, DPC, or complete transaction-layer coverage.
 
-## Evidence freshness checklist
-
-- Last evidence source must include `run_fixture_smoke.py` and `run_regression_smoke.py`.
-- Required and advisory suite outputs must use `--format json`.
-- `docs/LLM_VERIFICATION_STATUS.md` must be updated before publication.
-- `memory/YYYY-MM-DD.md` must include a post-push governance entry for the same commit range.
-
-## Command quick start
+## Quick Evidence Commands
 
 ```powershell
-python -X utf8 <framework_root>\governance_tools\external_repo_readiness.py `
-  --repo <target-rtl-repo> `
-  --contract <pcie_contract_root>\contract.yaml `
-  --framework-root <framework_root> `
-  --format json
-
-python <pcie_contract_root>\scripts\run_fixture_smoke.py `
-  --framework-root <framework_root> `
-  --contract-root <pcie_contract_root> `
-  --suite required --format json
-
-python <framework_root>\governance_tools\external_repo_smoke.py `
-  --repo <pcie_contract_root> `
-  --contract <pcie_contract_root>\contract.yaml `
-  --framework-root <framework_root> `
-  --format json
+python scripts/run_regression_smoke.py --suite required --format json
+python scripts/run_fixture_smoke.py --suite required --format json
+python scripts/run_regression_smoke.py --suite all --format json
 ```
 
-!!! danger "Claim discipline"
-    If required-surface final-state fields are missing, do not assert completed protocol claims.
+Use `--suite required` before making a hard-gate statement. Use `--suite advisory` or `--suite all` only to add non-blocking diagnostic context.
 
-## Source index
+## LLM Response Rule
 
-- [LLM Wiki (source)](../LLM_WIKI.md)
-- [Verification status source](../LLM_VERIFICATION_STATUS.md)
-- [Consumer contract source](../CONSUMER_INTEGRATION_CONTRACT.md)
-- [Contract scope matrix source](../PCIE5_SPEC_TO_CONTRACT_MAPPING.md)
+When an agent answers from this wiki, it should name:
 
-Use this portal as the first place to orient downstream agents and reviewers before opening raw sources.
+1. the contract surface
+2. the claim class
+3. the evidence source
+4. the validation command or receipt
+5. the non-claim boundary
+
+If any required field is missing, the answer should be `blocked` or `warn`, not `pass`.
