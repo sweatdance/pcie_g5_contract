@@ -1,0 +1,36 @@
+# PCIe Gen5 LTSSM Contract Reference
+site_name: "PCIe Gen5 LTSSM Contract"
+site_description: "Governed reference for LTSSM and link-training contract slices"
+site_author: "PCIe G5 Contract Team"
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: indigo
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+    - search.suggest
+  language: en
+nav:
+  - Home: en/index.md
+  - Consumer Integration: en/consumer-integration.md
+  - LLM Wiki: en/llm-wiki.md
+  - Verification: en/verification-status.md
+  - Contract Mapping: en/contract-mapping.md
+  - Release Notes: en/release-notes.md
+  - Raw Contract Docs:
+      - LLM Wiki Source: LLM_WIKI.md
+      - Verification Status Source: LLM_VERIFICATION_STATUS.md
+      - Consumer Contract Source: CONSUMER_INTEGRATION_CONTRACT.md
+      - Glossary: PCIE5_GLOSSARY_FOR_LLM.md
+      - Spec Mapping: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+extra_css:
+  - assets/styles.css
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - toc:
+      permalink: true

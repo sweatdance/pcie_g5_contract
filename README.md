@@ -46,6 +46,17 @@ Non-scope:
 - docs/LLM_VERIFICATION_STATUS.md: visibility summary for slice maturity and fixture coverage
 - docs/CONSUMER_INTEGRATION_CONTRACT.md: integration rules for downstream RTL repos
 - exports/pcie_governed_surface_manifest.yaml: governed surface manifest for automated consumption
+- docs/en/: generated documentation website source used for LLM-first navigation
+
+## Documentation Site
+
+- GitHub Pages (LLM-first): `https://sweatdance.github.io/pcie_g5_contract/en/` (after Pages enabled and workflow run)
+- Local preview:
+
+```powershell
+python -m pip install mkdocs mkdocs-material
+mkdocs serve
+```
 
 ## CI
 
