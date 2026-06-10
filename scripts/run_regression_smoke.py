@@ -38,6 +38,7 @@ def main() -> int:
     sys.path.insert(0, str(contract_root / "scripts"))
     sys.path.insert(0, str(framework_root))
 
+    from check_fixture_smoke_receipt import check as check_receipt
     from governance_tools.external_repo_smoke import format_human as format_external_human
     from governance_tools.external_repo_smoke import run_external_repo_smoke
     from run_fixture_smoke import format_human as format_fixture_human
@@ -45,7 +46,13 @@ def main() -> int:
 
     fixture_payload = run_fixture_smoke(contract_root, framework_root, suite=args.suite)
     external_result = run_external_repo_smoke(contract_root, contract_file=contract_root / "contract.yaml")
-    overall_ok = fixture_payload["ok"] and external_result.ok
+
+    receipt_path = contract_root / "artifacts" / "validation" / "fixture-smoke-receipt.json"
+    manifest_path = contract_root / "fixtures" / "fixture_manifest.json"
+    receipt_failures = check_receipt(receipt_path, manifest_path)
+    receipt_ok = len(receipt_failures) == 0
+
+    overall_ok = fixture_payload["ok"] and external_result.ok and receipt_ok
 
     if args.format == "json":
         print(
@@ -65,6 +72,10 @@ def main() -> int:
                         "warnings": external_result.warnings,
                         "errors": external_result.errors,
                     },
+                    "receipt_freshness": {
+                        "ok": receipt_ok,
+                        "failures": receipt_failures,
+                    },
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -78,6 +89,11 @@ def main() -> int:
     print(format_fixture_human(fixture_payload))
     print("[external_repo_smoke]")
     print(format_external_human(external_result))
+    print("[receipt_freshness]")
+    if receipt_ok:
+        print("ok=True")
+    else:
+        print(f"ok=False  failures={receipt_failures}")
     return 0 if overall_ok else 1
 
 
