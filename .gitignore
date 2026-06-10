@@ -18,3 +18,6 @@ artifacts/codeburn_closeout_ingest.db
 artifacts/governance/runtime_phase_summary.json
 artifacts/session-index.ndjson
 artifacts/session/
+
+# Framework clone used for local smoke test runs (checked out by CI, not committed)
+ai-governance-framework/
