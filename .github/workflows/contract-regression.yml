@@ -18,17 +18,17 @@ jobs:
       FRAMEWORK_REF: main
     steps:
       - name: Checkout contract repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout framework repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ env.FRAMEWORK_REPOSITORY }}
           ref: ${{ env.FRAMEWORK_REF }}
           path: ai-governance-framework
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -46,14 +46,14 @@ jobs:
 
       - name: Upload required fixture smoke receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fixture-smoke-receipt-required
           path: artifacts/validation/fixture-smoke-receipt.json
 
       - name: Upload required smoke report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: contract-regression-smoke-report-required
           path: regression-smoke-report-required.json
@@ -65,17 +65,17 @@ jobs:
       FRAMEWORK_REF: main
     steps:
       - name: Checkout contract repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout framework repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ env.FRAMEWORK_REPOSITORY }}
           ref: ${{ env.FRAMEWORK_REF }}
           path: ai-governance-framework
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -95,14 +95,14 @@ jobs:
 
       - name: Upload advisory fixture smoke receipt
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fixture-smoke-receipt-advisory
           path: artifacts/validation/fixture-smoke-receipt-advisory.json
 
       - name: Upload advisory smoke report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: contract-regression-smoke-report-advisory
           path: regression-smoke-report-advisory.json
