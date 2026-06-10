@@ -1,0 +1,931 @@
+{
+  "schema_version": "1.0",
+  "artifact_type": "fixture_smoke_receipt",
+  "created_utc": "2026-06-10T09:27:45.470260Z",
+  "suite": "all",
+  "ok": true,
+  "contract_root": ".",
+  "framework_root": "..\\ai-governance-framework",
+  "fixture_count": 24,
+  "selected_fixture_count": 24,
+  "results": [
+    {
+      "file": "smoke_compliant.checks.json",
+      "description": "Nominal Gen5 LTSSM training reaches L0 with complete equalization evidence",
+      "maturity_tier": "required_gate.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_noncompliant_illegal_transition.checks.json",
+      "description": "Illegal LTSSM transition summary must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "illegal_transition_count"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Illegal LTSSM transitions reported: illegal_transition_count=1"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Illegal LTSSM transitions reported: illegal_transition_count=1 (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_downtrained_missing_reason.checks.json",
+      "description": "Downtrained result without fallback reason must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "fallback_reason"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 2
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Downtraining requires fallback_reason",
+        "domain-validator:pcie_ltssm_json_validator: downtrained is true, but both negotiated width and speed match target values"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Downtraining requires fallback_reason (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> downtrained is true, but both negotiated width and speed match target values (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_equalization_failed.checks.json",
+      "description": "Incomplete equalization evidence must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "Equalization did not complete"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Equalization failed phases reported: ['phase2']",
+        "domain-validator:pcie_ltssm_json_validator: Lane failures reported: ['lane7 preset convergence failed']",
+        "domain-validator:pcie_ltssm_json_validator: Equalization did not complete successfully"
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Equalization did not complete successfully (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_width_mismatch_unexpected.checks.json",
+      "description": "Unexpected negotiated width mismatch must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "target width"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Negotiated width does not match target width without explicit degraded-width expectation: target=16, negotiated=8"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Negotiated width does not match target width without explicit degraded-width expectation: target=16, negotiated=8 (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_missing_ltssm_trace.checks.json",
+      "description": "Missing LTSSM trace summary must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "ltssm_trace_summary"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 2
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Missing required report keys: ltssm_trace_summary",
+        "domain-validator:pcie_ltssm_json_validator: ltssm_trace_summary must be an object"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Missing required report keys: ltssm_trace_summary (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> ltssm_trace_summary must be an object (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_schema_version_mismatch.checks.json",
+      "description": "Unsupported schema version must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "schema_version"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Unsupported schema_version: '0.9'; expected '1.0'"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Unsupported schema_version: '0.9'; expected '1.0' (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_retry_without_recovery.checks.json",
+      "description": "Retry count without recovery trigger must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "retry_count"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: retry_count is non-zero while recovery_triggered is false"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> retry_count is non-zero while recovery_triggered is false (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_noncompliant_equalization_missing_phase.checks.json",
+      "description": "Equalization marked complete but missing a nominal phase must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "missing nominal phases"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Equalization marked complete but missing nominal phases: ['phase3']"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> Equalization marked complete but missing nominal phases: ['phase3'] (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_compliant_degraded_width_expected.checks.json",
+      "description": "Expected degraded width with reason should remain review-visible but pass validation",
+      "maturity_tier": "required_gate.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Negotiated width differs from target width as expected: target=16, negotiated=8, reason=board routing intentionally limits the endpoint to x8",
+        "domain-validator:pcie_ltssm_json_validator: Downtraining reported: platform topology intentionally wires only x8 lanes"
+      ],
+      "errors": []
+    },
+    {
+      "file": "smoke_compliant_lane_failure_with_explanation.checks.json",
+      "description": "Lane failures with explicit explanatory notes should remain valid and review-visible",
+      "maturity_tier": "required_gate.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: Lane failures reported: ['lane7 preset convergence failed during an earlier retry']",
+        "domain-validator:pcie_ltssm_json_validator: Lane failures were reported even though equalization_complete is true"
+      ],
+      "errors": []
+    },
+    {
+      "file": "smoke_noncompliant_recovery_trace_mismatch.checks.json",
+      "description": "Recovery trace summary inconsistent with visited states must fail validator",
+      "maturity_tier": "required_gate.trigger_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-ltssm",
+        "pcie-eq",
+        "pcie-link-negotiation"
+      ],
+      "expected_trigger_keywords": [
+        "reached_recovery"
+      ],
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_ltssm_json_validator",
+          "pcie_slices": [
+            "pcie-ltssm",
+            "pcie-eq",
+            "pcie-link-negotiation"
+          ],
+          "ok": false,
+          "violations": 2
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_ltssm_json_validator: ltssm_trace_summary.reached_recovery is inconsistent with visited_states",
+        "domain-validator:pcie_ltssm_json_validator: recovery_triggered is true, but ltssm_trace_summary.reached_recovery is false"
+      ],
+      "errors": [
+        "failure-completeness: Missing failure completeness evidence: failure-path signal",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> ltssm_trace_summary.reached_recovery is inconsistent with visited_states (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_ltssm_json_validator -> recovery_triggered is true, but ltssm_trace_summary.reached_recovery is false (rules: pcie-eq,pcie-link-negotiation,pcie-ltssm)"
+      ]
+    },
+    {
+      "file": "smoke_pm_compliant.checks.json",
+      "description": "PM L1 after enumeration complete with ASPM enabled via CfgWr should pass PM validator",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_pm_json_validator",
+          "pcie_slices": [
+            "pcie-pm"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_pm_noncompliant_l1_before_enum.checks.json",
+      "description": "PM L1 before enumeration complete with PM_Request_Ack in window must fail PM validator",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_pm_json_validator",
+          "pcie_slices": [
+            "pcie-pm"
+          ],
+          "ok": false,
+          "violations": 2
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_pm_json_validator: pm_l1_timestamp should be provided when pm_l1_observed = true",
+        "domain-validator:pcie_pm_json_validator: aspm_enable_timestamp should be provided when aspm_enabled_by_cfgwr = true",
+        "domain-validator:pcie_pm_json_validator: PCIE5-PM-001: PM_Active_State_Request_L1 observed before enumeration was complete (no VID/DID CfgRd 0x000 confirmed). PM L1 must not interrupt enumeration.",
+        "domain-validator:pcie_pm_json_validator: PCIE5-PM-003: PM_Request_Ack sent by host downstream port while new device enumeration was not yet complete. Host ACKed L1 during the critical enumeration window."
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_pm_json_validator -> PCIE5-PM-001: PM_Active_State_Request_L1 observed before enumeration was complete (no VID/DID CfgRd 0x000 confirmed). PM L1 must not interrupt enumeration. (rules: pcie-pm)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_pm_json_validator -> PCIE5-PM-003: PM_Request_Ack sent by host downstream port while new device enumeration was not yet complete. Host ACKed L1 during the critical enumeration window. (rules: pcie-pm)"
+      ]
+    },
+    {
+      "file": "smoke_hotplug_compliant.checks.json",
+      "description": "Hot-plug PASS scenario: 8.7s gap, ASPM disabled, GL9767 at 5G should pass hot-plug validator",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_hotplug_json_validator",
+          "pcie_slices": [
+            "pcie-hotplug"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_hotplug_noncompliant_fast_mux.checks.json",
+      "description": "Fast MUX switch (6us) with PM L1 before enum and stale AER must fail hot-plug validator",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_hotplug_json_validator",
+          "pcie_slices": [
+            "pcie-hotplug"
+          ],
+          "ok": false,
+          "violations": 3
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-004: time_surprise_down_to_first_cfgrd_ms=5.5ms is below the recommended minimum of 500.0ms. OS hot-plug remove sequence may not have completed before new device enumeration started.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-006: Upstream TS1 advertises 16.0 GT/s but new device max is 5.0 GT/s. Possible MUX switching artifact or residual signal from previous device.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-001: PM_Active_State_Request_L1 observed before new device enumeration was complete (before first CfgRd 0x000 VID/DID). PM L1 must not interrupt enumeration.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-002: PM_Request_Ack sent by host downstream port before new device VID/DID was read. Host ACKed L1 during the critical enumeration window.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-003: AER status registers were not cleared before new device enumeration. Stale AER error bits from the previous device removal must be cleared first."
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_hotplug_json_validator -> PCIE5-HP-001: PM_Active_State_Request_L1 observed before new device enumeration was complete (before first CfgRd 0x000 VID/DID). PM L1 must not interrupt enumeration. (rules: pcie-hotplug)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_hotplug_json_validator -> PCIE5-HP-002: PM_Request_Ack sent by host downstream port before new device VID/DID was read. Host ACKed L1 during the critical enumeration window. (rules: pcie-hotplug)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_hotplug_json_validator -> PCIE5-HP-003: AER status registers were not cleared before new device enumeration. Stale AER error bits from the previous device removal must be cleared first. (rules: pcie-hotplug)"
+      ]
+    },
+    {
+      "file": "smoke_cfgspace_compliant.checks.json",
+      "description": "Compliant GL9767 config space: VID/DID present, MSI enabled, LTR and L1 PM Substates configured",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-cfgspace"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_cfgspace_json_validator",
+          "pcie_slices": [
+            "pcie-cfgspace"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_cfgspace_noncompliant_no_vidpid.checks.json",
+      "description": "Noncompliant: VID/DID never observed (FFFF:FFFF) but enumeration claimed complete",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-cfgspace"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_cfgspace_json_validator",
+          "pcie_slices": [
+            "pcie-cfgspace"
+          ],
+          "ok": false,
+          "violations": 3
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-002: bar_sizing_observed=false but enumeration_sequence_complete=true. BAR sizing probe (CfgWr FFFFFFFF → CfgRd → CfgWr address) evidence is missing.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-003: capability_chain_traversed=false; PCIe Extended Capability pointer should be read before any extended capability (offset >= 0x100) is accessed.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-004: link_control_read_before_write=false; Link Control (0x090) write was not preceded by a read. Bare write risks overwriting ASPM, speed, or width bits.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-005: bus_master_enabled=false; Bus Master Enable (Command bit2) must be set before any DMA (device-initiated MRd/MWr) is expected.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-012: subsystem_vidpid_read=false; Subsystem VID/ID (CfgRd 0x02C) was not observed during enumeration. Platform-level device identity is unconfirmed.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-001: enumeration_sequence_complete=true but vidpid_read_observed=false. VID/DID CfgRd 0x000 is mandatory before claiming enumeration complete.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-006: memory_space_enabled=false but enumeration_sequence_complete=true. Memory Space Enable (Command bit1) must be set before MRd/MWr to BAR space.",
+        "domain-validator:pcie_cfgspace_json_validator: PCIE5-CFG-013: class_code_value is all-zeros or all-F; device class cannot be determined. Verify CfgRd 0x008 returned a valid class code."
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_cfgspace_json_validator -> PCIE5-CFG-001: enumeration_sequence_complete=true but vidpid_read_observed=false. VID/DID CfgRd 0x000 is mandatory before claiming enumeration complete. (rules: pcie-cfgspace)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_cfgspace_json_validator -> PCIE5-CFG-006: memory_space_enabled=false but enumeration_sequence_complete=true. Memory Space Enable (Command bit1) must be set before MRd/MWr to BAR space. (rules: pcie-cfgspace)",
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_cfgspace_json_validator -> PCIE5-CFG-013: class_code_value is all-zeros or all-F; device class cannot be determined. Verify CfgRd 0x008 returned a valid class code. (rules: pcie-cfgspace)"
+      ]
+    },
+    {
+      "file": "smoke_pm_compliant_d3hot.checks.json",
+      "description": "Compliant PM: D3hot with Transactions Pending=0, Trst observed, L1 PM Substates configured",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-pm"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_pm_json_validator",
+          "pcie_slices": [
+            "pcie-pm"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_pm_json_validator: pm_l1_timestamp should be provided when pm_l1_observed = true",
+        "domain-validator:pcie_pm_json_validator: aspm_enable_timestamp should be provided when aspm_enabled_by_cfgwr = true",
+        "domain-validator:pcie_pm_json_validator: vidpid_read_timestamp should be provided when enumeration_complete = true",
+        "domain-validator:pcie_pm_json_validator: PCIE5-PM-005: l1_cycle_count=4 > 3 after enumeration; excessive idle timer sensitivity may warrant review."
+      ],
+      "errors": []
+    },
+    {
+      "file": "smoke_hotplug_noncompliant_cmd_without_completed.checks.json",
+      "description": "Noncompliant hot-plug: SlotCtl written before CommandCompleted, T_Power_Up=50ms",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-hotplug"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_hotplug_json_validator",
+          "pcie_slices": [
+            "pcie-hotplug"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-009: t_power_up_ms=50.0ms is below 100ms minimum. PERST# must not be de-asserted until slot power has been stable for ≥100ms.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-012: dllsc_triggered_enumeration=false but new device CfgRd was seen; DLLSC (Slot Status bit8) should be the trigger for starting enumeration.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-014: attention_indicator_cleared_after_enum=false; Attention Indicator should be set to Off after successful hot-add enumeration.",
+        "domain-validator:pcie_hotplug_json_validator: PCIE5-HP-011: command_completed_before_next_cmd=false. A Slot Control write was issued before the previous CommandCompleted=1 in Slot Status. This is a spec violation that can cause the HPC state machine to malfunction."
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_hotplug_json_validator -> PCIE5-HP-011: command_completed_before_next_cmd=false. A Slot Control write was issued before the previous CommandCompleted=1 in Slot Status. This is a spec violation that can cause the HPC state machine to malfunction. (rules: pcie-hotplug)"
+      ]
+    },
+    {
+      "file": "smoke_aer_compliant.checks.json",
+      "description": "Compliant AER: Surprise Down logged, registers cleared, low correctable count",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-aer"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_aer_json_validator",
+          "pcie_slices": [
+            "pcie-aer"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_aer_noncompliant_surprise_not_logged.checks.json",
+      "description": "Noncompliant AER: Surprise Down not logged and registers not cleared before new enumeration",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-aer"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": false,
+      "actual_ok": false,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_aer_json_validator",
+          "pcie_slices": [
+            "pcie-aer"
+          ],
+          "ok": false,
+          "violations": 1
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [
+        "domain-validator:pcie_aer_json_validator: PCIE5-AER-005: surprise_down_observed=true but aer_registers_cleared=false. Stale AER status bits (Reg=0x104, 0x110) will affect next enumeration session.",
+        "domain-validator:pcie_aer_json_validator: PCIE5-AER-003: surprise_down_observed=true but aer_surprise_down_logged=false. Surprise Down Error (AER Uncorrectable bit5) must be logged to be diagnosable."
+      ],
+      "errors": [
+        "runtime-policy: Domain policy stop requested by hard_stop_rules: pcie_aer_json_validator -> PCIE5-AER-003: surprise_down_observed=true but aer_surprise_down_logged=false. Surprise Down Error (AER Uncorrectable bit5) must be logged to be diagnosable. (rules: pcie-aer)"
+      ]
+    },
+    {
+      "file": "smoke_dll_compliant.checks.json",
+      "description": "Compliant DLL: InitFC both directions, no NAK, UpdateFC observed, no REPLAY_NUM rollover",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-dll"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_dll_json_validator",
+          "pcie_slices": [
+            "pcie-dll"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "file": "smoke_tlp_compliant.checks.json",
+      "description": "Compliant TLP: no non-SC completions, no Poisoned TLP, no BAR violations",
+      "maturity_tier": "advisory_expansion.routing_verified",
+      "expected_rule_ids": [
+        "common",
+        "pcie-tlp"
+      ],
+      "expected_trigger_keywords": null,
+      "expected_ok": true,
+      "actual_ok": true,
+      "matched_expectation": true,
+      "routing_ok": true,
+      "routing_miss": [],
+      "violation_keyword_ok": true,
+      "violation_keyword_miss": [],
+      "actual_validators": [
+        {
+          "name": "pcie_tlp_json_validator",
+          "pcie_slices": [
+            "pcie-tlp"
+          ],
+          "ok": true,
+          "violations": 0
+        }
+      ],
+      "domain_validator_count": 1,
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "selected_fixtures": [
+    "smoke_compliant.checks.json",
+    "smoke_noncompliant_illegal_transition.checks.json",
+    "smoke_noncompliant_downtrained_missing_reason.checks.json",
+    "smoke_noncompliant_equalization_failed.checks.json",
+    "smoke_noncompliant_width_mismatch_unexpected.checks.json",
+    "smoke_noncompliant_missing_ltssm_trace.checks.json",
+    "smoke_noncompliant_schema_version_mismatch.checks.json",
+    "smoke_noncompliant_retry_without_recovery.checks.json",
+    "smoke_noncompliant_equalization_missing_phase.checks.json",
+    "smoke_compliant_degraded_width_expected.checks.json",
+    "smoke_compliant_lane_failure_with_explanation.checks.json",
+    "smoke_noncompliant_recovery_trace_mismatch.checks.json",
+    "smoke_pm_compliant.checks.json",
+    "smoke_pm_noncompliant_l1_before_enum.checks.json",
+    "smoke_hotplug_compliant.checks.json",
+    "smoke_hotplug_noncompliant_fast_mux.checks.json",
+    "smoke_cfgspace_compliant.checks.json",
+    "smoke_cfgspace_noncompliant_no_vidpid.checks.json",
+    "smoke_pm_compliant_d3hot.checks.json",
+    "smoke_hotplug_noncompliant_cmd_without_completed.checks.json",
+    "smoke_aer_compliant.checks.json",
+    "smoke_aer_noncompliant_surprise_not_logged.checks.json",
+    "smoke_dll_compliant.checks.json",
+    "smoke_tlp_compliant.checks.json"
+  ]
+}
