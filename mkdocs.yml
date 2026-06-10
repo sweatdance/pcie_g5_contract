@@ -9,19 +9,9 @@ repo_name: sweatdance/pcie_g5_contract
 theme:
   name: material
   palette:
-    - media: "(prefers-color-scheme)"
-      primary: blue
-      accent: cyan
-      toggle:
-        icon: material/lightbulb
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      primary: blue grey
-      accent: cyan
-      scheme: slate
-      toggle:
-        icon: material/lightbulb-outline
-        name: Switch to light mode
+    scheme: default
+    primary: grey
+    accent: blue
   font:
     text: Source Sans 3
     code: Source Code Pro
@@ -29,13 +19,11 @@ theme:
     repo: fontawesome/brands/github
     logo: material/server
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
     - navigation.instant
     - navigation.path
     - navigation.tracking
-    - toc.integrate
     - content.tabs.link
     - content.code.copy
     - search.suggest

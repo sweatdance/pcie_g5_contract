@@ -1,26 +1,75 @@
 :root {
-  --pcie-bg: #f7f8fb;
-  --pcie-primary: #1f6feb;
-  --pcie-primary-2: #0969da;
+  --md-primary-fg-color: #ffffff;
+  --md-primary-bg-color: #24292f;
+  --md-accent-fg-color: #3451b2;
+  --md-typeset-a-color: #3451b2;
+  --pcie-bg: #ffffff;
+  --pcie-sidebar: #f6f6f7;
+  --pcie-primary: #3451b2;
+  --pcie-primary-2: #2b459f;
   --pcie-surface: #ffffff;
-  --pcie-border: #d8dee9;
-  --pcie-text: #172033;
-  --pcie-text-soft: #57606a;
-  --pcie-accent: #0a7f7a;
+  --pcie-border: #e2e2e3;
+  --pcie-text: #24292f;
+  --pcie-text-soft: #5f6368;
+  --pcie-accent: #6f42c1;
 }
 
 body {
-  background: linear-gradient(180deg, #ffffff 0%, var(--pcie-bg) 52%, #ffffff 100%);
+  background: var(--pcie-bg);
 }
 
 .md-header, .md-tabs {
   background: #ffffff;
   color: var(--pcie-text);
   border-bottom: 1px solid var(--pcie-border);
+  box-shadow: none;
+}
+
+.md-header__title,
+.md-header__button,
+.md-header__topic,
+.md-header__ellipsis {
+  color: var(--pcie-text);
+}
+
+.md-search__form {
+  background-color: #f0f0f1;
+  border: 1px solid #d7d7d9;
+  box-shadow: none;
+}
+
+.md-search__input,
+.md-search__icon {
+  color: var(--pcie-text);
 }
 
 .md-main__inner {
-  max-width: 1120px;
+  max-width: 1180px;
+}
+
+.md-sidebar--primary {
+  background: var(--pcie-sidebar);
+  border-right: 1px solid var(--pcie-border);
+}
+
+.md-nav__title {
+  background: var(--pcie-sidebar);
+  color: var(--pcie-text);
+  box-shadow: none;
+}
+
+.md-nav__link {
+  color: #3f4654;
+}
+
+.md-nav__link--active,
+.md-nav__link:hover {
+  color: var(--pcie-primary);
+}
+
+.md-nav__item--section > .md-nav__link {
+  color: var(--pcie-text);
+  font-weight: 700;
 }
 
 .hero-shell {
@@ -74,7 +123,7 @@ body {
   padding: 0.2rem 0.7rem;
   font-size: 0.72rem;
   color: var(--pcie-text);
-  background: #e9f0ff;
+  background: #f3f3f4;
 }
 
 .feature-grid {
@@ -105,7 +154,19 @@ body {
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3 {
-  letter-spacing: 0.01em;
+  color: var(--pcie-text);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.md-typeset h1 {
+  font-size: 2.15rem;
+}
+
+.md-typeset h2 {
+  border-top: 1px solid var(--pcie-border);
+  margin-top: 2.2rem;
+  padding-top: 1.35rem;
 }
 
 .md-typeset code {
@@ -114,7 +175,7 @@ body {
 
 .md-typeset pre > code {
   border-left: 3px solid var(--pcie-primary);
-  background: linear-gradient(to right, #f7faff, #f2f6ff);
+  background: #f6f8fa;
 }
 
 .md-typeset table {
@@ -135,12 +196,12 @@ body {
 }
 
 .md-typeset .admonition {
-  border-radius: 10px;
-  border: 1px solid #d3e1ff;
+  border-radius: 6px;
+  border: 1px solid var(--pcie-border);
 }
 
 .md-typeset .admonition-title {
-  background: #edf3ff;
+  background: #f6f6f7;
 }
 
 @media screen and (max-width: 700px) {
