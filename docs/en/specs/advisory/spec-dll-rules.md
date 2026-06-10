@@ -71,6 +71,10 @@ description: Advisory data link-layer event visibility slice
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-dll",

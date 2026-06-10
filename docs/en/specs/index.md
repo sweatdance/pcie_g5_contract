@@ -62,6 +62,7 @@ This section mirrors a full-reference navigation pattern and exposes every PCIe 
 - [Spec Surface Matrix](spec-surface-matrix.md)
 - [Glossary for LLM](spec-glossary-for-llm.md)
 - [JSON Report Schema](spec-json-report-schema.md)
+- [Spec Coverage Audit](spec-coverage-audit.md)
 - [Release Notes](spec-release-notes.md)
 - [Consumer Integration (contract)](spec-consumer-integration-contract.md)
 

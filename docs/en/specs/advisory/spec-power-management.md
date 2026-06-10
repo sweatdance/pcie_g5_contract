@@ -70,6 +70,10 @@ description: Advisory PM / ASPM governance slice
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-pm",

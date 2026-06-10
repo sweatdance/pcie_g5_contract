@@ -72,6 +72,10 @@ description: Advisory error handling and AER register management slice
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-aer",

@@ -71,6 +71,10 @@ description: Advisory transaction-layer evidence slice
 
 ## Consumer response template
 
+```markdown
+--8<-- "../snippets/advisory-decision-response-template.txt"
+```
+
 ```json
 {
   "slice": "pcie-tlp",

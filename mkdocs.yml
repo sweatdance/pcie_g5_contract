@@ -76,6 +76,7 @@ nav:
           - Advisory Failure Playbook: en/specs/spec-advisory-failure-playbook.md
           - Release Notes: en/specs/spec-release-notes.md
           - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
+          - Spec Coverage Audit: en/specs/spec-coverage-audit.md
   - Evidence & Verification:
       - Verification Status: en/verification-status.md
       - Release Notes: en/release-notes.md
