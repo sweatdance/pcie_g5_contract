@@ -1,0 +1,133 @@
+:root {
+  --pcie-bg: #f3f7fb;
+  --pcie-primary: #0b5fff;
+  --pcie-primary-2: #2f78ff;
+  --pcie-surface: #ffffff;
+  --pcie-border: #dce6f5;
+  --pcie-text: #10233a;
+  --pcie-text-soft: #3d526f;
+}
+
+body {
+  background: radial-gradient(circle at top, #f8fbff 0%, var(--pcie-bg) 40%, #ffffff 100%);
+}
+
+.md-header, .md-tabs {
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+}
+
+.md-main__inner {
+  max-width: 1040px;
+}
+
+.hero-shell {
+  margin: 1rem 0 1.2rem;
+}
+
+.hero-shell h1 {
+  margin-bottom: 0.25rem;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.hero-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+.hero-card {
+  border-radius: 12px;
+  border: 1px solid var(--pcie-border);
+  background: #fff;
+  box-shadow: 0 8px 18px #0b20470f;
+  padding: 0.85rem 1rem;
+  color: var(--pcie-text);
+  font-size: 0.94rem;
+}
+
+.hero-tag {
+  border: 1px solid var(--pcie-border);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.72rem;
+  color: var(--pcie-text);
+  background: #e9f0ff;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.feature-card {
+  border-radius: 12px;
+  border: 1px solid var(--pcie-border);
+  background: var(--pcie-surface);
+  box-shadow: 0 10px 25px #0b20470f;
+  padding: 1rem 1.1rem;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px #0b204726;
+}
+
+.md-typeset .feature-card p {
+  margin: 0.2rem 0 0;
+  color: var(--pcie-text-soft);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: 0.01em;
+}
+
+.md-typeset code {
+  border-radius: 0.35rem;
+}
+
+.md-typeset pre > code {
+  border-left: 3px solid var(--pcie-primary);
+  background: linear-gradient(to right, #f7faff, #f2f6ff);
+}
+
+.md-typeset table {
+  display: table;
+}
+
+.md-typeset table th,
+.md-typeset table td {
+  white-space: nowrap;
+}
+
+.md-typeset .admonition {
+  border-radius: 10px;
+  border: 1px solid #d3e1ff;
+}
+
+.md-typeset .admonition-title {
+  background: #edf3ff;
+}
+
+@media screen and (max-width: 700px) {
+  .md-main__inner {
+    margin: 0 0.4rem;
+    max-width: 100%;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}

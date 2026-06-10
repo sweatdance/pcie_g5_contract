@@ -1,4 +1,17 @@
 {
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": [
+    "rtl_pcie_tests::test_pm_advisory_compliant"
+  ],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "failure_test_validation": {
+    "coverage": {
+      "failure_path": {
+        "count": 1
+      }
+    }
+  },
   "checks": {
     "pcie_pm_report": {
       "schema_version": "1.0",

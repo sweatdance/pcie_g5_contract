@@ -1,0 +1,80 @@
+version: 0.1.0
+contract_name: pcie-gen5-full-protocol
+claim_ceiling:
+  - complete: [pcie-ltssm, pcie-eq, pcie-link-negotiation]
+  - advisory: [pcie-pm, pcie-aer, pcie-dll, pcie-tlp, pcie-hotplug, pcie-cfgspace]
+surfaces:
+  - id: pcie-ltssm
+    claim_level: complete
+    rules: [pcie-ltssm]
+    docs:
+      - docs/PCIE5_LTSSM_STATE_TRANSITIONS.md
+      - docs/PCIE5_LTSSM_CHECKLIST.md
+      - docs/PCIE5_LINK_EQUALIZATION_RULES.md
+      - docs/PCIE5_SPEED_WIDTH_NEGOTIATION.md
+    manifest_reference:
+      required: true
+      examples: [smoke_compliant.checks.json, smoke_noncompliant_illegal_transition.checks.json]
+  - id: pcie-link-negotiation
+    claim_level: complete
+    rules: [pcie-link-negotiation, pcie-eq]
+    docs:
+      - docs/PCIE5_LINK_EQUALIZATION_RULES.md
+      - docs/PCIE5_SPEED_WIDTH_NEGOTIATION.md
+    manifest_reference:
+      required: true
+      examples: [smoke_noncompliant_width_mismatch_unexpected.checks.json, smoke_compliant_degraded_width_expected.checks.json]
+  - id: pcie-pm
+    claim_level: advisory
+    rules: [pcie-pm]
+    docs:
+      - docs/PCIE5_POWER_MANAGEMENT.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_pm_compliant.checks.json, smoke_pm_noncompliant_l1_before_enum.checks.json]
+  - id: pcie-aer
+    claim_level: advisory
+    rules: [pcie-aer]
+    docs:
+      - docs/PCIE5_AER_RULES.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_aer_compliant.checks.json, smoke_aer_noncompliant_surprise_not_logged.checks.json]
+  - id: pcie-dll
+    claim_level: advisory
+    rules: [pcie-dll]
+    docs:
+      - docs/PCIE5_DLL_RULES.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_dll_compliant.checks.json]
+  - id: pcie-tlp
+    claim_level: advisory
+    rules: [pcie-tlp]
+    docs:
+      - docs/PCIE5_TLP_RULES.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_tlp_compliant.checks.json]
+  - id: pcie-hotplug
+    claim_level: advisory
+    rules: [pcie-hotplug]
+    docs:
+      - docs/PCIE5_HOTPLUG_RULES.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_hotplug_compliant.checks.json, smoke_hotplug_noncompliant_fast_mux.checks.json]
+  - id: pcie-cfgspace
+    claim_level: advisory
+    rules: [pcie-cfgspace]
+    docs:
+      - docs/PCIE5_CONFIG_SPACE.md
+      - governance/REVIEW_CRITERIA.md
+    manifest_reference:
+      required: true
+      examples: [smoke_cfgspace_compliant.checks.json, smoke_cfgspace_noncompliant_no_vidpid.checks.json]

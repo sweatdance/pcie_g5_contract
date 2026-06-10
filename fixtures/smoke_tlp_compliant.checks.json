@@ -1,6 +1,19 @@
 {
   "schema_version": "1.0",
   "description": "Compliant TLP: no non-SC completions, no Poisoned TLP, no BAR violations, valid tags",
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": [
+    "rtl_pcie_tests::test_tlp_advisory_compliant"
+  ],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "failure_test_validation": {
+    "coverage": {
+      "failure_path": {
+        "count": 1
+      }
+    }
+  },
   "checks": {
     "pcie_tlp_report": {
       "schema_version": "1.0",

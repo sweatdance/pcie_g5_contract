@@ -1,0 +1,21 @@
+```json
+{
+  "surface": "required",
+  "slice": "<pcie-surface-id>",
+  "suite": "<fixture-suite-id>",
+  "claim_level": "required_gate_ready",
+  "result": "satisfied|warn|blocked",
+  "required_fields": [
+    "<required_field_1>",
+    "<required_field_2>"
+  ],
+  "required_artifacts": [
+    "run_fixture_smoke output",
+    "run_regression_smoke output"
+  ],
+  "evidence_refs": [
+    "docs/en/specs/<related-page>.md",
+    "contracts and fixture manifest"
+  ]
+}
+```

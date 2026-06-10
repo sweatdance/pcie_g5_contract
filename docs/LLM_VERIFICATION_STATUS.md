@@ -1,0 +1,118 @@
+# Verification Status (LLM-Facing)
+
+> This page is a visibility summary, not an automatically regenerated truth source.
+> The governed source is `contract.yaml`, `fixtures/fixture_manifest.json`, and validator scripts.
+
+## 1) Current verification summary
+
+- Last verified run: `python -X utf8 scripts/run_regression_smoke.py --suite all --format json`
+  (this includes required + advisory fixtures in one sweep)
+- Total fixture entries: **24**
+- Expected passing fixtures: **10**
+- Expected failing fixtures: **14**
+- Scope mode:
+  - Required scope: `pcie-ltssm` / `pcie-eq` / `pcie-link-negotiation`
+  - Advisory scope: `pcie-pm` / `pcie-aer` / `pcie-dll` / `pcie-tlp` / `pcie-hotplug` / `pcie-cfgspace`
+- Overall outcome (this run):
+  - Fixture smoke matched expectations: **24 / 24**
+  - Validator routing verified: **24 / 24** (`routing_ok=True` for all slices)
+  - Regression smoke (`run_regression_smoke.py`) overall: **PASSED**
+- External repo smoke (`run_external_repo_smoke`) returned: **ok**
+- External warning of note: advisory runtime smoke emits guidance-level warnings (`Suggested language pack 'python' is not active`, assumption evidence warning); these are non-blocking in current contract mode.
+
+## 2) Coverage by slice
+
+| Slice | Fixtures | Pass | Fail | Claim level | Routing verified |
+| --- | ---: | ---: | ---: | --- | :---: |
+| pcie-ltssm | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-eq | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-link-negotiation | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-pm | 3 | 2 | 1 | advisory_expansion | yes |
+| pcie-hotplug | 3 | 1 | 2 | advisory_expansion | yes |
+| pcie-aer | 2 | 1 | 1 | advisory_expansion | yes |
+| pcie-cfgspace | 2 | 1 | 1 | advisory_expansion | yes |
+| pcie-dll | 1 | 1 | 0 | advisory_expansion | yes |
+| pcie-tlp | 1 | 1 | 0 | advisory_expansion | yes |
+
+Notes:
+- `pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation` are the same required evidence slice set
+  with different rule labels, so counts overlap by design.
+- Required-scope fixtures are all expectation-matching (**12/12**) and remain the only set suitable for CI gate boundary.
+- Advisory slices are also expectation-matching (**12/12**) and now use routed hard-stop policy for their non-compliant fixtures, including CFG-space.
+- **Routing verified** = each fixture's expected pcie-\* slice was confirmed present in the actual validator's `rule_ids` output via `_check_routing()` in `run_fixture_smoke.py`.
+
+Note: pcie-eq and pcie-link-negotiation are part of the completed LTSSM/link-training
+claim surface and are used together with LTSSM required slices.
+
+## 3) Maturity meanings
+
+- **required_gate_ready**: evidence slice is in contract scope, matched fixture expectations, and validator routing is confirmed; acceptable for required CI gates.
+- **advisory_expansion**: review-visible, rule-checked, validator routing confirmed; not yet elevated to required-gate scope. Advisory failures are non-blocking by default.
+- **not_claimed**: not part of this contract's proven completion boundary.
+
+### Routing verified boundary
+
+`routing_ok=True` confirms:
+- This fixture's expected pcie-\* slice was covered by the actual domain validator's `rule_ids`.
+- The correct validator (e.g., `pcie_pm_json_validator` for `pcie-pm`) ran and produced output.
+
+`routing_ok=True` does **not** imply:
+- Full PCIe protocol coverage for that slice.
+- Advisory slices are ready for required-gate promotion.
+- All rules within a slice were exercised.
+
+## 3b) LLM consumption guardrails
+
+- Use the contract only at `required_gate_ready` for CI gate decisions.
+- Use `advisory_expansion` only as review context for policy investigation and false-positive triage.
+- Do not elevate advisory failures into release-blocking criteria unless a consuming repo explicitly reclassifies them in its own governance policy.
+- Do not interpret `routing verified` as `slice fully covered` or `advisory upgraded to required`.
+
+## 4) Update rule for this page
+
+- Update only when `fixtures/fixture_manifest.json`, `contract.yaml`, or rule pack
+  coverage shape changes.
+- Do not infer missing entries as completed unless fixture manifest and claim ceiling
+  are updated together.
+- Required-gate and advisory status must be recalculated from latest `run_regression_smoke.py --suite all --format json`
+  and `run_fixture_smoke.py --suite all --format json` output.
+- Do not promote advisory-expansion fixtures to required-gate status until they produce matched
+  expectation under routed JSON evidence for those rule domains.
+
+## 5) Evidence source locations
+
+- `artifacts/validation/fixture-smoke-receipt.json` — machine-readable per-fixture evidence (maturity_tier, routing_ok, violation_keyword_ok, actual_validators)
+- `fixtures/fixture_manifest.json`
+- `contract.yaml`
+- `docs/*_rules.md`
+- `rules/pcie-*/review.md`
+- `scripts/run_*_smoke.py`
+
+## 6) Receipt maturity tier summary
+
+Generated by `python scripts/run_fixture_smoke.py --suite all`:
+
+| Maturity tier | Count | Meaning |
+| --- | ---: | --- |
+| `required_gate.trigger_verified` | 9 | routing + violation keyword + expectation matched |
+| `required_gate.routing_verified` | 3 | routing + expectation matched (compliant fixtures) |
+| `advisory_expansion.routing_verified` | 12 | routing + expectation matched (advisory scope) |
+
+Note: `trigger_verified` is a substring-match proxy for rule trigger identity, not a structured rule_id assertion.
+To regenerate: `python scripts/run_fixture_smoke.py --suite all --receipt-path artifacts/validation/fixture-smoke-receipt.json`
+
+## 7) Receipt freshness protection
+
+Receipt freshness is checked by `scripts/check_fixture_smoke_receipt.py` and included in
+`run_regression_smoke.py` `overall_ok`. This means:
+
+- A stale receipt (fixture count mismatch, missing result fields, maturity-tier drift) causes
+  the required-gate CI job (`.github/workflows/contract-regression.yml`) to fail.
+- Advisory fixtures promoted to a required-gate tier are caught automatically.
+- `receipt_freshness.ok` appears as a top-level key in the JSON output of `run_regression_smoke.py`.
+
+To run the freshness check standalone:
+
+```
+python scripts/check_fixture_smoke_receipt.py
+```

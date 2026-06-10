@@ -1,0 +1,112 @@
+# PCIe Gen5 LTSSM Contract Reference
+site_name: "PCIe Gen5 LTSSM Contract"
+site_description: "Governed reference for LTSSM and link-training contract slices"
+site_author: "PCIe G5 Contract Team"
+site_url: https://sweatdance.github.io/pcie_g5_contract/
+repo_url: https://github.com/sweatdance/pcie_g5_contract
+repo_name: sweatdance/pcie_g5_contract
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: blue grey
+      accent: cyan
+      scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+  font:
+    text: Source Sans 3
+    code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/server
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - navigation.path
+    - navigation.tracking
+    - toc.integrate
+    - content.tabs.link
+    - content.code.copy
+    - search.suggest
+  language: en
+
+copyright: "PCIe LTSSM contract reference"
+
+plugins:
+  - search
+
+nav:
+  - Home: en/index.md
+  - Contract Surface:
+      - Reference Overview: en/contract-mapping.md
+      - LLM Policy: en/llm-wiki.md
+      - Consumer Integration: en/consumer-integration.md
+      - Glossary & Mapping: en/glossary-and-mapping.md
+  - Specification Library:
+      - Index: en/specs/index.md
+      - Required:
+          - LTSSM State Transitions: en/specs/required/spec-ltssm-state-transitions.md
+          - LTSSM Checklist: en/specs/required/spec-ltssm-checklist.md
+          - Link Equalization Rules: en/specs/required/spec-link-equalization-rules.md
+          - Speed and Width Negotiation: en/specs/required/spec-speed-width-negotiation.md
+          - Recovery and Fallback: en/specs/required/spec-recovery-and-fallback.md
+      - Advisory:
+          - Power Management: en/specs/advisory/spec-power-management.md
+          - AER Rules: en/specs/advisory/spec-aer-rules.md
+          - DLL Rules: en/specs/advisory/spec-dll-rules.md
+          - TLP Rules: en/specs/advisory/spec-tlp-rules.md
+          - Hot-Plug Rules: en/specs/advisory/spec-hotplug-rules.md
+          - Config Space: en/specs/advisory/spec-config-space.md
+      - Artifacts:
+          - Spec-to-Contract Mapping: en/specs/spec-contract-mapping.md
+          - Spec Surface Matrix: en/specs/spec-surface-matrix.md
+          - Glossary for LLM: en/specs/spec-glossary-for-llm.md
+          - JSON Report Schema: en/specs/spec-json-report-schema.md
+          - Advisory Failure Playbook: en/specs/spec-advisory-failure-playbook.md
+          - Release Notes: en/specs/spec-release-notes.md
+          - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
+          - Spec Coverage Audit: en/specs/spec-coverage-audit.md
+  - Evidence & Verification:
+      - Verification Status: en/verification-status.md
+      - Release Notes: en/release-notes.md
+      - Evidence Surface: en/evidence-grid.md
+  - Source Docs:
+      - LLM_WIKI.md: LLM_WIKI.md
+      - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md
+      - CONSUMER_INTEGRATION_CONTRACT.md: CONSUMER_INTEGRATION_CONTRACT.md
+      - PCIE5_GLOSSARY_FOR_LLM.md: PCIE5_GLOSSARY_FOR_LLM.md
+      - PCIE5_JSON_REPORT_SCHEMA.md: PCIE5_JSON_REPORT_SCHEMA.md
+      - PCIE5_SPEC_TO_CONTRACT_MAPPING.md: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+      - PCIE5_AER_RULES.md: PCIE5_AER_RULES.md
+      - PCIE5_CONFIG_SPACE.md: PCIE5_CONFIG_SPACE.md
+      - PCIE5_DLL_RULES.md: PCIE5_DLL_RULES.md
+      - PCIE5_HOTPLUG_RULES.md: PCIE5_HOTPLUG_RULES.md
+      - PCIE5_LINK_EQUALIZATION_RULES.md: PCIE5_LINK_EQUALIZATION_RULES.md
+      - PCIE5_LTSSM_CHECKLIST.md: PCIE5_LTSSM_CHECKLIST.md
+      - PCIE5_LTSSM_STATE_TRANSITIONS.md: PCIE5_LTSSM_STATE_TRANSITIONS.md
+      - PCIE5_POWER_MANAGEMENT.md: PCIE5_POWER_MANAGEMENT.md
+      - PCIE5_RECOVERY_AND_FALLBACK.md: PCIE5_RECOVERY_AND_FALLBACK.md
+      - PCIE5_SPEED_WIDTH_NEGOTIATION.md: PCIE5_SPEED_WIDTH_NEGOTIATION.md
+      - PCIE5_TLP_RULES.md: PCIE5_TLP_RULES.md
+      - RELEASE_NOTES_v0.3.0.md: RELEASE_NOTES_v0.3.0.md
+extra_css:
+  - assets/styles.css
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true

@@ -1,6 +1,19 @@
 {
   "schema_version": "1.0",
   "description": "Noncompliant hot-plug: SlotCtl written before CommandCompleted, no DLLSC trigger, T_Power_Up=50ms",
+  "evidence_kinds": ["domain-validator-result"],
+  "test_names": [
+    "rtl_pcie_tests::test_hotplug_advisory_noncompliant_cmd_without_completed"
+  ],
+  "exception_verified": true,
+  "cleanup_verified": true,
+  "failure_test_validation": {
+    "coverage": {
+      "failure_path": {
+        "count": 1
+      }
+    }
+  },
   "checks": {
     "pcie_hotplug_report": {
       "schema_version": "1.0",

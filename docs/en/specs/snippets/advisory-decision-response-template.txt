@@ -1,0 +1,21 @@
+```json
+{
+  "surface": "advisory",
+  "slice": "<pcie-advisory-surface-id>",
+  "suite": "<fixture-suite-id>",
+  "claim_level": "advisory_expansion",
+  "result": "review_only|watchlist|blocked",
+  "required_fields": [
+    "<required_field_1>",
+    "<required_field_2>"
+  ],
+  "required_artifacts": [
+    "run_fixture_smoke output",
+    "run_regression_smoke output"
+  ],
+  "evidence_refs": [
+    "docs/en/specs/<related-page>.md",
+    "advisory failure playbook"
+  ]
+}
+```
