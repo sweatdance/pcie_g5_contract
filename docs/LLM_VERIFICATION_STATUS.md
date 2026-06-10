@@ -15,44 +15,58 @@
   - Advisory scope: `pcie-pm` / `pcie-aer` / `pcie-dll` / `pcie-tlp` / `pcie-hotplug` / `pcie-cfgspace`
 - Overall outcome (this run):
   - Fixture smoke matched expectations: **24 / 24**
+  - Validator routing verified: **24 / 24** (`routing_ok=True` for all slices)
   - Regression smoke (`run_regression_smoke.py`) overall: **PASSED**
 - External repo smoke (`run_external_repo_smoke`) returned: **ok**
 - External warning of note: advisory runtime smoke emits guidance-level warnings (`Suggested language pack 'python' is not active`, assumption evidence warning); these are non-blocking in current contract mode.
 
 ## 2) Coverage by slice
 
-| Slice | Fixtures | Pass | Fail | Claim level |
-| --- | ---: | ---: | ---: | --- |
-| pcie-ltssm | 12 | 3 | 9 | required_gate_ready |
-| pcie-eq | 12 | 3 | 9 | required_gate_ready |
-| pcie-link-negotiation | 12 | 3 | 9 | required_gate_ready |
-| pcie-pm | 3 | 2 | 1 | advisory_expansion |
-| pcie-hotplug | 3 | 1 | 2 | advisory_expansion |
-| pcie-aer | 2 | 1 | 1 | advisory_expansion |
-| pcie-cfgspace | 2 | 1 | 1 | advisory_expansion |
-| pcie-dll | 1 | 1 | 0 | advisory_expansion |
-| pcie-tlp | 1 | 1 | 0 | advisory_expansion |
+| Slice | Fixtures | Pass | Fail | Claim level | Routing verified |
+| --- | ---: | ---: | ---: | --- | :---: |
+| pcie-ltssm | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-eq | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-link-negotiation | 12 | 3 | 9 | required_gate_ready | yes |
+| pcie-pm | 3 | 2 | 1 | advisory_expansion | yes |
+| pcie-hotplug | 3 | 1 | 2 | advisory_expansion | yes |
+| pcie-aer | 2 | 1 | 1 | advisory_expansion | yes |
+| pcie-cfgspace | 2 | 1 | 1 | advisory_expansion | yes |
+| pcie-dll | 1 | 1 | 0 | advisory_expansion | yes |
+| pcie-tlp | 1 | 1 | 0 | advisory_expansion | yes |
 
 Notes:
 - `pcie-ltssm`, `pcie-eq`, and `pcie-link-negotiation` are the same required evidence slice set
   with different rule labels, so counts overlap by design.
 - Required-scope fixtures are all expectation-matching (**12/12**) and remain the only set suitable for CI gate boundary.
 - Advisory slices are also expectation-matching (**12/12**) and now use routed hard-stop policy for their non-compliant fixtures, including CFG-space.
+- **Routing verified** = each fixture's expected pcie-\* slice was confirmed present in the actual validator's `rule_ids` output via `_check_routing()` in `run_fixture_smoke.py`.
 
 Note: pcie-eq and pcie-link-negotiation are part of the completed LTSSM/link-training
 claim surface and are used together with LTSSM required slices.
 
 ## 3) Maturity meanings
 
-- **required_gate_ready**: evidence slice is in contract scope and matched fixture expectations; acceptable for required CI gates.
-- **advisory_expansion**: review-visible, rule-checked output exists, but routing is not yet proven as hard gate evidence.
+- **required_gate_ready**: evidence slice is in contract scope, matched fixture expectations, and validator routing is confirmed; acceptable for required CI gates.
+- **advisory_expansion**: review-visible, rule-checked, validator routing confirmed; not yet elevated to required-gate scope. Advisory failures are non-blocking by default.
 - **not_claimed**: not part of this contract's proven completion boundary.
+
+### Routing verified boundary
+
+`routing_ok=True` confirms:
+- This fixture's expected pcie-\* slice was covered by the actual domain validator's `rule_ids`.
+- The correct validator (e.g., `pcie_pm_json_validator` for `pcie-pm`) ran and produced output.
+
+`routing_ok=True` does **not** imply:
+- Full PCIe protocol coverage for that slice.
+- Advisory slices are ready for required-gate promotion.
+- All rules within a slice were exercised.
 
 ## 3b) LLM consumption guardrails
 
 - Use the contract only at `required_gate_ready` for CI gate decisions.
 - Use `advisory_expansion` only as review context for policy investigation and false-positive triage.
 - Do not elevate advisory failures into release-blocking criteria unless a consuming repo explicitly reclassifies them in its own governance policy.
+- Do not interpret `routing verified` as `slice fully covered` or `advisory upgraded to required`.
 
 ## 4) Update rule for this page
 

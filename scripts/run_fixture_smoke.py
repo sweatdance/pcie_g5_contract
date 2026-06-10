@@ -27,6 +27,30 @@ def _extract_routing(domain_validator_results: list) -> list[dict]:
     return routing
 
 
+def _collect_all_violations(domain_validator_results: list) -> list[str]:
+    """Flatten all violation strings from all domain validators."""
+    violations = []
+    for dvr in domain_validator_results or []:
+        for v in dvr.get("violations") or []:
+            violations.append(str(v))
+    return violations
+
+
+def _check_violation_keywords(
+    expected_keywords: list[str] | None,
+    all_violations: list[str],
+) -> tuple[bool, list[str]]:
+    """Check that each expected keyword appears in at least one violation string (substring match).
+
+    Only meaningful for noncompliant fixtures (expected_ok=False).
+    Returns (ok, missing_keywords).
+    """
+    if not isinstance(expected_keywords, list) or not expected_keywords:
+        return True, []
+    missing = [kw for kw in expected_keywords if not any(kw in v for v in all_violations)]
+    return len(missing) == 0, missing
+
+
 def _check_routing(expected_rule_ids: list[str] | None, actual_routing: list[dict]) -> tuple[bool, list[str]]:
     """Check that every expected pcie-* slice was covered by at least one actual validator."""
     if not isinstance(expected_rule_ids, list):
@@ -147,17 +171,31 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "a
         matched = bool(result["ok"]) is bool(fixture["expected_ok"])
         actual_routing = _extract_routing(result.get("domain_validator_results") or [])
         routing_ok, routing_miss = _check_routing(rule_ids, actual_routing)
-        overall_ok = overall_ok and matched and routing_ok
+        all_violations = _collect_all_violations(result.get("domain_validator_results") or [])
+        expected_keywords = fixture.get("expected_trigger_keywords")
+        is_required = _classify_suite(rule_ids if isinstance(rule_ids, list) else None) == "required"
+        if not fixture["expected_ok"] and expected_keywords:
+            violation_keyword_ok, keyword_miss = _check_violation_keywords(expected_keywords, all_violations)
+        else:
+            violation_keyword_ok, keyword_miss = True, []
+        # violation_keyword_ok affects overall_ok only for required-gate noncompliant fixtures
+        if is_required:
+            overall_ok = overall_ok and matched and routing_ok and violation_keyword_ok
+        else:
+            overall_ok = overall_ok and matched and routing_ok
         results.append(
             {
                 "file": fixture["file"],
                 "description": fixture.get("description", ""),
                 "expected_rule_ids": rule_ids if isinstance(rule_ids, list) else None,
+                "expected_trigger_keywords": expected_keywords,
                 "expected_ok": fixture["expected_ok"],
                 "actual_ok": result["ok"],
                 "matched_expectation": matched,
                 "routing_ok": routing_ok,
                 "routing_miss": routing_miss,
+                "violation_keyword_ok": violation_keyword_ok,
+                "violation_keyword_miss": keyword_miss,
                 "actual_validators": actual_routing,
                 "domain_validator_count": len(actual_routing),
                 "warnings": (warnings or []) + (result.get("warnings") or []),
@@ -185,7 +223,13 @@ def format_human(payload: dict) -> str:
     ]
     for item in payload["results"]:
         validator_names = ",".join(v["name"] for v in (item.get("actual_validators") or []))
-        routing_flag = "" if item.get("routing_ok", True) else f" | routing_miss={item.get('routing_miss')}"
+        extra = ""
+        if not item.get("routing_ok", True):
+            extra += f" | routing_miss={item.get('routing_miss')}"
+        if not item.get("violation_keyword_ok", True):
+            extra += f" | keyword_miss={item.get('violation_keyword_miss')}"
+        vkw_ok = item.get("violation_keyword_ok", True)
+        kw_label = f" | violation_kw_ok={vkw_ok}" if item.get("expected_trigger_keywords") else ""
         lines.append(
             " | ".join(
                 [
@@ -197,7 +241,8 @@ def format_human(payload: dict) -> str:
                     f"validators=[{validator_names}]",
                 ]
             )
-            + routing_flag
+            + kw_label
+            + extra
         )
         for warning in item["warnings"]:
             lines.append(f"  warning: {warning}")
