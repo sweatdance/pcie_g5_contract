@@ -64,6 +64,10 @@ description: Advisory PM / ASPM governance slice
 | PM before complete | `pm_l1_before_enum_complete` | Enumeration coupling risk | Escalate for platform timing review |
 | Inconsistent PM_REQ_ACK | `pm_l1_before_enum_complete` | Policy misalignment | Add cross-field check before closeout |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json

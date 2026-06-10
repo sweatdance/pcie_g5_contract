@@ -65,6 +65,10 @@ description: Advisory transaction-layer evidence slice
 | UR/CRS mismatch | `cfgrd_without_cpld_observed` | Protocol completion integrity issue | Escalate as advisory blocker |
 | BAR not assigned | `memory_access_to_unassigned_bar` | Direct configuration/driver fault risk | Attach BAR map evidence |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json

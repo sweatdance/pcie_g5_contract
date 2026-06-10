@@ -73,6 +73,7 @@ nav:
           - Spec Surface Matrix: en/specs/spec-surface-matrix.md
           - Glossary for LLM: en/specs/spec-glossary-for-llm.md
           - JSON Report Schema: en/specs/spec-json-report-schema.md
+          - Advisory Failure Playbook: en/specs/spec-advisory-failure-playbook.md
           - Release Notes: en/specs/spec-release-notes.md
           - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
   - Evidence & Verification:

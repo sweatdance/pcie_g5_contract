@@ -64,6 +64,10 @@ description: Advisory configuration-space access and enumeration boundary
 | BAR not ready | `bar_sizing_observed` | Device exposure risk | Validate BAR probing order |
 | Read-before-write skip | `link_control_read_before_write` | Hidden mis-sequencing | Keep advisory warning and inspect logs |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json

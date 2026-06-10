@@ -66,6 +66,10 @@ description: Advisory error handling and AER register management slice
 | Poisoned TLP only | `poisoned_tlp_observed` | Silent packet health risk | Link with platform error log |
 | Unexpected completion | `unexpected_completion_observed` | Completion integrity concern | Correlate route in host log |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json

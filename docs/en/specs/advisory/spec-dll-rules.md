@@ -65,6 +65,10 @@ description: Advisory data link-layer event visibility slice
 | NAK replay gap | `nak_observed`, `nak_followed_by_replay` | Possible ordering bug | Keep in review-only mode |
 | Long capture duration | `capture_duration_ms` | Potential throughput/latency risk | Add timing benchmark context |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json

@@ -65,6 +65,10 @@ description: Advisory hot-plug lifecycle and timing visibility
 | No CFG clear | `aer_cleared_before_new_enum` | Incomplete transition path | Advise firmware/driver reset sequence |
 | Incomplete linkup timing | `upstream_ts1_rate_at_first_linkup` | Upstream instability | Correlate PHY link retrain path |
 
+
+## Advisory failure playbook
+- Use the shared triage policy and payload format: [Advisory Failure Playbook](../spec-advisory-failure-playbook.md)
+
 ## Consumer response template
 
 ```json
