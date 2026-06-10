@@ -36,6 +36,7 @@ description: Governance mapping surface from PCIe 5 slices to contract surfaces
 | LTSSM checklist | `pcie-ltssm` | required_gate_ready | `run_fixture_smoke.py --suite pcie-ltssm` | `PCIE5-LTSSM-...` |
 | Link equalization | `pcie-eq` | required_gate_ready | `run_fixture_smoke.py --suite pcie-eq` | `PCIE5-EQ-...` |
 | Speed/width negotiation | `pcie-link-negotiation` | required_gate_ready | `run_fixture_smoke.py --suite pcie-link-negotiation` | `PCIE5-LINK-NEG-...` |
+| Recovery and fallback | `pcie-ltssm` | required_gate_ready | `run_fixture_smoke.py --suite pcie-ltssm` | `PCIE5-RECOVERY-...` |
 | Power management | `pcie-pm` | advisory_expansion | `run_fixture_smoke.py --suite pcie-pm` | `PCIE5-PM-...` |
 | AER | `pcie-aer` | advisory_expansion | `run_fixture_smoke.py --suite pcie-aer` | `PCIE5-AER-...` |
 | DLL | `pcie-dll` | advisory_expansion | `run_fixture_smoke.py --suite pcie-dll` | `PCIE5-DLL-...` |
