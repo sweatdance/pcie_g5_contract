@@ -61,6 +61,23 @@ def _check_routing(expected_rule_ids: list[str] | None, actual_routing: list[dic
     return len(missing) == 0, missing
 
 
+def _maturity_tier(suite: str, expected_keywords: list | None, has_routing: bool) -> str:
+    """Return evidence maturity tier label for this fixture.
+
+    Tiers (most to least verified):
+      required_gate.trigger_verified  — required gate + routing + violation keyword verified
+      required_gate.routing_verified  — required gate + routing verified (compliant fixtures)
+      advisory_expansion.routing_verified — advisory + routing verified
+    """
+    if not has_routing:
+        return f"{suite}.routing_unverified"
+    if suite == "required":
+        if expected_keywords:
+            return "required_gate.trigger_verified"
+        return "required_gate.routing_verified"
+    return "advisory_expansion.routing_verified"
+
+
 def _classify_suite(expected_rule_ids: list[str] | None) -> str:
     rules = {str(rule_id).strip().lower() for rule_id in (expected_rule_ids or [])}
     if {"pcie-ltssm", "pcie-eq", "pcie-link-negotiation"}.intersection(rules):
@@ -183,10 +200,16 @@ def run_fixture_smoke(contract_root: Path, framework_root: Path, suite: str = "a
             overall_ok = overall_ok and matched and routing_ok and violation_keyword_ok
         else:
             overall_ok = overall_ok and matched and routing_ok
+        tier = _maturity_tier(
+            "required" if is_required else "advisory",
+            expected_keywords if not fixture["expected_ok"] else None,
+            routing_ok,
+        )
         results.append(
             {
                 "file": fixture["file"],
                 "description": fixture.get("description", ""),
+                "maturity_tier": tier,
                 "expected_rule_ids": rule_ids if isinstance(rule_ids, list) else None,
                 "expected_trigger_keywords": expected_keywords,
                 "expected_ok": fixture["expected_ok"],
