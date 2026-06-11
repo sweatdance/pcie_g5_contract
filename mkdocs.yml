@@ -69,24 +69,24 @@ nav:
       - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
       - Spec Coverage Audit: en/specs/spec-coverage-audit.md
   - Source Documents:
-      - LLM_WIKI.md: LLM_WIKI.md
-      - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md
-      - CONSUMER_INTEGRATION_CONTRACT.md: CONSUMER_INTEGRATION_CONTRACT.md
-      - PCIE5_GLOSSARY_FOR_LLM.md: PCIE5_GLOSSARY_FOR_LLM.md
-      - PCIE5_JSON_REPORT_SCHEMA.md: PCIE5_JSON_REPORT_SCHEMA.md
-      - PCIE5_SPEC_TO_CONTRACT_MAPPING.md: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
-      - PCIE5_AER_RULES.md: PCIE5_AER_RULES.md
-      - PCIE5_CONFIG_SPACE.md: PCIE5_CONFIG_SPACE.md
-      - PCIE5_DLL_RULES.md: PCIE5_DLL_RULES.md
-      - PCIE5_HOTPLUG_RULES.md: PCIE5_HOTPLUG_RULES.md
-      - PCIE5_LINK_EQUALIZATION_RULES.md: PCIE5_LINK_EQUALIZATION_RULES.md
-      - PCIE5_LTSSM_CHECKLIST.md: PCIE5_LTSSM_CHECKLIST.md
-      - PCIE5_LTSSM_STATE_TRANSITIONS.md: PCIE5_LTSSM_STATE_TRANSITIONS.md
-      - PCIE5_POWER_MANAGEMENT.md: PCIE5_POWER_MANAGEMENT.md
-      - PCIE5_RECOVERY_AND_FALLBACK.md: PCIE5_RECOVERY_AND_FALLBACK.md
-      - PCIE5_SPEED_WIDTH_NEGOTIATION.md: PCIE5_SPEED_WIDTH_NEGOTIATION.md
-      - PCIE5_TLP_RULES.md: PCIE5_TLP_RULES.md
-      - RELEASE_NOTES_v0.3.0.md: RELEASE_NOTES_v0.3.0.md
+      - LLM Wiki Source: LLM_WIKI.md
+      - Verification Status Source: LLM_VERIFICATION_STATUS.md
+      - Consumer Integration Source: CONSUMER_INTEGRATION_CONTRACT.md
+      - Glossary Source: PCIE5_GLOSSARY_FOR_LLM.md
+      - JSON Report Schema Source: PCIE5_JSON_REPORT_SCHEMA.md
+      - Spec-to-Contract Mapping Source: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+      - AER Rules Source: PCIE5_AER_RULES.md
+      - Config Space Source: PCIE5_CONFIG_SPACE.md
+      - DLL Rules Source: PCIE5_DLL_RULES.md
+      - Hot-Plug Rules Source: PCIE5_HOTPLUG_RULES.md
+      - Link Equalization Rules Source: PCIE5_LINK_EQUALIZATION_RULES.md
+      - LTSSM Checklist Source: PCIE5_LTSSM_CHECKLIST.md
+      - LTSSM State Transitions Source: PCIE5_LTSSM_STATE_TRANSITIONS.md
+      - Power Management Source: PCIE5_POWER_MANAGEMENT.md
+      - Recovery and Fallback Source: PCIE5_RECOVERY_AND_FALLBACK.md
+      - Speed and Width Negotiation Source: PCIE5_SPEED_WIDTH_NEGOTIATION.md
+      - TLP Rules Source: PCIE5_TLP_RULES.md
+      - Release Notes Source: RELEASE_NOTES_v0.3.0.md
 extra_css:
   - assets/styles.css
 markdown_extensions:

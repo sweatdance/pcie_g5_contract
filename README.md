@@ -1,100 +1,66 @@
 # PCIe Gen5 LTSSM Link Training Contract
 
-This repository is a private external domain contract for the AI Governance Framework.
+> Scope: governed reference for PCIe Gen5 LTSSM, equalization, speed/width negotiation, recovery/fallback, and downstream RTL evidence review.
 
-Suggested GitHub repository description:
+**claim_level:** `required_gate_ready` for scoped LTSSM / EQ / link-negotiation surfaces; `advisory_expansion` for PM / AER / DLL / TLP / Hot-Plug / Config Space; full PCIe protocol compliance and PCI-SIG certification are **not claimed**.
 
-PCIe Gen5 LTSSM and link-training governance contract for RTL evidence review, JSON report validation, and reusable AI Governance Framework integration.
+## What this contract covers
 
-Suggested GitHub topics:
-
-- pcie
-- pcie-gen5
-- ltssm
-- link-training
-- rtl
-- verification
-- governance
-- ai-governance-framework
-
-Scope:
-- PCIe 5.0 LTSSM and link training
-- RTL-oriented design and review workflows
-- JSON evidence reports produced by simulation, emulation, or lab-adjacent infrastructure
 - LTSSM state transition visibility
-- equalization reviewer gates
-- speed and width negotiation evidence
-- recovery and fallback visibility
+- Link equalization review gates
+- Speed and width negotiation evidence
+- Recovery and fallback visibility
+- Downstream RTL evidence-review integration
+- LLM-safe claim boundaries for governed automation
 
-Non-scope:
-- full PCIe 5.0 protocol coverage
-- software driver behavior
-- compliance certification automation
-- retimer, SRIS, or protocol analyzer decoding breadth beyond the first LTSSM slice
-- protocol-expansion slices (PM/AER/DLL/TLP/Hot-Plug/CFG) are implemented for evidence coverage only
-- completeness claims currently remain LTSSM/link-training only
+## Start here
 
-## Layout
+| Entry | Purpose |
+| --- | --- |
+| [LLM Wiki](docs/LLM_WIKI.md) | Contract boundary summary for agent and reviewer consumption |
+| [Verification Status](docs/LLM_VERIFICATION_STATUS.md) | Slice maturity, fixture visibility, and evidence posture |
+| [Consumer Integration Contract](docs/CONSUMER_INTEGRATION_CONTRACT.md) | Downstream RTL integration rules and non-claim boundaries |
+| [Governed Surface Manifest](exports/pcie_governed_surface_manifest.yaml) | Machine-readable governed surface list |
+| [Documentation Site](https://sweatdance.github.io/pcie_g5_contract/) | Public MkDocs reference portal |
 
-- contract.yaml: machine-readable contract entrypoint
-- AGENTS.md: reviewer-facing behavior override
-- docs/: narrow domain guidance and evidence contract
-- rules/: external rule packs consumed by the framework
-- validators/: domain validators executed during post-task checks
-- fixtures/: minimal smoke fixtures for contract validation
-- docs/LLM_WIKI.md: LLM-friendly contract entry and boundary summary
-- docs/LLM_VERIFICATION_STATUS.md: visibility summary for slice maturity and fixture coverage
-- docs/CONSUMER_INTEGRATION_CONTRACT.md: integration rules for downstream RTL repos
-- exports/pcie_governed_surface_manifest.yaml: governed surface manifest for automated consumption
-- docs/en/: generated documentation website source used for LLM-first navigation
+## Contract slices
 
-## Documentation Site
+| Slice | Contract role |
+| --- | --- |
+| [PCIe 5.0 Spec-to-Contract Mapping](docs/PCIE5_SPEC_TO_CONTRACT_MAPPING.md) | Maps review slices into reusable contract surfaces |
+| [LTSSM State Transitions](docs/PCIE5_LTSSM_STATE_TRANSITIONS.md) | State-trace evidence expected for nominal success claims |
+| [Link Equalization Rules](docs/PCIE5_LINK_EQUALIZATION_RULES.md) | Equalization review requirements |
+| [Speed / Width Negotiation](docs/PCIE5_SPEED_WIDTH_NEGOTIATION.md) | Negotiated speed, negotiated width, and fallback evidence |
+| [Recovery and Fallback](docs/PCIE5_RECOVERY_AND_FALLBACK.md) | Recovery, retrain, and fallback visibility |
 
-- GitHub Pages (LLM-first, fully styled portal): `https://sweatdance.github.io/pcie_g5_contract/en/`
-- Preferred reference entrypoint: `docs/en/index.md` (built into the site as homepage).
-- Local preview:
+## Advisory surfaces
 
-```powershell
-python -m pip install mkdocs mkdocs-material
-mkdocs serve
-```
+| Surface | Contract role |
+| --- | --- |
+| [Power Management](docs/PCIE5_POWER_MANAGEMENT.md) | Advisory power-state context |
+| [AER Rules](docs/PCIE5_AER_RULES.md) | Advisory error-reporting context |
+| [DLL Rules](docs/PCIE5_DLL_RULES.md) | Advisory data-link-layer context |
+| [TLP Rules](docs/PCIE5_TLP_RULES.md) | Advisory transaction-layer context |
+| [Hot-Plug Rules](docs/PCIE5_HOTPLUG_RULES.md) | Advisory hot-plug and enumeration context |
+| [Config Space](docs/PCIE5_CONFIG_SPACE.md) | Advisory configuration-space context |
 
-## CI
+## Downstream usage
 
-This repo includes a GitHub Actions workflow at `.github/workflows/contract-regression.yml`.
-
-The workflow:
-
-- checks out this contract repo
-- checks out `Gavin0099/ai-governance-framework`
-- installs the framework dependencies from `ai-governance-framework/requirements.txt`
-- runs `scripts/run_regression_smoke.py`
-- uploads a machine-readable regression report artifact
-
-If you want to pin a different framework version, update `FRAMEWORK_REF` in the workflow file.
-
-## Usage
-
-### Consume contract in a downstream RTL repo
-
-This contract is scoped to **LTSSM / EQ / link-negotiation** as required gate scope.
-Advisory slices (PM/AER/DLL/TLP/Hot-Plug/CFG) must not be treated as required.
+This contract is scoped to **LTSSM / EQ / link-negotiation** as required gate scope. Advisory slices must not be treated as required gates.
 
 ```powershell
-# 1) Ensure the target RTL repo has this contract wired for consumption
 python -X utf8 <framework_root>\governance_tools\external_repo_readiness.py `
   --repo <target-rtl-repo> `
   --contract <pcie_contract_root>\contract.yaml `
   --framework-root <framework_root> `
   --format json
 
-# 2) Validate fixture mapping for required/advisory slices
 python <pcie_contract_root>\scripts\run_fixture_smoke.py `
   --framework-root <framework_root> `
   --contract-root <pcie_contract_root> `
+  --suite required `
   --format json
 
-# 3) Verify contract-level evidence report
 python <framework_root>\governance_tools\external_repo_smoke.py `
   --repo <pcie_contract_root> `
   --contract <pcie_contract_root>\contract.yaml `
@@ -102,74 +68,51 @@ python <framework_root>\governance_tools\external_repo_smoke.py `
   --format json
 ```
 
-Run these and copy the generated JSON into `docs/LLM_VERIFICATION_STATUS.md` / consumer checks as part of your local intake.
+Persist generated JSON as evidence for local intake and status updates. Do not turn advisory output into a required-gate result without an explicit contract change.
 
-Load the contract:
+## Documentation site
 
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework\governance_tools\domain_contract_loader.py --contract D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\contract.yaml --format human
-```
-
-Replay a runtime smoke:
+The public reference portal is built with MkDocs Material and deployed through GitHub Actions.
 
 ```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework\runtime_hooks\smoke_test.py --event-type session_start --contract D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\contract.yaml --format human
+python -m pip install mkdocs mkdocs-material
+mkdocs serve
 ```
 
-Run positive and negative fixture smoke checks:
+The Pages workflow builds `site/` from `mkdocs.yml`; Jekyll is not used.
 
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\scripts\run_fixture_smoke.py --framework-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework --contract-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract --format human
-```
+## CI
 
-Convert packet monitor logs into `pcie_ltssm_report` or `checks` JSON:
+The contract regression workflow:
 
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\scripts\extract_pcie_log_artifact.py D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\aspm_l1_pciebfm_pkt.txt --output D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\artifacts\aspm_l1.checks.json --format checks --target-speed-gtps 32 --target-width 16 --equalization-complete --completed-phases phase0 phase1 phase2 phase3
-```
+- checks out this contract repository
+- checks out `Gavin0099/ai-governance-framework`
+- installs framework dependencies
+- runs the regression smoke script
+- uploads a machine-readable regression report artifact
 
-Create the release entry from the existing `v0.3.0` tag:
-
-```text
-https://github.com/sweatdance/pcie_g5_contract/releases/new?tag=v0.3.0
-```
-
-Use `docs/RELEASE_NOTES_v0.3.0.md` as the release body.
-
-Run the full regression smoke command:
-
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\scripts\run_regression_smoke.py --framework-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework --contract-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract --format human
-```
-
-Run the external repo smoke against this contract repo:
-
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework\governance_tools\external_repo_smoke.py --repo D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract --contract D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\contract.yaml --format human
-```
-
-Use it from another RTL repo:
-
-```powershell
-D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\.venv\Scripts\python.exe D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework\governance_tools\external_repo_readiness.py --repo <target-rtl-repo> --contract D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\pcie-gen5-ltssm-contract\contract.yaml --framework-root D:\SPEC\PCI_Express\PCIe_Gen5_SKILL\ai-governance-framework --format human
-```
+If you need to pin a different framework version, update `FRAMEWORK_REF` in the workflow file.
 
 ## Versioning
 
-- Start narrow at v0.1.0
-- Expand to v0.2.0 with state-transition, equalization, negotiation, and recovery slices
-- Only expand further after the JSON evidence shape and reviewer expectations are stable
-- Tag releases when contract semantics change
+- Start narrow at v0.1.0.
+- Expand to v0.2.0 with state-transition, equalization, negotiation, and recovery slices.
+- Expand further only after JSON evidence shape and reviewer expectations are stable.
+- Tag releases when contract semantics change.
 
-## Authoritative source
+## Important boundary
 
-This repo is intended to be aligned with your internal PCIe 5.0 spec access and review process.
-It deliberately avoids reproducing spec text. Keep detailed normative interpretation in internal review artifacts, not in this public-facing contract structure.
+This repository is intended to align with authorized PCIe 5.0 review access and internal evidence workflows. It deliberately avoids reproducing PCI-SIG specification text. Keep detailed normative interpretation in internal review artifacts, not in the public-facing contract structure.
 
-## Contract slices
+## Maintainer source files
 
-- `docs/PCIE5_SPEC_TO_CONTRACT_MAPPING.md` maps internal spec study slices into reusable contract surfaces.
-- `docs/PCIE5_LTSSM_STATE_TRANSITIONS.md` defines the state-trace evidence expected for nominal success claims.
-- `docs/PCIE5_LINK_EQUALIZATION_RULES.md` defines equalization review requirements.
-- `docs/PCIE5_SPEED_WIDTH_NEGOTIATION.md` defines speed and width negotiation evidence expectations.
-- `docs/PCIE5_RECOVERY_AND_FALLBACK.md` defines recovery, retrain, and fallback visibility requirements.
+These paths are for maintainers who need to edit the underlying repository sources. They are not the primary reviewer navigation surface.
+
+- `contract.yaml`
+- `docs/LLM_WIKI.md`
+- `docs/LLM_VERIFICATION_STATUS.md`
+- `docs/CONSUMER_INTEGRATION_CONTRACT.md`
+- `fixtures/fixture_manifest.json`
+- `exports/pcie_governed_surface_manifest.yaml`
+- `.github/workflows/deploy-pages.yml`
+- `.github/workflows/contract-regression.yml`
