@@ -44,15 +44,33 @@ body {
 }
 
 .md-main__inner.md-grid {
-  max-width: 88rem;
+  max-width: min(96vw, 112rem);
 }
 
 .md-content {
+  flex: 1 1 auto;
   max-width: none;
+  min-width: 0;
 }
 
 .md-content__inner {
-  margin-right: 1.2rem;
+  max-width: none;
+  margin-left: 1.4rem;
+  margin-right: 1.8rem;
+}
+
+.md-typeset {
+  max-width: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    width: 17rem;
+  }
+
+  .md-sidebar--secondary {
+    display: none;
+  }
 }
 
 .md-sidebar--primary {

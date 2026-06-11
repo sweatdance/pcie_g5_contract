@@ -1,6 +1,8 @@
 ---
 title: PCIe Gen5 LTSSM Contract Reference
 description: Topic index for governed PCIe Gen5 LTSSM and link-training evidence review
+hide:
+  - toc
 ---
 
 # PCIe Gen5 LTSSM Contract Reference
