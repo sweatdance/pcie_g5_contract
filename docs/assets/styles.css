@@ -43,8 +43,16 @@ body {
   color: var(--pcie-text);
 }
 
-.md-main__inner {
-  max-width: 1180px;
+.md-main__inner.md-grid {
+  max-width: 88rem;
+}
+
+.md-content {
+  max-width: none;
+}
+
+.md-content__inner {
+  margin-right: 1.2rem;
 }
 
 .md-sidebar--primary {
@@ -188,6 +196,7 @@ body {
 
 .md-typeset code {
   border-radius: 0.35rem;
+  overflow-wrap: anywhere;
 }
 
 .md-typeset pre > code {
@@ -199,6 +208,7 @@ body {
   display: table;
   width: 100%;
   border-collapse: collapse;
+  min-width: 100%;
 }
 
 .md-typeset table th,

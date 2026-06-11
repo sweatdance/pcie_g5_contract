@@ -1,6 +1,8 @@
 ---
 title: Power Management
 description: Advisory PM / ASPM governance slice
+hide:
+  - toc
 ---
 
 # Power Management
@@ -58,11 +60,23 @@ description: Advisory PM / ASPM governance slice
 
 ### Failure pattern examples
 
-| Pattern | Detection field | Meaning | Suggested action |
-| --- | --- | --- | --- |
-| ASPM on but no ack | `pm_request_ack_in_enum_window` | Incomplete PM negotiation | Keep advisory warning and request trace |
-| PM before complete | `pm_l1_before_enum_complete` | Enumeration coupling risk | Escalate for platform timing review |
-| Inconsistent PM_REQ_ACK | `pm_l1_before_enum_complete` | Policy misalignment | Add cross-field check before closeout |
+#### ASPM on but no ack
+
+- Detection field: `pm_request_ack_in_enum_window`
+- Meaning: Incomplete PM negotiation.
+- Suggested action: Keep advisory warning and request trace.
+
+#### PM before complete
+
+- Detection field: `pm_l1_before_enum_complete`
+- Meaning: Enumeration coupling risk.
+- Suggested action: Escalate for platform timing review.
+
+#### Inconsistent PM_REQ_ACK
+
+- Detection field: `pm_l1_before_enum_complete`
+- Meaning: Policy misalignment.
+- Suggested action: Add cross-field check before closeout.
 
 
 ## Advisory failure playbook
