@@ -35,9 +35,9 @@ plugins:
   - search
 
 nav:
-  - Home: index.md
-  - Reference:
-      - PCIe Gen5 Topic Index: en/index.md
+  - PCIe Gen5 Reference:
+      - Home: index.md
+      - Topic Index: en/index.md
       - Required Link-Training:
           - LTSSM State Transitions: en/specs/required/spec-ltssm-state-transitions.md
           - LTSSM Checklist: en/specs/required/spec-ltssm-checklist.md
@@ -65,28 +65,28 @@ nav:
           - Glossary for LLM: en/specs/spec-glossary-for-llm.md
           - JSON Report Schema: en/specs/spec-json-report-schema.md
           - Advisory Failure Playbook: en/specs/spec-advisory-failure-playbook.md
-          - Release Notes: en/specs/spec-release-notes.md
+          - Spec Release Notes: en/specs/spec-release-notes.md
           - Consumer Integration Contract: en/specs/spec-consumer-integration-contract.md
           - Spec Coverage Audit: en/specs/spec-coverage-audit.md
-  - Source Docs:
-      - LLM_WIKI.md: LLM_WIKI.md
-      - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md
-      - CONSUMER_INTEGRATION_CONTRACT.md: CONSUMER_INTEGRATION_CONTRACT.md
-      - PCIE5_GLOSSARY_FOR_LLM.md: PCIE5_GLOSSARY_FOR_LLM.md
-      - PCIE5_JSON_REPORT_SCHEMA.md: PCIE5_JSON_REPORT_SCHEMA.md
-      - PCIE5_SPEC_TO_CONTRACT_MAPPING.md: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
-      - PCIE5_AER_RULES.md: PCIE5_AER_RULES.md
-      - PCIE5_CONFIG_SPACE.md: PCIE5_CONFIG_SPACE.md
-      - PCIE5_DLL_RULES.md: PCIE5_DLL_RULES.md
-      - PCIE5_HOTPLUG_RULES.md: PCIE5_HOTPLUG_RULES.md
-      - PCIE5_LINK_EQUALIZATION_RULES.md: PCIE5_LINK_EQUALIZATION_RULES.md
-      - PCIE5_LTSSM_CHECKLIST.md: PCIE5_LTSSM_CHECKLIST.md
-      - PCIE5_LTSSM_STATE_TRANSITIONS.md: PCIE5_LTSSM_STATE_TRANSITIONS.md
-      - PCIE5_POWER_MANAGEMENT.md: PCIE5_POWER_MANAGEMENT.md
-      - PCIE5_RECOVERY_AND_FALLBACK.md: PCIE5_RECOVERY_AND_FALLBACK.md
-      - PCIE5_SPEED_WIDTH_NEGOTIATION.md: PCIE5_SPEED_WIDTH_NEGOTIATION.md
-      - PCIE5_TLP_RULES.md: PCIE5_TLP_RULES.md
-      - RELEASE_NOTES_v0.3.0.md: RELEASE_NOTES_v0.3.0.md
+      - Source Docs:
+          - LLM_WIKI.md: LLM_WIKI.md
+          - LLM_VERIFICATION_STATUS.md: LLM_VERIFICATION_STATUS.md
+          - CONSUMER_INTEGRATION_CONTRACT.md: CONSUMER_INTEGRATION_CONTRACT.md
+          - PCIE5_GLOSSARY_FOR_LLM.md: PCIE5_GLOSSARY_FOR_LLM.md
+          - PCIE5_JSON_REPORT_SCHEMA.md: PCIE5_JSON_REPORT_SCHEMA.md
+          - PCIE5_SPEC_TO_CONTRACT_MAPPING.md: PCIE5_SPEC_TO_CONTRACT_MAPPING.md
+          - PCIE5_AER_RULES.md: PCIE5_AER_RULES.md
+          - PCIE5_CONFIG_SPACE.md: PCIE5_CONFIG_SPACE.md
+          - PCIE5_DLL_RULES.md: PCIE5_DLL_RULES.md
+          - PCIE5_HOTPLUG_RULES.md: PCIE5_HOTPLUG_RULES.md
+          - PCIE5_LINK_EQUALIZATION_RULES.md: PCIE5_LINK_EQUALIZATION_RULES.md
+          - PCIE5_LTSSM_CHECKLIST.md: PCIE5_LTSSM_CHECKLIST.md
+          - PCIE5_LTSSM_STATE_TRANSITIONS.md: PCIE5_LTSSM_STATE_TRANSITIONS.md
+          - PCIE5_POWER_MANAGEMENT.md: PCIE5_POWER_MANAGEMENT.md
+          - PCIE5_RECOVERY_AND_FALLBACK.md: PCIE5_RECOVERY_AND_FALLBACK.md
+          - PCIE5_SPEED_WIDTH_NEGOTIATION.md: PCIE5_SPEED_WIDTH_NEGOTIATION.md
+          - PCIE5_TLP_RULES.md: PCIE5_TLP_RULES.md
+          - RELEASE_NOTES_v0.3.0.md: RELEASE_NOTES_v0.3.0.md
 extra_css:
   - assets/styles.css
 markdown_extensions:
