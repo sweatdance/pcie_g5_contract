@@ -5,6 +5,43 @@ description: Required-scope LTSSM legality and state machine visibility
 
 # LTSSM State Transitions
 
+> Source scope: PCIe 5.0 LTSSM/link-training review surface.
+> This page is a governed evidence contract summary, not reproduced PCI-SIG specification text.
+
+## Page purpose
+
+This page answers:
+
+- Which LTSSM transition evidence is required for a scoped Gen5 link-training claim.
+- Which final-state and illegal-transition fields must appear in the evidence JSON.
+- Which fixture or smoke output supports a required-gate decision.
+
+This page does not answer:
+
+- Full PCIe protocol compliance.
+- Driver behavior.
+- Silicon runtime truth.
+- PCI-SIG certification completeness.
+- Retimer/SRIS/protocol-analyzer decoding beyond this contract slice.
+
+## Reviewed surface
+
+| Surface | Required evidence | Gate behavior |
+| --- | --- | --- |
+| Nominal train-to-L0 path | state trace + final state | required |
+| Illegal transition detection | illegal transition count / details | required |
+| Recovery path | recovery visibility + fallback reason | required or advisory, depending on claim |
+
+## Related artifacts
+
+- `fixtures/fixture_manifest.json`
+- `artifacts/validation/*`
+- `exports/pcie_governed_surface_manifest.yaml`
+
+## Non-claims
+
+Advisory visibility does not imply full PCIe compliance.
+
 ## Status
 
 - Contract surface: `pcie-ltssm`

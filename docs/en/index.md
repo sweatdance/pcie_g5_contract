@@ -48,6 +48,7 @@ These pages explain how the contract is mapped, verified, exported, and consumed
 | [Evidence Grid](evidence-grid.md) | Claim-to-artifact and smoke-output mapping |
 | [JSON Report Schema](specs/spec-json-report-schema.md) | Machine-readable smoke and fixture report fields |
 | [Advisory Failure Playbook](specs/spec-advisory-failure-playbook.md) | Shared triage policy for advisory findings |
+| [Version Source Map](version-source-map.md) | PCIe source authority boundaries and version scope |
 | [Glossary](glossary-and-mapping.md) | Terminology used by this contract and LLM-facing docs |
 | [Coverage Audit](specs/spec-coverage-audit.md) | Current page/index/mapping alignment report |
 

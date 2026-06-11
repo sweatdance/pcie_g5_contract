@@ -59,6 +59,7 @@ Use these pages to understand how the topics are mapped, verified, and consumed.
 | [Consumer Integration](en/consumer-integration.md) | Downstream RTL integration contract and command sequence |
 | [Evidence Grid](en/evidence-grid.md) | Claim-to-artifact and smoke-output mapping |
 | [JSON Report Schema](en/specs/spec-json-report-schema.md) | Machine-readable smoke and fixture report fields |
+| [Version Source Map](en/version-source-map.md) | PCIe source authority boundaries and version scope |
 | [Glossary](en/glossary-and-mapping.md) | Terminology used by this contract and LLM-facing docs |
 | [Coverage Audit](en/specs/spec-coverage-audit.md) | Current page/index/mapping alignment report |
 

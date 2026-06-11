@@ -1,11 +1,12 @@
-name: Deploy Documentation Site
+name: Deploy MkDocs Documentation
 
 on:
   push:
-    branches:
-      - main
-      - master
-      - develop
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 concurrency:
@@ -44,7 +45,7 @@ jobs:
         run: mkdocs build --strict
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: site
 

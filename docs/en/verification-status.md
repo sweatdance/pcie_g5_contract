@@ -14,6 +14,31 @@ This page summarizes current contract maturity and evidence boundaries for AI/ag
 - Advisory-only slices: `pcie-pm`, `pcie-aer`, `pcie-dll`, `pcie-tlp`, `pcie-hotplug`, `pcie-cfgspace`.
 - Canonical status source: `LLM_VERIFICATION_STATUS.md` in repository root.
 
+## Current Verification Summary
+
+| Area | Contract class | Evidence source | Required gate? | Current status | Missing / open |
+| --- | --- | --- | --- | --- | --- |
+| LTSSM state transitions | required | fixtures + validation artifacts | yes | evidence-visible | Keep aligned with latest `run_regression_smoke.py --suite required` |
+| Link equalization | required | fixtures + validation artifacts | yes | evidence-visible | Keep lane/phase fields complete in fixture JSON |
+| Speed & width negotiation | required | fixtures + validation artifacts | yes | evidence-visible | Keep downtrain/fallback rationale explicit |
+| Recovery & fallback | required | fixtures + validation artifacts | yes | evidence-visible | Keep recovery path and fallback reason visible |
+| PM | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+| AER | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+| DLL | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+| TLP | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+| Hot-Plug | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+| Config Space | advisory | validation artifacts | no | advisory-visible | Do not promote without explicit contract update |
+
+## Evidence Packet Summary
+
+| Artifact | Purpose | Gate use |
+| --- | --- | --- |
+| `pcie_governance_smoke_required.json` | required-gate outcome | blocking |
+| `pcie_governance_smoke_advisory.json` | advisory diagnostics | non-blocking |
+| `pcie_governance_smoke_all.json` | full traceability | audit only |
+| `fixtures/fixture_manifest.json` | fixture suite routing and expected surface coverage | routing evidence |
+| `exports/pcie_governed_surface_manifest.yaml` | machine-readable governed surface manifest | consumer integration |
+
 ## Current scope stance
 
 - Required slice set: `pcie-ltssm`, `pcie-eq`, `pcie-link-negotiation`
